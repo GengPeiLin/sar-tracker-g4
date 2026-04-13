@@ -1,0 +1,3380 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAR Tracker · 台灣衛星取像儀表板</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='28'>🛰</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<style>
+:root {
+  --bg:      #05090f;
+  --surface: #0b1320;
+  --card:    #0f1a2b;
+  --border:  #1b2d45;
+  --border2: #243850;
+  --cyan:    #00e5ff;
+  --cyan-dim:#007a8a;
+  --orange:  #ff7043;
+  --green:   #00e676;
+  --amber:   #ffc107;
+  --purple:  #ce93d8;
+  --text:    #b0bec5;
+  --text-hi: #e0e8f0;
+  --muted:   #455a6a;
+  --drawer-bg: rgba(9, 16, 27, 0.94);
+  --drawer-shadow: rgba(0, 0, 0, 0.28);
+  --drawer-close-bg: rgba(255, 255, 255, 0.03);
+  --drawer-card-bg: rgba(255, 255, 255, 0.035);
+  --drawer-card-border: rgba(36, 56, 80, 0.9);
+  --drawer-meta-bg: rgba(255, 255, 255, 0.02);
+  --drawer-divider: rgba(36, 56, 80, 0.8);
+  --drawer-asf-bg: rgba(0, 229, 255, 0.1);
+  --drawer-cdse-bg: rgba(255, 112, 67, 0.1);
+  --sidebar: 400px;
+  --hdr:     52px;
+  --mono: 'IBM Plex Mono', monospace;
+  --sans: 'Noto Sans TC', sans-serif;
+  --font-bump: 4px;
+}
+
+:root[data-theme="paper-radar"] {
+  --bg:      #f4efe4;
+  --surface: #fbf7ed;
+  --card:    #efe4d0;
+  --border:  #d6c4a6;
+  --border2: #bea884;
+  --cyan:    #1f6f78;
+  --cyan-dim:#6a8f93;
+  --orange:  #b65d31;
+  --green:   #2f7d4d;
+  --amber:   #a97400;
+  --purple:  #7d5fa3;
+  --text:    #50483b;
+  --text-hi: #241f17;
+  --muted:   #8f806c;
+  --drawer-bg: rgba(251, 247, 237, 0.97);
+  --drawer-shadow: rgba(84, 60, 35, 0.14);
+  --drawer-close-bg: rgba(255, 255, 255, 0.42);
+  --drawer-card-bg: rgba(255, 252, 245, 0.92);
+  --drawer-card-border: rgba(190, 168, 132, 0.9);
+  --drawer-meta-bg: rgba(239, 228, 208, 0.88);
+  --drawer-divider: rgba(214, 196, 166, 0.95);
+  --drawer-asf-bg: rgba(31, 111, 120, 0.12);
+  --drawer-cdse-bg: rgba(182, 93, 49, 0.12);
+}
+
+:root[data-theme="field-survey"] {
+  --bg:      #0c1310;
+  --surface: #131f18;
+  --card:    #1a2a21;
+  --border:  #294034;
+  --border2: #385645;
+  --cyan:    #86f0b6;
+  --cyan-dim:#4f9b73;
+  --orange:  #ff9b54;
+  --green:   #9afc74;
+  --amber:   #ffd166;
+  --purple:  #b5a4ff;
+  --text:    #c8d5cb;
+  --text-hi: #eef5ef;
+  --muted:   #7b9383;
+  --drawer-bg: rgba(13, 22, 17, 0.95);
+  --drawer-shadow: rgba(0, 0, 0, 0.24);
+  --drawer-close-bg: rgba(255, 255, 255, 0.035);
+  --drawer-card-bg: rgba(255, 255, 255, 0.04);
+  --drawer-card-border: rgba(56, 86, 69, 0.92);
+  --drawer-meta-bg: rgba(255, 255, 255, 0.025);
+  --drawer-divider: rgba(56, 86, 69, 0.82);
+  --drawer-asf-bg: rgba(134, 240, 182, 0.11);
+  --drawer-cdse-bg: rgba(255, 155, 84, 0.11);
+}
+
+:root[data-theme="soft-slate"] {
+  --bg:      #e9ece8;
+  --surface: #f4f6f2;
+  --card:    #edf0ea;
+  --border:  #cfd5cd;
+  --border2: #bcc5bc;
+  --cyan:    #46656a;
+  --cyan-dim:#7b9191;
+  --orange:  #8b6b58;
+  --green:   #5b7a62;
+  --amber:   #8c7a4f;
+  --purple:  #7f7a94;
+  --text:    #4d554f;
+  --text-hi: #273129;
+  --muted:   #7d877d;
+  --drawer-bg: rgba(244, 246, 242, 0.97);
+  --drawer-shadow: rgba(71, 82, 71, 0.14);
+  --drawer-close-bg: rgba(255, 255, 255, 0.52);
+  --drawer-card-bg: rgba(255, 255, 255, 0.84);
+  --drawer-card-border: rgba(188, 197, 188, 0.96);
+  --drawer-meta-bg: rgba(237, 240, 234, 0.94);
+  --drawer-divider: rgba(207, 213, 205, 0.96);
+  --drawer-asf-bg: rgba(70, 101, 106, 0.11);
+  --drawer-cdse-bg: rgba(139, 107, 88, 0.11);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; }
+body { font-family: var(--sans); background: var(--bg); color: var(--text); display: flex; flex-direction: column; }
+
+/* ═══ HEADER ═══════════════════════════════════════════════════════════════ */
+header {
+  height: var(--hdr);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  gap: 18px;
+  flex-shrink: 0;
+  z-index: 200;
+}
+
+.hdr-logo {
+  font-family: var(--mono);
+  font-size: calc(12px + var(--font-bump));
+  font-weight: 600;
+  color: var(--cyan);
+  letter-spacing: 3px;
+  white-space: nowrap;
+}
+.hdr-logo em { color: var(--orange); font-style: normal; }
+
+.hdr-sep { width: 1px; height: 22px; background: var(--border); flex-shrink: 0; }
+
+.hdr-status {
+  font-family: var(--mono);
+  font-size: calc(10px + var(--font-bump) - 1px);
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.hdr-status b { color: var(--green); }
+
+.hdr-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-left: auto;
+}
+.hdr-tabs { display: none; }
+
+.control-field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.control-field label {
+  font-family: var(--mono);
+  font-size: calc(8px + var(--font-bump) - 2px);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.control-field select {
+  min-width: 132px;
+  padding: 5px 8px;
+  border: 1px solid var(--border2);
+  background: var(--card);
+  color: var(--text-hi);
+  font-family: var(--mono);
+  font-size: calc(10px + var(--font-bump) - 1px);
+}
+
+.control-field select:focus {
+  outline: none;
+  border-color: var(--cyan);
+}
+
+
+/* ═══ BODY LAYOUT ══════════════════════════════════════════════════════════ */
+.layout { flex: 1; display: flex; overflow: hidden; }
+
+/* ═══ SIDEBAR ══════════════════════════════════════════════════════════════ */
+.sidebar {
+  width: var(--sidebar);
+  flex-shrink: 0;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sb-head {
+  padding: 12px 16px 10px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.sb-head h2 {
+  font-family: var(--mono);
+  font-size: calc(10px + var(--font-bump));
+  letter-spacing: 2px;
+  color: var(--cyan);
+  text-transform: uppercase;
+}
+.sb-head .sub { font-size: calc(11px + var(--font-bump) - 1px); color: var(--muted); margin-top: 2px; }
+/* filter chips */
+.sb-filters {
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  flex-shrink: 0;
+}
+.chip {
+  font-family: var(--mono);
+  font-size: calc(9px + var(--font-bump) - 1px);
+  letter-spacing: .5px;
+  padding: 3px 10px;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all .12s;
+}
+.chip.on             { border-color: var(--cyan);   color: var(--cyan);   background: rgba(0,229,255,.07); }
+.chip[data-b="C"].on { border-color: #00b4d8;       color: #00b4d8;       background: rgba(0,180,216,.07); }
+.chip[data-b="L"].on { border-color: var(--purple);  color: var(--purple);  background: rgba(206,147,216,.07); }
+.chip[data-b="X"].on { border-color: var(--orange);  color: var(--orange);  background: rgba(255,112,67,.07); }
+.chip[data-b="S"].on { border-color: var(--amber);   color: var(--amber);   background: rgba(255,193,7,.07); }
+
+.filter-panel {
+  padding: 10px 16px 12px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.filter-head {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  align-items: end;
+}
+.date-shortcuts {
+  display: inline-flex;
+  gap: 6px;
+  align-self: start;
+  justify-content: flex-start;
+}
+.date-shortcut {
+  font-family: var(--mono);
+  font-size: calc(9px + var(--font-bump) - 1px);
+  letter-spacing: .5px;
+  padding: 7px 10px;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all .12s;
+  white-space: nowrap;
+}
+.date-shortcut.on {
+  border-color: var(--cyan);
+  color: var(--cyan);
+  background: rgba(0,229,255,.08);
+}
+.filter-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.filter-field.wide {
+  grid-column: 1 / -1;
+}
+.filter-field.span-2 {
+  grid-column: span 2;
+}
+.filter-label {
+  font-family: var(--mono);
+  font-size: calc(8px + var(--font-bump) - 2px);
+  letter-spacing: 1px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.filter-select,
+.filter-input {
+  width: 100%;
+  background: var(--card);
+  color: var(--text-hi);
+  border: 1px solid var(--border2);
+  padding: 6px 8px;
+  font-family: var(--mono);
+  font-size: calc(10px + var(--font-bump) - 1px);
+}
+.filter-select:focus,
+.filter-input:focus {
+  outline: none;
+  border-color: var(--cyan);
+}
+.format-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.format-chip {
+  font-family: var(--mono);
+  font-size: calc(9px + var(--font-bump) - 1px);
+  letter-spacing: .4px;
+  padding: 4px 9px;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all .12s;
+}
+.format-chip.on {
+  border-color: var(--green);
+  color: var(--green);
+  background: rgba(0,230,118,.08);
+}
+.filter-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px 8px;
+  flex-wrap: wrap;
+}
+.filter-section {
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.03);
+}
+.filter-section summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: calc(9px + var(--font-bump) - 1px);
+  color: var(--text-hi);
+}
+.filter-section summary::-webkit-details-marker { display: none; }
+.filter-section summary::after {
+  content: '+';
+  color: var(--cyan);
+  font-size: calc(14px + var(--font-bump) - 1px);
+}
+.filter-section[open] summary::after { content: '-'; }
+.filter-section-meta {
+  color: var(--muted);
+  font-size: calc(8px + var(--font-bump) - 2px);
+}
+.filter-section-body {
+  padding: 0 10px 10px;
+}
+.filter-note {
+  font-size: calc(9px + var(--font-bump) - 1px);
+  color: var(--muted);
+  line-height: 1.4;
+}
+.filter-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: calc(9px + var(--font-bump) - 1px);
+  color: var(--text);
+}
+.filter-toggle input {
+  accent-color: var(--cyan);
+}
+
+/* satellite list */
+.sb-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 0 8px;
+}
+.sb-list::-webkit-scrollbar { width: 3px; }
+.sb-list::-webkit-scrollbar-thumb { background: var(--border2); }
+
+.group-label {
+  font-family: var(--mono);
+  font-size: calc(8px + var(--font-bump) - 2px);
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+  padding: 10px 16px 4px;
+}
+
+.sat-fold {
+  margin: 8px 12px 0;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.02);
+}
+
+.sat-fold summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 10px 14px;
+  font-family: var(--mono);
+  font-size: calc(10px + var(--font-bump) - 1px);
+  color: var(--text-hi);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sat-fold summary::-webkit-details-marker { display: none; }
+.sat-fold summary::after {
+  content: '+';
+  color: var(--cyan);
+  font-size: calc(14px + var(--font-bump) - 1px);
+}
+.sat-fold[open] summary::after { content: '-'; }
+
+.sat-fold-note {
+  padding: 0 14px 10px;
+  color: var(--muted);
+  font-size: calc(10px + var(--font-bump) - 2px);
+  line-height: 1.5;
+}
+
+.sat-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 16px;
+  border-left: 3px solid transparent;
+  cursor: pointer;
+  transition: all .12s;
+  border-bottom: 1px solid rgba(27,45,69,.6);
+}
+.sat-row:hover  { background: rgba(0,229,255,.08); border-left-color: var(--cyan); }
+.sat-row.active {
+  background: linear-gradient(90deg, rgba(0,229,255,.22), rgba(0,229,255,.06));
+  border-left-color: var(--cyan);
+  box-shadow: inset 0 0 0 1px rgba(0,229,255,.2);
+}
+
+/* pulse dot */
+.dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  position: relative;
+}
+.dot.op  { background: var(--green); box-shadow: 0 0 5px var(--green); }
+.dot.op::after {
+  content:''; position:absolute; inset:-3px; border-radius:50%;
+  border: 1px solid var(--green);
+  animation: pulse 2.5s ease-out infinite;
+}
+@keyframes pulse { 0%{opacity:.5;transform:scale(1)} 100%{opacity:0;transform:scale(2.2)} }
+.dot.ret { background: var(--muted); }
+.dot.up  { background: var(--amber); box-shadow: 0 0 5px var(--amber); }
+
+.sat-info { flex: 1; min-width: 0; }
+.sat-name { font-size: calc(11px + var(--font-bump)); font-weight: 700; color: var(--text-hi); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sat-meta { font-family: var(--mono); font-size: calc(8px + var(--font-bump) - 2px); color: var(--muted); margin-top: 2px; }
+
+.badges { display: flex; gap: 3px; flex-shrink: 0; align-items: center; }
+.badge {
+  font-family: var(--mono);
+  font-size: calc(8px + var(--font-bump) - 2px);
+  padding: 1px 5px;
+  border: 1px solid;
+  letter-spacing: .3px;
+}
+.bC { border-color: #00b4d8; color: #00b4d8; }
+.bL { border-color: var(--purple); color: var(--purple); }
+.bX { border-color: var(--orange); color: var(--orange); }
+.bS { border-color: var(--amber); color: var(--amber); }
+.bP { border-color: var(--green); color: var(--green); }
+
+.this-week {
+  font-family: var(--mono);
+  font-size: calc(8px + var(--font-bump) - 2px);
+  color: var(--green);
+  border: 1px solid var(--green);
+  padding: 1px 4px;
+  opacity: .8;
+}
+
+/* ═══ MAP SECTION ═══════════════════════════════════════════════════════════ */
+.map-wrap {
+  flex: 1;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.mobile-feed {
+  display: none;
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 14px 18px;
+  background: var(--surface);
+}
+.mobile-feed::-webkit-scrollbar { width: 3px; }
+.mobile-feed::-webkit-scrollbar-thumb { background: var(--border2); }
+.mobile-feed-summary {
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.03);
+  padding: 12px;
+  margin-bottom: 12px;
+}
+.mobile-feed-title {
+  font-family: var(--mono);
+  font-size: calc(10px + var(--font-bump) - 1px);
+  letter-spacing: 1px;
+  color: var(--text-hi);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.mobile-feed-meta {
+  font-family: var(--mono);
+  font-size: calc(9px + var(--font-bump) - 1px);
+  color: var(--muted);
+  line-height: 1.5;
+}
+.mobile-feed-group {
+  margin-bottom: 12px;
+}
+.mobile-feed-date {
+  font-family: var(--mono);
+  font-size: calc(9px + var(--font-bump) - 1px);
+  letter-spacing: 1px;
+  color: var(--cyan);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.mobile-feed-card {
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.03);
+  padding: 10px;
+  margin-bottom: 8px;
+}
+.mobile-feed-card-title {
+  font-family: var(--mono);
+  font-size: calc(10px + var(--font-bump) - 1px);
+  color: var(--text-hi);
+  line-height: 1.45;
+  margin-bottom: 6px;
+  overflow-wrap: anywhere;
+}
+.mobile-feed-card-meta,
+.mobile-feed-card-sub {
+  font-family: var(--mono);
+  font-size: calc(9px + var(--font-bump) - 1px);
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+#map {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+  background: #030810;
+}
+
+/* stats overlay */
+.map-stats {
+  position: absolute;
+  top: 12px; left: 12px;
+  z-index: 1200;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: calc(100% - 24px);
+  pointer-events: none;
+  transition: max-width .22s ease;
+}
+.map-wrap:has(.drawer.open) .map-stats {
+  max-width: calc(100% - 428px);
+}
+.stat-card {
+  background: rgba(11,19,32,.9);
+  border: 1px solid var(--border2);
+  padding: 8px 13px;
+  backdrop-filter: blur(6px);
+  pointer-events: all;
+}
+.stat-card .lbl {
+  font-family: var(--mono);
+  font-size: calc(8px + var(--font-bump) - 2px);
+  letter-spacing: 1px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.stat-card .val {
+  font-family: var(--mono);
+  font-size: calc(22px + var(--font-bump));
+  font-weight: 600;
+  color: var(--cyan);
+  line-height: 1.1;
+}
+.stat-card .val.orange { color: var(--orange); }
+.stat-card .val.small  { font-size: calc(13px + var(--font-bump)); padding-top: 4px; }
+
+.map-context {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 1200;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: min(320px, calc(100vw - 32px));
+}
+.context-card {
+  background: rgba(11,19,32,.92);
+  border: 1px solid var(--border2);
+  padding: 10px 12px;
+  backdrop-filter: blur(8px);
+}
+.context-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.context-title,
+.context-meta {
+  font-family: var(--mono);
+  text-transform: uppercase;
+}
+.context-title {
+  font-size: calc(9px + var(--font-bump) - 1px);
+  letter-spacing: 1px;
+  color: var(--text-hi);
+}
+.context-meta {
+  font-size: calc(8px + var(--font-bump) - 2px);
+  letter-spacing: 1px;
+  color: var(--muted);
+  white-space: normal;
+  text-align: right;
+}
+.context-select {
+  width: 100%;
+  background: var(--card);
+  color: var(--text-hi);
+  border: 1px solid var(--border2);
+  padding: 7px 9px;
+  font-family: var(--mono);
+  font-size: calc(10px + var(--font-bump) - 1px);
+}
+.context-select:focus {
+  outline: none;
+  border-color: var(--cyan);
+}
+.context-body {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.context-pill {
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.03);
+  padding: 8px 9px;
+}
+.context-pill .k {
+  font-family: var(--mono);
+  font-size: calc(8px + var(--font-bump) - 2px);
+  letter-spacing: 1px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+.context-pill .v {
+  font-family: var(--mono);
+  font-size: calc(11px + var(--font-bump) - 1px);
+  color: var(--text-hi);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+/* legend */
+.map-legend {
+  position: absolute;
+  bottom: 78px; left: 12px;
+  z-index: 1100;
+  background: rgba(11,19,32,.9);
+  border: 1px solid var(--border2);
+  padding: 10px 14px;
+  backdrop-filter: blur(6px);
+  min-width: 210px;
+  max-width: 320px;
+}
+.legend-title {
+  font-family: var(--mono);
+  font-size: calc(8px + var(--font-bump) - 2px);
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.legend-item:last-child {
+  margin-bottom: 0;
+}
+.legend-main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.legend-swatch {
+  width: 24px; height: 6px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+.legend-item span {
+  font-family: var(--mono);
+  font-size: calc(9px + var(--font-bump) - 1px);
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.legend-value {
+  font-family: var(--mono);
+  font-size: calc(9px + var(--font-bump) - 1px);
+  color: var(--muted);
+  flex-shrink: 0;
+}
+.legend-empty {
+  font-family: var(--mono);
+  font-size: calc(9px + var(--font-bump) - 1px);
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ═══ DOWNLOAD BAR ══════════════════════════════════════════════════════════ */
+.dl-bar {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 1100;
+  background: rgba(11,19,32,.95);
+  border-top: 1px solid var(--border2);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  backdrop-filter: blur(8px);
+}
+.dl-main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.dl-main .dl-count {
+  margin-left: 0;
+}
+.export-toggle {
+  margin-left: auto;
+}
+.export-panel {
+  position: absolute;
+  right: 16px;
+  bottom: calc(100% + 10px);
+  width: min(420px, calc(100vw - 32px));
+  padding: 12px;
+  border: 1px solid var(--border2);
+  background: rgba(11,19,32,.98);
+  box-shadow: 0 18px 40px rgba(0,0,0,.24);
+  display: none;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  backdrop-filter: blur(12px);
+}
+.export-panel.open {
+  display: grid;
+}
+.export-card {
+  border: 1px solid var(--border);
+  padding: 10px;
+  background: rgba(255,255,255,.02);
+}
+.export-card.wide {
+  grid-column: 1 / -1;
+}
+.export-card .k {
+  font-family: var(--mono);
+  font-size: calc(8px + var(--font-bump) - 2px);
+  color: var(--muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 7px;
+}
+.export-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.dl-label {
+  font-family: var(--mono);
+  font-size: calc(9px + var(--font-bump) - 1px);
+  letter-spacing: 1px;
+  color: var(--muted);
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+.dl-btn {
+  font-family: var(--mono);
+  font-size: calc(9px + var(--font-bump) - 1px);
+  letter-spacing: .5px;
+  padding: 6px 14px;
+  border: 1px solid;
+  background: transparent;
+  cursor: pointer;
+  transition: all .12s;
+  text-decoration: none;
+  display: inline-block;
+  white-space: nowrap;
+}
+.dl-btn.asf  { border-color: var(--cyan);   color: var(--cyan);   }
+.dl-btn.asf:hover  { background: rgba(0,229,255,.12); }
+.dl-btn.cop  { border-color: var(--orange);  color: var(--orange);  }
+.dl-btn.cop:hover  { background: rgba(255,112,67,.12); }
+.dl-btn.csv  { border-color: var(--muted);   color: var(--muted);   }
+.dl-btn.csv:hover  { border-color: var(--text); color: var(--text); }
+.dl-btn:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+}
+
+.dl-count {
+  font-family: var(--mono);
+  font-size: calc(11px + var(--font-bump) - 1px);
+  color: var(--green);
+  white-space: nowrap;
+}
+
+/* ═══ DETAIL DRAWER ═════════════════════════════════════════════════════════ */
+.drawer {
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: 392px;
+  z-index: 500;
+  background: var(--drawer-bg);
+  border-left: 1px solid var(--border2);
+  box-shadow: -20px 0 48px var(--drawer-shadow);
+  backdrop-filter: blur(12px);
+  transform: translateX(100%);
+  transition: transform .22s ease;
+  overflow-y: auto;
+  padding: 18px 18px 30px;
+}
+.drawer.open { transform: translateX(0); }
+.drawer::-webkit-scrollbar { width: 3px; }
+.drawer::-webkit-scrollbar-thumb { background: var(--border2); }
+
+.drawer-close {
+  position: absolute; top: 14px; right: 14px;
+  width: 32px;
+  height: 32px;
+  font-family: var(--mono); font-size: calc(11px + var(--font-bump) - 1px);
+  color: var(--muted);
+  background: var(--drawer-close-bg);
+  border: 1px solid var(--border);
+  cursor: pointer;
+}
+.drawer-close:hover { color: var(--text-hi); border-color: var(--cyan); }
+
+.d-name   { font-family: var(--mono); font-size: calc(14px + var(--font-bump)); font-weight: 600; color: var(--cyan); margin-right: 44px; margin-bottom: 4px; line-height: 1.35; white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
+.d-agency { font-size: calc(11px + var(--font-bump) - 1px); color: var(--muted); margin-bottom: 16px; line-height: 1.5; }
+
+.d-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 14px;
+  align-items: start;
+}
+.d-item {
+  padding: 9px 10px 10px;
+  border: 1px solid var(--drawer-card-border);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--drawer-card-bg) 78%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--text-hi) 4%, transparent);
+}
+.d-item.span-2 {
+  grid-column: 1 / -1;
+}
+.d-item .k { font-family: var(--mono); font-size: calc(8px + var(--font-bump) - 2px); letter-spacing: 1px; color: var(--muted); text-transform: uppercase; margin-bottom: 3px; }
+.d-item .v { font-size: calc(12px + var(--font-bump) - 1px); font-weight: 700; color: var(--text-hi); line-height: 1.3; }
+.d-item .v small { font-size: calc(10px + var(--font-bump) - 1px); font-weight: 400; color: var(--text); }
+
+.d-section { font-family: var(--mono); font-size: calc(8px + var(--font-bump) - 2px); letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin: 14px 0 6px; padding-bottom: 4px; border-bottom: 1px solid var(--border); }
+.d-desc { font-size: calc(11px + var(--font-bump) - 1px); color: var(--text); line-height: 1.7; }
+.d-group {
+  margin-bottom: 14px;
+}
+.d-group:last-child {
+  margin-bottom: 0;
+}
+.d-group-fold {
+  margin-bottom: 14px;
+  border: 1px solid var(--drawer-card-border);
+  border-radius: 8px;
+  background: var(--drawer-card-bg);
+  overflow: hidden;
+}
+.d-group-fold[open] {
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--cyan) 18%, transparent);
+}
+.d-group-summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.d-group-summary::-webkit-details-marker {
+  display: none;
+}
+.d-group-summary::after {
+  content: '+';
+  color: var(--cyan);
+  font-family: var(--mono);
+  font-size: calc(14px + var(--font-bump) - 1px);
+  flex-shrink: 0;
+}
+.d-group-fold[open] .d-group-summary::after {
+  content: '-';
+}
+.d-group-head {
+  font-family: var(--mono);
+  font-size: calc(10px + var(--font-bump) - 1px);
+  letter-spacing: 1px;
+  color: var(--cyan);
+}
+.d-group-meta {
+  font-family: var(--mono);
+  font-size: calc(9px + var(--font-bump) - 2px);
+  color: var(--muted);
+  white-space: nowrap;
+}
+.d-group-body {
+  padding: 0 12px 12px;
+}
+.d-link-card {
+  margin-bottom: 12px;
+  padding: 12px;
+  background: var(--drawer-card-bg);
+  border: 1px solid var(--drawer-card-border);
+  border-radius: 8px;
+}
+.d-link-title {
+  font-family: var(--mono);
+  font-size: calc(11px + var(--font-bump) - 1px);
+  font-weight: 600;
+  color: var(--text-hi);
+  margin-bottom: 8px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+.d-link-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+.d-link-top span,
+.d-link-submeta,
+.d-link-empty {
+  font-family: var(--mono);
+}
+.d-link-top span,
+.d-link-submeta {
+  font-size: calc(9px + var(--font-bump) - 1px);
+  color: var(--muted);
+}
+.d-link-submeta {
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+.d-link-meta {
+  font-family: var(--mono);
+  font-size: calc(9px + var(--font-bump) - 2px);
+  line-height: 1.55;
+  border-top: 1px solid var(--drawer-divider);
+  margin-bottom: 10px;
+  background: var(--drawer-meta-bg);
+  border-radius: 6px;
+  padding: 8px 9px 0;
+}
+.d-link-meta-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.d-link-meta-row strong {
+  color: var(--text-hi);
+  text-align: right;
+  word-break: break-all;
+  font-weight: 500;
+}
+.d-link-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.d-link-empty {
+  font-size: calc(10px + var(--font-bump) - 1px);
+  color: var(--muted);
+}
+.d-copy-btn {
+  cursor: pointer;
+  flex: 1;
+  min-width: 120px;
+  padding: 7px 10px;
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: calc(10px + var(--font-bump) - 2px);
+  border: 1px solid;
+  transition: background .16s ease, border-color .16s ease, color .16s ease;
+}
+.d-copy-btn.asf {
+  background: var(--drawer-asf-bg);
+  color: var(--cyan);
+  border-color: var(--cyan);
+}
+.d-copy-btn.cdse {
+  background: var(--drawer-cdse-bg);
+  color: var(--orange);
+  border-color: var(--orange);
+}
+.d-copy-btn:hover {
+  filter: brightness(1.03);
+}
+
+.d-week-badge {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: calc(9px + var(--font-bump) - 1px);
+  padding: 3px 10px;
+  border: 1px solid var(--green);
+  color: var(--green);
+  margin-bottom: 14px;
+}
+
+/* ═══ LEAFLET OVERRIDES ═════════════════════════════════════════════════════ */
+.leaflet-popup-content-wrapper {
+  background: rgba(11,19,32,.97) !important;
+  border: 1px solid var(--border2) !important;
+  border-radius: 0 !important;
+  color: var(--text) !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,.5) !important;
+}
+.leaflet-popup-tip { background: var(--border2) !important; }
+.leaflet-control-zoom a { background: var(--surface) !important; color: var(--text) !important; border-color: var(--border2) !important; }
+
+:root[data-theme="paper-radar"] .leaflet-tile-pane {
+  filter: saturate(.45) brightness(1.35) contrast(.9);
+}
+
+:root[data-theme="field-survey"] .leaflet-tile-pane {
+  filter: hue-rotate(18deg) saturate(.75) brightness(.95);
+}
+
+:root[data-theme="soft-slate"] .leaflet-tile-pane {
+  filter: saturate(.3) brightness(1.08) contrast(.88);
+}
+
+.fp { font-family: var(--mono); }
+.fp h4 { font-size: calc(10px + var(--font-bump) - 1px); color: var(--cyan); margin-bottom: 7px; line-height: 1.4; }
+.fp p  { font-size: calc(9px + var(--font-bump) - 1px); color: var(--muted); margin: 2px 0; }
+.fp b  { color: var(--text-hi); }
+
+/* ═══ LOADING ═══════════════════════════════════════════════════════════════ */
+#loading {
+  position: fixed; inset: 0;
+  background: var(--bg);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  z-index: 9999; transition: opacity .4s;
+}
+#loading.gone { opacity: 0; pointer-events: none; }
+.ld-txt {
+  font-family: var(--mono);
+  font-size: calc(11px + var(--font-bump) - 1px);
+  letter-spacing: 4px;
+  color: var(--cyan);
+  margin-bottom: 18px;
+}
+.ld-bar { width: 180px; height: 1px; background: var(--border2); overflow: hidden; position: relative; }
+.ld-bar::after {
+  content:''; position:absolute; top:0; left:-100%; width:100%; height:100%;
+  background: var(--cyan);
+  animation: ldslide 1.1s ease-in-out infinite;
+}
+@keyframes ldslide { 0%{left:-100%} 100%{left:100%} }
+.ld-sub {
+  font-family: var(--mono);
+  font-size: calc(9px + var(--font-bump) - 1px);
+  color: var(--muted);
+  margin-top: 14px;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 1280px) {
+  :root { --sidebar: 360px; }
+  .filter-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .filter-field.span-2 {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 980px) {
+  html, body { overflow: auto; }
+  .layout {
+    flex-direction: column;
+    overflow: visible;
+  }
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .sb-list {
+    max-height: 38vh;
+  }
+  .map-wrap {
+    min-height: 68vh;
+  }
+  .map-stats,
+  .map-context {
+    position: static;
+    width: 100%;
+    padding: 12px 12px 0;
+  }
+  .map-stats {
+    flex-wrap: wrap;
+  }
+  .map-legend {
+    left: 12px;
+    right: 12px;
+    max-width: none;
+  }
+  .export-panel {
+    left: 12px;
+    right: 12px;
+    width: auto;
+    grid-template-columns: 1fr;
+  }
+  .drawer {
+    width: min(360px, 92vw);
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --hdr: auto;
+    --font-bump: 2px;
+  }
+  header {
+    height: auto;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 10px 12px;
+    padding: 10px 12px;
+  }
+  .hdr-sep {
+    display: none;
+  }
+  .hdr-logo,
+  .hdr-status,
+  .hdr-controls {
+    width: 100%;
+  }
+  .hdr-status {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+    line-height: 1.5;
+  }
+  .hdr-controls {
+    margin-left: 0;
+    gap: 8px;
+  }
+  .control-field {
+    flex: 1 1 calc(50% - 4px);
+    min-width: 0;
+  }
+  .control-field select {
+    min-width: 0;
+    width: 100%;
+  }
+  .layout {
+    display: flex;
+    flex-direction: column;
+  }
+  .map-wrap {
+    order: 1;
+    min-height: auto;
+  }
+  .sidebar {
+    order: 2;
+    max-height: none;
+    border-bottom: none;
+    border-top: 1px solid var(--border);
+  }
+  .filter-panel {
+    padding: 10px 12px 12px;
+  }
+  .filter-head {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .date-shortcuts {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .date-shortcut {
+    width: 100%;
+    text-align: center;
+    padding: 8px 10px;
+  }
+  .filter-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .sb-filters {
+    padding: 8px 12px;
+  }
+  .sat-row {
+    padding: 8px 12px;
+  }
+  #map,
+  .map-stats,
+  .map-context,
+  .map-legend,
+  .dl-bar,
+  .drawer {
+    display: none !important;
+  }
+  .mobile-feed {
+    display: block;
+  }
+  .sb-list {
+    max-height: 34vh;
+  }
+}
+</style>
+</head>
+<body>
+
+<div id="loading">
+  <div class="ld-txt">SAR · TRACKER</div>
+  <div class="ld-bar"></div>
+  <div class="ld-sub" id="ld-msg">連接資料來源…</div>
+</div>
+
+<!-- ═══ HEADER ═══════════════════════════════════════════════════════════════ -->
+<header>
+  <div class="hdr-logo">SAR <em>·</em> Tracker</div>
+  <div class="hdr-sep"></div>
+  <div class="hdr-status">
+    更新：<b id="hdr-time">—</b>
+    &nbsp;｜&nbsp;
+    ASF DAAC &amp; Copernicus CDSE
+  </div>
+  <div class="hdr-controls">
+    <div class="control-field">
+      <label for="theme-select">Theme</label>
+      <select id="theme-select">
+        <option value="soft-slate">Soft Slate</option>
+        <option value="night-ops">Night Ops</option>
+        <option value="paper-radar">Paper Radar</option>
+        <option value="field-survey">Field Survey</option>
+      </select>
+    </div>
+    <div class="control-field">
+      <label for="font-size-select">Text Size</label>
+      <select id="font-size-select">
+        <option value="2">Compact</option>
+        <option value="4" selected>Default</option>
+        <option value="8">Large</option>
+        <option value="10">XL</option>
+      </select>
+    </div>
+  </div>
+  <div class="hdr-tabs">
+    <button class="tab on"  onclick="setTab('all',this)">全部衛星</button>
+    <button class="tab"     onclick="setTab('op',this)">運作中</button>
+    <button class="tab"     onclick="setTab('tw',this)">本週取像</button>
+  </div>
+</header>
+
+<!-- ═══ LAYOUT ═══════════════════════════════════════════════════════════════ -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sb-head">
+      <h2>SAR 衛星艦隊</h2>
+      <div class="sub" id="sb-count">載入中…</div>
+    </div>
+    <div class="sb-filters">
+      <button class="chip on"  data-b="ALL" onclick="setFilter('ALL',this)">ALL</button>
+      <button class="chip"     data-b="C"   onclick="setFilter('C',this)">C-Band</button>
+      <button class="chip"     data-b="L"   onclick="setFilter('L',this)">L-Band</button>
+      <button class="chip"     data-b="X"   onclick="setFilter('X',this)">X-Band</button>
+      <button class="chip"     data-b="S"   onclick="setFilter('S',this)">S-Band</button>
+    </div>
+    <div class="filter-panel">
+      <div class="filter-head">
+        <div class="date-shortcuts">
+          <button class="date-shortcut" id="preset-week" type="button" onclick="applyPresetDateWindow(7, this)">This Week</button>
+          <button class="date-shortcut" id="preset-month" type="button" onclick="applyPresetDateWindow(30, this)">This Month</button>
+          <button class="date-shortcut" id="preset-6months" type="button" onclick="applyPresetDateWindow(183, this)">6 Months</button>
+          <button class="date-shortcut" id="preset-year" type="button" onclick="applyPresetDateWindow(365, this)">1 Year</button>
+        </div>
+      </div>
+      <div class="filter-grid">
+        <label class="filter-field span-2">
+          <span class="filter-label">Satellite</span>
+          <select class="filter-select" id="filter-satellite"></select>
+        </label>
+        <label class="filter-field span-2">
+          <span class="filter-label">Orbit Direction</span>
+          <select class="filter-select" id="filter-direction">
+            <option value="ALL">All</option>
+            <option value="ASCENDING">Ascending</option>
+            <option value="DESCENDING">Descending</option>
+          </select>
+        </label>
+        <label class="filter-field span-2">
+          <span class="filter-label">Date Start</span>
+          <input class="filter-input" id="filter-date-start" type="date">
+        </label>
+        <label class="filter-field span-2">
+          <span class="filter-label">Date End</span>
+          <input class="filter-input" id="filter-date-end" type="date">
+        </label>
+        <label class="filter-field">
+          <span class="filter-label">Track Min</span>
+          <input class="filter-input" id="filter-path-min" type="number" inputmode="numeric" placeholder="Any">
+        </label>
+        <label class="filter-field">
+          <span class="filter-label">Track Max</span>
+          <input class="filter-input" id="filter-path-max" type="number" inputmode="numeric" placeholder="Any">
+        </label>
+        <label class="filter-field">
+          <span class="filter-label">Frame Min</span>
+          <input class="filter-input" id="filter-frame-min" type="number" inputmode="numeric" placeholder="Any">
+        </label>
+        <label class="filter-field">
+          <span class="filter-label">Frame Max</span>
+          <input class="filter-input" id="filter-frame-max" type="number" inputmode="numeric" placeholder="Any">
+        </label>
+      </div>
+      <details class="filter-section" id="product-section" open>
+        <summary>
+          <span>Product Types</span>
+          <span class="filter-section-meta" id="product-summary">Loading...</span>
+        </summary>
+        <div class="filter-section-body">
+          <div class="format-options" id="format-options"></div>
+        </div>
+      </details>
+      <div class="filter-actions">
+        <button class="dl-btn csv" type="button" onclick="resetAdvancedFilters()">Reset Filters</button>
+        <label class="filter-toggle" for="filter-show-same-track">
+          <input id="filter-show-same-track" type="checkbox">
+          Show same track in drawer
+        </label>
+        <label class="filter-toggle" for="filter-show-other-tracks">
+          <input id="filter-show-other-tracks" type="checkbox">
+          Show other Taiwan Sentinel-1 tracks
+        </label>
+        <span class="filter-note" id="filter-note">SLC / GSLC / RSLC are selected by default.</span>
+      </div>
+    </div>
+    <div class="sb-list" id="sat-list"></div>
+  </aside>
+
+  <!-- MAP -->
+  <div class="map-wrap">
+    <div class="mobile-feed" id="mobile-feed"></div>
+
+    <div class="map-stats">
+      <div class="stat-card">
+        <div class="lbl">本週取像幀數</div>
+        <div class="val" id="st-frames">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="lbl">過境衛星種類</div>
+        <div class="val orange" id="st-sats">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="lbl">查詢時段</div>
+        <div class="val small" id="st-period">—</div>
+      </div>
+    </div>
+
+    <div id="map"></div>
+
+    <!-- legend -->
+    <div class="map-legend">
+      <div class="legend-title">衛星 / 顏色</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:#00e5ff"></div><span>Sentinel-1</span></div>
+      <div class="legend-item"><div class="legend-swatch" style="background:#ce93d8"></div><span>ALOS-2 / ALOS-4</span></div>
+      <div class="legend-item"><div class="legend-swatch" style="background:#ffc107"></div><span>RADARSAT</span></div>
+      <div class="legend-item"><div class="legend-swatch" style="background:#ff7043"></div><span>其他</span></div>
+    </div>
+
+    <!-- download bar -->
+    <div class="dl-bar">
+      <span class="dl-label">下載清單</span>
+      <button class="dl-btn asf" id="btn-copy-urls" type="button" onclick="copyFilteredUrls()">📋 複製所有下載連結</button>
+      <button class="dl-btn asf" id="btn-asf" type="button" onclick="downloadMeta4('ASF')">ASF .meta4</button>
+      <button class="dl-btn cop" id="btn-cop" type="button" onclick="downloadMeta4('Copernicus')">CDSE .meta4</button>
+      <button class="dl-btn csv" type="button" onclick="exportCSV()">CSV 匯出</button>
+      <span class="dl-count" id="dl-info">— 幀</span>
+    </div>
+
+    <!-- detail drawer -->
+    <div class="drawer" id="drawer">
+      <button class="drawer-close" onclick="closeDrawer()">✕ 關閉</button>
+      <div class="d-name"   id="d-name"></div>
+      <div class="d-agency" id="d-agency"></div>
+      <div id="d-week-wrap"></div>
+      <div class="d-grid"   id="d-grid"></div>
+      <div class="d-section">任務說明</div>
+      <div class="d-desc"   id="d-desc"></div>
+    </div>
+
+  </div><!-- .map-wrap -->
+</div><!-- .layout -->
+
+<script>
+// ═══════════════════════════════════════════════════════════════════════════
+// SAR SATELLITE DATABASE
+// ═══════════════════════════════════════════════════════════════════════════
+const SATS = [
+  // ── ESA Sentinel-1 (C) ──────────────────────────────────────────────────
+  { id:'S1A', name:'Sentinel-1A',       agency:'ESA',           band:'C', freq:'5.405 GHz', res:'5–20 m',   swath:'80–400 km', launched:'2014-04-03', status:'op',
+    asf_prefix:['S1A','SENTINEL-1A'],
+    desc:'ESA 旗艦 C 波段 SAR。IW 模式 250 km 掃幅，全球資料免費開放。與 Sentinel-1C 組成雙星座，台灣每 6 天重訪一次。' },
+  { id:'S1C', name:'Sentinel-1C',       agency:'ESA',           band:'C', freq:'5.405 GHz', res:'5–20 m',   swath:'80–400 km', launched:'2024-12-05', status:'op',
+    asf_prefix:['S1C','SENTINEL-1C'],
+    desc:'2024 年 12 月接替 Sentinel-1B 發射。與 Sentinel-1A 恢復 6 天重訪週期，資料由 Copernicus CDSE 免費提供。' },
+  { id:'S1D', name:'Sentinel-1D',       agency:'ESA',           band:'C', freq:'5.405 GHz', res:'5–20 m',   swath:'80–400 km', launched:'2025-11-04', status:'op',
+    asf_prefix:['S1D','SENTINEL-1D'],
+    desc:'2025 年 11 月加入星座，進一步縮短重訪週期，可達 3 天一次全球覆蓋。' },
+
+  // ── JAXA (L) ────────────────────────────────────────────────────────────
+  { id:'ALOS2',  name:'ALOS-2 (PALSAR-2)',  agency:'JAXA',        band:'L', freq:'1.236 GHz', res:'1–100 m',  swath:'25–490 km', launched:'2014-05-24', status:'op',
+    asf_prefix:['ALOS2','ALOS-2'],
+    desc:'L 波段穿透力強，適合森林碳匯、地表形變（InSAR）及災害應變。14 天重訪週期，台灣通常由升/降軌各約 7 天一次。' },
+  { id:'ALOS4',  name:'ALOS-4',              agency:'JAXA',        band:'L', freq:'1.258 GHz', res:'3–100 m',  swath:'50–2000 km', launched:'2024-07-01', status:'op',
+    asf_prefix:['ALOS4','ALOS-4'],
+    desc:'超寬刈幅模式達 2000 km，全球覆蓋頻率大幅提升。ScanSAR 模式 14 天可覆蓋台灣多次。' },
+
+  // ── NASA/ISRO NISAR (L+S) ────────────────────────────────────────────────
+  { id:'NISAR',  name:'NISAR',               agency:'NASA/ISRO',   band:'L', freq:'1.257 GHz', res:'3–25 m',   swath:'240 km',    launched:'2024-03-01', status:'op',
+    asf_prefix:['NISAR'],
+    desc:'NASA 與 ISRO 聯合任務，同時搭載 L 波段（JPL）與 S 波段（ISRO）SAR。12 天全球覆蓋，所有資料完全開放。' },
+
+  // ── DLR/Airbus (X) ──────────────────────────────────────────────────────
+  { id:'TSX',  name:'TerraSAR-X',            agency:'DLR/Airbus',  band:'X', freq:'9.65 GHz',  res:'0.25–18 m', swath:'5–150 km',  launched:'2007-06-15', status:'op',
+    asf_prefix:['TSX','TERRASAR'],
+    desc:'商業高解析度 X 波段 SAR。聚焦模式 0.25 m，適合城市、橋樑、海港精細監測。資料需購買或申請研究授權。' },
+  { id:'TDX',  name:'TanDEM-X',              agency:'DLR/Airbus',  band:'X', freq:'9.65 GHz',  res:'0.25–18 m', swath:'5–150 km',  launched:'2010-06-21', status:'op',
+    asf_prefix:['TDX','TANDEM'],
+    desc:'與 TerraSAR-X 雙星編隊飛行，用於生成全球 TanDEM-X 12 m/90 m DEM，也可獨立執行高解析任務。' },
+
+  // ── ASI COSMO-SkyMed Second Generation (X) ──────────────────────────────
+  { id:'CSG1', name:'COSMO-SkyMed SG-1',     agency:'ASI',         band:'X', freq:'9.6 GHz',   res:'0.35–100 m', swath:'10–200 km', launched:'2019-12-18', status:'op',
+    asf_prefix:['CSG1','COSMO'],
+    desc:'義大利第二代 COSMO-SkyMed（Second Generation），軍民兩用。Spotlight 模式 0.35 m，可在數小時內重新對台灣取像。' },
+  { id:'CSG2', name:'COSMO-SkyMed SG-2',     agency:'ASI',         band:'X', freq:'9.6 GHz',   res:'0.35–100 m', swath:'10–200 km', launched:'2022-03-31', status:'op',
+    asf_prefix:['CSG2'],
+    desc:'COSMO-SkyMed 第二代第二顆，完成 4 星（含舊版）協調運作，重訪週期縮短至數小時級別。' },
+
+  // ── CSA RADARSAT Constellation (C) ──────────────────────────────────────
+  { id:'RCM1', name:'RADARSAT-C 1 (RCM-1)',  agency:'CSA',         band:'C', freq:'5.405 GHz', res:'1–100 m',  swath:'20–500 km', launched:'2019-06-12', status:'op',
+    asf_prefix:['RCM1','RCM-1'],
+    desc:'加拿大 RADARSAT 星座任務第一顆。3 顆等間距分布，每 4 天可覆蓋全球一次，支援海事監控與災害應變。' },
+  { id:'RCM2', name:'RADARSAT-C 2 (RCM-2)',  agency:'CSA',         band:'C', freq:'5.405 GHz', res:'1–100 m',  swath:'20–500 km', launched:'2019-06-12', status:'op',
+    asf_prefix:['RCM2','RCM-2'],
+    desc:'RCM 星座第二顆，與 RCM-1/3 間距各 120°。提供全極化（HH+HV+VH+VV）及緊湊極化模式。' },
+  { id:'RCM3', name:'RADARSAT-C 3 (RCM-3)',  agency:'CSA',         band:'C', freq:'5.405 GHz', res:'1–100 m',  swath:'20–500 km', launched:'2019-06-12', status:'op',
+    asf_prefix:['RCM3','RCM-3'],
+    desc:'RCM 星座第三顆，完成三星佈局。政府優先任務包括加拿大北部冰況監測、海洋排放溢油偵測等。' },
+  { id:'RS2',  name:'RADARSAT-2',             agency:'CSA/MDA',     band:'C', freq:'5.405 GHz', res:'1–100 m',  swath:'20–500 km', launched:'2007-12-14', status:'op',
+    asf_prefix:['RS2','RADARSAT-2','R2'],
+    desc:'商業 C 波段 SAR，全極化能力，超精細模式 1 m。資料需向 MDA 商購，但部分災害情況提供免費存取。' },
+
+  // ── CONAE SAOCOM (L) ────────────────────────────────────────────────────
+  { id:'SAO1A', name:'SAOCOM-1A',             agency:'CONAE',       band:'L', freq:'1.275 GHz', res:'10–100 m', swath:'30–400 km', launched:'2018-10-08', status:'op',
+    asf_prefix:['SAOCOM1A','SAOCOM-1A','UAM'],
+    desc:'阿根廷 L 波段 SAR，主力應用為土壤溼度監測與洪水繪圖。全極化資料可申請研究用途。' },
+  { id:'SAO1B', name:'SAOCOM-1B',             agency:'CONAE',       band:'L', freq:'1.275 GHz', res:'10–100 m', swath:'30–400 km', launched:'2020-08-30', status:'op',
+    asf_prefix:['SAOCOM1B','SAOCOM-1B','UAM'],
+    desc:'SAOCOM-1A 雙星，兩星協調使台灣重訪週期縮短。也與意大利 COSMO-SkyMed 交換資料（SIASGE 協議）。' },
+
+  // ── ISRO (X) ────────────────────────────────────────────────────────────
+  { id:'RISAT2B', name:'RISAT-2BR1',          agency:'ISRO',        band:'X', freq:'9.35 GHz',  res:'0.5–50 m', swath:'5–300 km', launched:'2019-12-11', status:'op',
+    asf_prefix:['RISAT2BR1','RISAT'],
+    desc:'印度 X 波段 SAR 小衛星，以色列 ELTA ELM-2022S 雷達。Spotlight 模式 0.5 m，用於農業普查與安全監測。' },
+
+  // ── NovaSAR (S) ─────────────────────────────────────────────────────────
+  { id:'NOVASAR', name:'NovaSAR-1',           agency:'SSTL/UKSA',   band:'S', freq:'3.2 GHz',   res:'6–30 m',   swath:'20–150 km', launched:'2018-09-16', status:'op',
+    asf_prefix:['NOVASAR'],
+    desc:'英國 SSTL 開發的 S 波段小型 SAR。S 波段特性介於 C 與 L 之間，對植被穿透力較 C 強。資料可向 SSTL 申請。' },
+
+  // ── Commercial Constellations ────────────────────────────────────────────
+  { id:'ICEYE',   name:'ICEYE 星座（20+ 顆）',  agency:'ICEYE',     band:'X', freq:'9.65 GHz',  res:'0.25–15 m', swath:'5–200 km', launched:'2018~', status:'op',
+    asf_prefix:['ICEYE'],
+    desc:'芬蘭商業 SAR 小衛星星座，已超過 20 顆在軌。Spot Fine 模式達 25 cm，可在 3 小時內重訪台灣。支援 on-demand 任務。' },
+  { id:'CAPELLA', name:'Capella 星座（7+ 顆）', agency:'Capella Space', band:'X', freq:'9.65 GHz', res:'0.35–5 m', swath:'5–50 km', launched:'2020~', status:'op',
+    asf_prefix:['CAPELLA'],
+    desc:'美國商業 SAR，最高 0.35 m Spotlight 影像。提供 Open Data Program，部分地區可免費申請取像。' },
+  { id:'UMBRA',   name:'Umbra 星座（5+ 顆）',   agency:'Umbra',      band:'X', freq:'9.65 GHz',  res:'0.16–5 m', swath:'5–35 km', launched:'2021~', status:'op',
+    asf_prefix:['UMBRA'],
+    desc:'目前民用最高解析度 SAR（16 cm）。Open Data Program 提供部分影像免費下載，包含台灣歷史存檔。' },
+  { id:'SYNSPECTIVE', name:'Synspective 星座',  agency:'Synspective', band:'X', freq:'9.65 GHz',  res:'1–3 m',   swath:'30 km',  launched:'2020~', status:'op',
+    asf_prefix:['SYNSPECTIVE'],
+    desc:'日本商業 SAR 小衛星，專注亞洲市場。與台灣科研機構有合作協議，可提供快速災害應變影像。' },
+
+  // ── Retired ─────────────────────────────────────────────────────────────
+  { id:'S1B',  name:'Sentinel-1B',             agency:'ESA',         band:'C', freq:'5.405 GHz', res:'5–20 m',  swath:'80–400 km', launched:'2016-04-25', status:'ret', retired:'2022-08-23',
+    asf_prefix:['S1B','SENTINEL-1B'],
+    desc:'2021 年 12 月電力系統異常，SAR 傳感器失效；2022 年 8 月正式退役。由 Sentinel-1C 接替其軌道。' },
+  { id:'ALOS1', name:'ALOS (PALSAR)',           agency:'JAXA',        band:'L', freq:'1.27 GHz',  res:'7–100 m', swath:'40–350 km', launched:'2006-01-24', status:'ret', retired:'2011-04-22',
+    asf_prefix:['ALOS','ALOS1'],
+    desc:'ALOS-2 的前身，第一個提供免費全球 L 波段資料的任務。存檔資料仍可透過 ASF 免費下載。' },
+  { id:'ERS1', name:'ERS-1',                    agency:'ESA',         band:'C', freq:'5.3 GHz',   res:'25 m',    swath:'100 km',    launched:'1991-07-17', status:'ret', retired:'2000-03-10',
+    asf_prefix:['ERS1','ERS-1'],
+    desc:'ESA 第一代 SAR 衛星，奠定 InSAR 應用基礎。大量存檔資料仍有科研價值，可由 ASF 存取。' },
+  { id:'ERS2', name:'ERS-2',                    agency:'ESA',         band:'C', freq:'5.3 GHz',   res:'25 m',    swath:'100 km',    launched:'1995-04-21', status:'ret', retired:'2011-09-05',
+    asf_prefix:['ERS2','ERS-2'],
+    desc:'ERS-1 接替星，與其組成 Tandem 任務。2024 年 2 月完成大氣再入，ASF 存有完整存檔。' },
+];
+
+// ── 顏色映射 ──────────────────────────────────────────────────────────────
+const FEATURED_SATELLITES = new Set(['S1A', 'S1C', 'S1D', 'S1B', 'NISAR']);
+const OPEN_DATA_SATELLITES = new Set(['S1A', 'S1B', 'S1C', 'S1D', 'NISAR']);
+const SENTINEL_SATELLITES = new Set(['S1A', 'S1B', 'S1C', 'S1D']);
+const THEME_OPTIONS = new Set(['soft-slate', 'night-ops', 'paper-radar', 'field-survey']);
+const FONT_SIZE_OPTIONS = new Set(['2', '4', '6', '8', '10']);
+const APP_VERSION = 'v0.6.11';
+
+const PLATFORM_COLORS = {
+  'S1A':'#00e5ff','S1C':'#00b8d4','S1D':'#0097b2',
+  'SENTINEL-1A':'#00e5ff','SENTINEL-1C':'#00b8d4','SENTINEL-1D':'#0097b2',
+  'ALOS-2':'#ce93d8','ALOS-4':'#ab68c4','ALOS2':'#ce93d8','ALOS4':'#ab68c4',
+  'RADARSAT-2':'#ffc107','RCM-1':'#ffb300','RCM-2':'#ffa000','RCM-3':'#ff8f00',
+  'R2':'#ffc107','RCM':'#ffb300',
+  '_default':'#ff7043',
+};
+
+const NISAR_TRACK_COLORS = {
+  'ASCENDING|39': '#00e676',
+  'ASCENDING|111': '#67f7b2',
+  'DESCENDING|61': '#00c2d1',
+  'DESCENDING|133': '#58d8e3',
+};
+
+function platColor(platform) {
+  const p = (platform||'').toUpperCase();
+  for (const k of Object.keys(PLATFORM_COLORS)) {
+    if (p.startsWith(k.toUpperCase())) return PLATFORM_COLORS[k];
+  }
+  return PLATFORM_COLORS._default;
+}
+
+function isOpenDataSatelliteId(id) {
+  return OPEN_DATA_SATELLITES.has(String(id || '').toUpperCase());
+}
+
+function isSentinelSatelliteId(id) {
+  return SENTINEL_SATELLITES.has(String(id || '').toUpperCase());
+}
+
+function getFramePathNumber(frame) {
+  return normalizeFrameNumber(frame.path_number) ?? normalizeFrameNumber(frame.orbit);
+}
+
+function getTrackLabelForFrame(frame) {
+  const satId = String(frame.satellite_id || frame.platform || '').toUpperCase();
+  const direction = normalizeDirection(frame.direction_norm || frame.direction);
+  const pathNumber = getFramePathNumber(frame);
+
+  if (satId.includes('NISAR')) return 'NISAR';
+  if (isSentinelSatelliteId(satId)) {
+    if (direction === 'ASCENDING' && pathNumber === 69) return 'A69';
+    if (direction === 'DESCENDING' && pathNumber === 105) return 'D105';
+    return 'OTHER_S1';
+  }
+  return 'OTHER';
+}
+
+function getFrameVisualInfo(frame) {
+  const satelliteId = String(frame?.satellite_id || frame?.platform || '').toUpperCase();
+  const direction = normalizeDirection(frame?.direction_norm || frame?.direction);
+  const pathNumber = getFramePathNumber(frame);
+
+  if (satelliteId.includes('NISAR')) {
+    const key = `${direction}|${pathNumber ?? ''}`;
+    const shortDir = direction === 'ASCENDING' ? 'A' : direction === 'DESCENDING' ? 'D' : 'N';
+    return {
+      label: `NISAR ${shortDir}${pathNumber ?? '--'}`,
+      color: NISAR_TRACK_COLORS[key] || '#00e676',
+    };
+  }
+
+  const rawLabel = frame?.track_label || frame?.satellite_name || frame?.platform || frame?.satellite_id || 'Other';
+  const label = rawLabel === 'OTHER_S1' ? 'Other Sentinel-1 tracks' : rawLabel;
+  const color = rawLabel === 'A69'
+    ? '#00e5ff'
+    : rawLabel === 'D105'
+      ? '#ff7043'
+      : rawLabel === 'NISAR'
+        ? '#00e676'
+        : platColor(frame?.platform || frame?.satellite_name);
+
+  return { label, color };
+}
+
+// ── 台灣輪廓（簡化）────────────────────────────────────────────────────────
+const TW_OUTLINE = [
+  [25.30,121.50],[25.08,121.88],[24.60,121.78],[23.98,121.60],
+  [23.42,121.49],[22.80,121.18],[22.00,120.87],[21.90,120.73],
+  [22.31,120.25],[22.76,120.19],[23.48,119.57],[23.70,119.65],
+  [24.00,120.05],[24.80,121.00],[25.30,121.50]
+];
+
+// ── APP STATE ─────────────────────────────────────────────────────────────
+let state = {
+  frames: [],
+  tab:    'all',
+  band:   'ALL',
+  map:    null,
+  frameLayer: null,
+  selectedSat: null,
+  selectedFrameKey: null,
+  framePolygons: [],
+};
+
+// ═══════════════════════════════════════════════════════════════════════════
+// MAP INIT
+// ═══════════════════════════════════════════════════════════════════════════
+function initMap() {
+  state.map = L.map('map', { center:[23.5,121], zoom:6, zoomControl:true, attributionControl:false });
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { maxZoom:19 }).addTo(state.map);
+
+  // Taiwan outline
+  L.polygon(TW_OUTLINE, { color:'#00e5ff', weight:1, fillColor:'#00e5ff', fillOpacity:.04, dashArray:'4 3' }).addTo(state.map);
+
+  state.frameLayer = L.layerGroup().addTo(state.map);
+
+  // 點擊地圖背景時取消選取
+  state.map.on('click', () => {
+    if (state.selectedFrameKey) {
+      state.selectedFrameKey = null;
+      if (typeof updateMapSelectionState === 'function') updateMapSelectionState();
+      closeDrawer();
+    }
+  });
+}
+
+function getFrameLatLngBounds(frame) {
+  const geom = frame?.footprint;
+  if (!geom || geom.type !== 'Polygon' || !Array.isArray(geom.coordinates)) return null;
+  const points = [];
+  for (const ring of geom.coordinates) {
+    for (const coord of ring || []) {
+      if (Array.isArray(coord) && coord.length >= 2) points.push([coord[1], coord[0]]);
+    }
+  }
+  return points.length ? L.latLngBounds(points) : null;
+}
+
+function focusMapOnFrames(frames, options = {}) {
+  if (!state.map || !Array.isArray(frames) || !frames.length) return;
+  const boundsList = frames.map(getFrameLatLngBounds).filter(Boolean);
+  if (!boundsList.length) return;
+
+  const combined = boundsList[0];
+  for (let i = 1; i < boundsList.length; i++) combined.extend(boundsList[i]);
+
+  state.map.fitBounds(combined.pad(options.pad ?? 0.18), {
+    maxZoom: options.maxZoom ?? 9,
+    animate: options.animate ?? true,
+    paddingTopLeft: options.paddingTopLeft ?? [16, 16],
+    paddingBottomRight: options.paddingBottomRight ?? [options.withDrawer ? 420 : 16, 110],
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// DATA LOADING
+// ═══════════════════════════════════════════════════════════════════════════
+function ldmsg(t) {
+  const el = document.getElementById('ld-msg');
+  if (el) el.textContent = t;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+function closeDrawer() {
+  document.getElementById('drawer').classList.remove('open');
+  state.selectedSat = null;
+  state.selectedFrameKey = null;
+  if (typeof updateMapSelectionState === 'function') updateMapSelectionState();
+  document.querySelectorAll('.sat-row').forEach(r => r.classList.remove('active'));
+  updateLegend();
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// FILTERS / TABS
+// ═══════════════════════════════════════════════════════════════════════════
+
+// ═══════════════════════════════════════════════════════════════════════════
+// BOOT
+// ═══════════════════════════════════════════════════════════════════════════
+const DEFAULT_PRODUCT_TYPES = ['SLC', 'GSLC'];
+const DEFAULT_PRODUCT_TYPES_BY_SATELLITE = {
+  ALL: ['SLC', 'GSLC'],
+  NISAR: ['GSLC'],
+  S1A: ['SLC'],
+  S1B: ['SLC'],
+  S1C: ['SLC'],
+  S1D: ['SLC'],
+};
+const KNOWN_PRODUCT_TYPES = ['L1_RSLC', 'L1_GSLC', 'L2_GCOV', 'L2_GUNW', 'GSLC', 'RSLC', 'SLC', 'GRD_HD', 'GRD_MS', 'GRD_HS', 'GRD_FD', 'GRD', 'GCOV', 'GUNW', 'RAW', 'SSC', 'OCN'];
+
+function ensureAdvancedState() {
+  state.rawFrames ||= [];
+  state.filteredFrames ||= [];
+  state.baseStats ||= null;
+  state.framePolygons ||= [];
+  state.selectedFrameKey ||= null;
+  state.cache ||= {
+    satelliteCounts: new Map(),
+    satellitesWithFrames: new Set(),
+  };
+  state.ui ||= {
+    theme: 'soft-slate',
+    fontSize: '4',
+  };
+  state.filters ||= {
+    satellite: 'ALL',
+    direction: 'ALL',
+    showSameTrackInDrawer: false,
+    showOtherSentinelTracks: false,
+    pathMin: '',
+    pathMax: '',
+    frameMin: '',
+    frameMax: '',
+    dateStart: '',
+    dateEnd: '',
+    formats: new Set(),
+  };
+  if (!(state.filters.formats instanceof Set)) {
+    state.filters.formats = new Set(state.filters.formats || []);
+  }
+}
+
+function rebuildFrameCaches() {
+  ensureAdvancedState();
+  const satelliteCounts = new Map();
+  const satellitesWithFrames = new Set();
+
+  for (const frame of state.rawFrames) {
+    const id = frame.satellite_id || '';
+    if (!id) continue;
+    satelliteCounts.set(id, (satelliteCounts.get(id) || 0) + 1);
+    satellitesWithFrames.add(id);
+  }
+
+  state.cache.satelliteCounts = satelliteCounts;
+  state.cache.satellitesWithFrames = satellitesWithFrames;
+}
+
+function isFeaturedSatellite(sat) {
+  return FEATURED_SATELLITES.has(sat.id) && isOpenDataSatelliteId(sat.id);
+}
+
+function getThemeValue(raw) {
+  return THEME_OPTIONS.has(raw) ? raw : 'soft-slate';
+}
+
+function getFontSizeValue(raw) {
+  return FONT_SIZE_OPTIONS.has(String(raw)) ? String(raw) : '4';
+}
+
+function applyAppearanceSettings() {
+  ensureAdvancedState();
+  state.ui.theme = getThemeValue(state.ui.theme);
+  state.ui.fontSize = getFontSizeValue(state.ui.fontSize);
+  document.documentElement.dataset.theme = state.ui.theme;
+  document.documentElement.style.setProperty('--font-bump', `${state.ui.fontSize}px`);
+}
+
+function syncAppearanceControls() {
+  const themeSelect = document.getElementById('theme-select');
+  const fontSizeSelect = document.getElementById('font-size-select');
+  if (themeSelect) themeSelect.value = getThemeValue(state.ui.theme);
+  if (fontSizeSelect) fontSizeSelect.value = getFontSizeValue(state.ui.fontSize);
+}
+
+function bindAppearanceControls() {
+  document.getElementById('theme-select')?.addEventListener('change', event => {
+    state.ui.theme = getThemeValue(event.target.value);
+    applyAppearanceSettings();
+    renderFrames();
+  });
+
+  document.getElementById('font-size-select')?.addEventListener('change', event => {
+    state.ui.fontSize = getFontSizeValue(event.target.value);
+    applyAppearanceSettings();
+  });
+}
+
+function setupReadableUI() {
+  document.title = 'SAR Tracker';
+  const logo = document.querySelector('.hdr-logo');
+  if (logo) logo.innerHTML = `SAR <em>Tracker</em> <span style="font-size:11px;color:var(--muted);letter-spacing:1px;">${APP_VERSION}</span>`;
+
+  const hdrStatus = document.querySelector('.hdr-status');
+  if (hdrStatus) {
+    hdrStatus.innerHTML = `Updated: <b id="hdr-time">--</b>&nbsp;|&nbsp;ASF DAAC &amp; Copernicus CDSE&nbsp;|&nbsp;${APP_VERSION}`;
+  }
+
+  syncViewModeControl();
+
+  const sbHead = document.querySelector('.sb-head h2');
+  if (sbHead) sbHead.textContent = 'SAR Satellites';
+  const sbCount = document.getElementById('sb-count');
+  if (sbCount && !state.rawFrames.length) sbCount.textContent = 'Waiting for inventory...';
+
+  const loadingText = document.querySelector('.ld-txt');
+  if (loadingText) loadingText.textContent = 'SAR TRACKER';
+  const loadingSub = document.getElementById('ld-msg');
+  if (loadingSub && !loadingSub.textContent.trim()) loadingSub.textContent = 'Loading latest frame inventory...';
+
+  const statLabels = document.querySelectorAll('.map-stats .lbl');
+  if (statLabels[0]) statLabels[0].textContent = 'Filtered Frames';
+  if (statLabels[1]) statLabels[1].textContent = 'Active Satellites';
+  if (statLabels[2]) statLabels[2].textContent = 'Query Window';
+
+  const statsWrap = document.querySelector('.map-stats');
+  if (statsWrap && !document.getElementById('st-next')) {
+    const card = document.createElement('div');
+    card.className = 'stat-card';
+    card.innerHTML = '<div class="lbl" id="st-next-label">Latest Tracks</div><div class="val small" id="st-next">Need history</div>';
+    statsWrap.appendChild(card);
+  }
+
+  const legend = document.querySelector('.map-legend');
+  if (legend) legend.innerHTML = '<div class="legend-title">Visible Data</div><div id="legend-items"></div>';
+
+  const dlBar = document.querySelector('.dl-bar');
+  if (dlBar) {
+    dlBar.innerHTML = `
+      <span class="dl-label">Filtered Downloads</span>
+      <button class="dl-btn asf" id="btn-copy-urls" type="button" onclick="copyFilteredUrls()">📋 Copy All Links</button>
+      <button class="dl-btn asf" id="btn-asf" type="button" onclick="downloadMeta4('ASF')">ASF .meta4</button>
+      <button class="dl-btn cop" id="btn-cop" type="button" onclick="downloadMeta4('Copernicus')">CDSE .meta4</button>
+      <button class="dl-btn csv" type="button" onclick="exportCSV()">CSV Export</button>
+      <span class="dl-count" id="dl-info">0 frames</span>
+    `;
+  }
+
+  const closeBtn = document.querySelector('.drawer-close');
+  if (closeBtn) closeBtn.textContent = 'X';
+  const section = document.querySelector('.d-section');
+  if (section) section.textContent = 'Selected Files';
+}
+
+function rebuildDownloadBar() {
+  const dlBar = document.querySelector('.dl-bar');
+  if (!dlBar) return;
+  dlBar.innerHTML = `
+    <div class="dl-main">
+      <span class="dl-label">Filtered Downloads</span>
+      <span class="dl-count" id="dl-info">0 files</span>
+    </div>
+    <button class="dl-btn csv export-toggle" id="btn-export-toggle" type="button" onclick="toggleExportPanel()">Export</button>
+    <div class="export-panel" id="export-panel">
+      <div class="export-card wide">
+        <div class="k">Current Selection</div>
+        <div class="export-actions">
+          <button class="dl-btn asf" id="btn-copy-urls" type="button" onclick="copyFilteredUrls()">Copy All Links</button>
+          <button class="dl-btn csv" id="btn-csv" type="button" onclick="exportCSV()">CSV Export</button>
+        </div>
+      </div>
+      <div class="export-card">
+        <div class="k">ASF</div>
+        <div class="export-actions">
+          <button class="dl-btn asf" id="btn-asf" type="button" onclick="downloadMeta4('ASF')">ASF .meta4</button>
+        </div>
+      </div>
+      <div class="export-card">
+        <div class="k">Copernicus</div>
+        <div class="export-actions">
+          <button class="dl-btn cop" id="btn-cop" type="button" onclick="downloadMeta4('Copernicus')">CDSE .meta4</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function toggleExportPanel(force) {
+  const panel = document.getElementById('export-panel');
+  if (!panel) return;
+  const next = typeof force === 'boolean' ? force : !panel.classList.contains('open');
+  panel.classList.toggle('open', next);
+}
+
+function normalizeDirection(value) {
+  const text = String(value || '').toUpperCase();
+  if (text.startsWith('A')) return 'ASCENDING';
+  if (text.startsWith('D')) return 'DESCENDING';
+  return 'UNKNOWN';
+}
+
+function normalizeFrameNumber(value) {
+  const num = Number.parseInt(String(value ?? '').trim(), 10);
+  return Number.isFinite(num) ? num : null;
+}
+
+function normalizeProductType(frame) {
+  const candidates = [frame.product_type, frame.processing_level, frame.processingLevel, frame.granule];
+  for (const raw of candidates) {
+    const text = String(raw || '').toUpperCase().replace('.SAFE', '');
+    if (!text) continue;
+    for (const item of KNOWN_PRODUCT_TYPES) {
+      if (text.includes(item)) return item;
+    }
+  }
+  return 'UNKNOWN';
+}
+
+function satMatchesFrame(sat, frame) {
+  const haystack = [frame.platform, frame.granule, frame.satellite_name, frame.satellite_id].join(' ').toUpperCase();
+  const names = [sat.id, sat.name, ...(sat.asf_prefix || [])].map(v => String(v || '').toUpperCase());
+  return names.some(name => name && haystack.includes(name));
+}
+
+function getSatForFrame(frame) {
+  return SATS.find(sat => satMatchesFrame(sat, frame)) || null;
+}
+
+function enhanceFrame(frame) {
+  const sat = getSatForFrame(frame) || {};
+  const satelliteId = sat.id || frame.platform || 'UNKNOWN';
+  const directionNorm = normalizeDirection(frame.direction);
+  const pathNumberNorm = getFramePathNumber(frame);
+  const frameNumberNorm = normalizeFrameNumber(frame.frame_number);
+  const enriched = {
+    ...frame,
+    satellite_id: satelliteId,
+    satellite_name: sat.name || frame.platform || 'Unknown',
+    satellite_band: sat.band || '',
+    sat_status: sat.status || '',
+    direction_norm: directionNorm,
+    path_number_norm: pathNumberNorm,
+    frame_number_norm: frameNumberNorm,
+    product_type_norm: normalizeProductType(frame),
+  };
+  const trackLabel = getTrackLabelForFrame(enriched);
+  return {
+    ...enriched,
+    track_label: trackLabel,
+    is_open_data: isOpenDataSatelliteId(satelliteId),
+    is_priority_track: trackLabel === 'A69' || trackLabel === 'D105' || trackLabel === 'NISAR',
+  };
+}
+
+function getFrameTimestamp(frame) {
+  const timestamp = new Date(frame?.date || '').getTime();
+  return Number.isFinite(timestamp) ? timestamp : null;
+}
+
+function findNearestFrameWithValue(frames, sourceFrame, predicate, maxDiffMs = 120000) {
+  const sourceTime = getFrameTimestamp(sourceFrame);
+  let best = null;
+  let bestDiff = Number.POSITIVE_INFINITY;
+
+  for (const frame of frames) {
+    if (frame === sourceFrame || !predicate(frame)) continue;
+
+    const frameTime = getFrameTimestamp(frame);
+    const diff = sourceTime === null || frameTime === null ? 0 : Math.abs(frameTime - sourceTime);
+    if (diff > maxDiffMs) continue;
+    if (diff < bestDiff) {
+      best = frame;
+      bestDiff = diff;
+    }
+  }
+
+  return best;
+}
+
+function reconcileFrameMetadata(frames) {
+  const pathGroups = new Map();
+  const productGroups = new Map();
+
+  for (const frame of frames) {
+    const pathKey = [
+      frame.satellite_id || '',
+      frame.direction_norm || '',
+      getFramePathNumber(frame) ?? '',
+      frame.mode || '',
+    ].join('|');
+    if (!pathGroups.has(pathKey)) pathGroups.set(pathKey, []);
+    pathGroups.get(pathKey).push(frame);
+
+    const productKey = `${pathKey}|${frame.product_type_norm || ''}`;
+    if (!productGroups.has(productKey)) productGroups.set(productKey, []);
+    productGroups.get(productKey).push(frame);
+  }
+
+  for (const frame of frames) {
+    const pathKey = [
+      frame.satellite_id || '',
+      frame.direction_norm || '',
+      getFramePathNumber(frame) ?? '',
+      frame.mode || '',
+    ].join('|');
+    const productKey = `${pathKey}|${frame.product_type_norm || ''}`;
+    const samePathFrames = pathGroups.get(pathKey) || [];
+    const sameProductFrames = productGroups.get(productKey) || [];
+
+    if (!frame.asf_url) {
+      const asfMatch = findNearestFrameWithValue(
+        sameProductFrames,
+        frame,
+        candidate => !!candidate.asf_url
+      );
+      if (asfMatch?.asf_url) frame.asf_url = asfMatch.asf_url;
+    }
+
+    if (frame.frame_number_norm === null) {
+      const exactMatch = findNearestFrameWithValue(
+        sameProductFrames,
+        frame,
+        candidate => candidate.frame_number_norm !== null
+      );
+      const fallbackMatch = exactMatch || findNearestFrameWithValue(
+        samePathFrames,
+        frame,
+        candidate => candidate.frame_number_norm !== null
+      );
+      if (fallbackMatch && fallbackMatch.frame_number_norm !== null) {
+        frame.frame_number_norm = fallbackMatch.frame_number_norm;
+      }
+    }
+  }
+
+  return frames;
+}
+
+async function loadData() {
+  ensureAdvancedState();
+  ldmsg('Loading cached frame inventory...');
+  try {
+    const response = await fetch('./data/sar_status.json', { cache: 'default' });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+    if (!Array.isArray(data.taiwan_frames)) throw new Error('Invalid payload');
+
+    document.getElementById('hdr-time').textContent = `${data.updated_at || '--'}${data.version ? ` · data ${data.version}` : ''}`;
+    state.baseStats = data;
+    state.rawFrames = reconcileFrameMetadata(
+      data.taiwan_frames.map(enhanceFrame).filter(frame => frame.is_open_data)
+    );
+    rebuildFrameCaches();
+    applyTabDateWindow();
+    bindAdvancedControls();
+    renderSatelliteSelect();
+    renderFormatOptions();
+    resetAdvancedFilters(false);
+    applyAdvancedFilters();
+    return;
+  } catch (error) {
+    console.warn('Cached JSON unavailable, fallback to live ASF query.', error);
+  }
+
+  ldmsg('Loading live ASF frames...');
+  await liveFetchASF();
+}
+
+function matchesSidebarFilters(sat) {
+  ensureAdvancedState();
+  if (!isOpenDataSatelliteId(sat.id)) return false;
+  if (state.band !== 'ALL' && sat.band !== state.band) return false;
+  if (state.tab === 'op' && sat.status === 'ret') return false;
+  if (state.tab === 'tw') return state.filteredFrames.some(frame => satMatchesFrame(sat, frame));
+  return true;
+}
+
+function bindAdvancedControls() {
+  if (bindAdvancedControls.done) return;
+  bindAdvancedControls.done = true;
+
+  document.getElementById('filter-satellite')?.addEventListener('change', event => {
+    state.filters.satellite = event.target.value;
+    state.selectedSat = SATS.find(s => s.id === state.filters.satellite) || null;
+    renderFormatOptions();
+    applyAdvancedFilters();
+  });
+
+  document.getElementById('filter-direction')?.addEventListener('change', event => {
+    state.filters.direction = event.target.value;
+    applyAdvancedFilters();
+  });
+
+  document.getElementById('filter-show-other-tracks')?.addEventListener('change', event => {
+    state.filters.showOtherSentinelTracks = !!event.target.checked;
+    applyAdvancedFilters();
+  });
+
+  document.getElementById('filter-show-same-track')?.addEventListener('change', event => {
+    state.filters.showSameTrackInDrawer = !!event.target.checked;
+    if (state.selectedFrameKey) {
+      const selectedFrame = state.filteredFrames.find(frame => getFrameKey(frame) === state.selectedFrameKey);
+      if (selectedFrame) openFrameDrawer(selectedFrame);
+    }
+  });
+
+  for (const id of ['filter-frame-min', 'filter-frame-max', 'filter-path-min', 'filter-path-max', 'filter-date-start', 'filter-date-end']) {
+    document.getElementById(id)?.addEventListener('input', event => {
+      let key = '';
+      if (id === 'filter-frame-min') key = 'frameMin';
+      if (id === 'filter-frame-max') key = 'frameMax';
+      if (id === 'filter-path-min') key = 'pathMin';
+      if (id === 'filter-path-max') key = 'pathMax';
+      if (id === 'filter-date-start') key = 'dateStart';
+      if (id === 'filter-date-end') key = 'dateEnd';
+      if (key) {
+        state.filters[key] = event.target.value.trim();
+        if (key === 'dateStart' || key === 'dateEnd') updateDateShortcutState();
+        applyAdvancedFilters();
+      }
+    });
+  }
+
+  for (const id of ['btn-asf', 'btn-cop']) {
+    const el = document.getElementById(id);
+    if (el && el.tagName === 'A') el.removeAttribute('href');
+  }
+}
+
+function renderSatelliteSelect() {
+  ensureAdvancedState();
+  const select = document.getElementById('filter-satellite');
+  if (!select) return;
+  const counts = state.cache?.satelliteCounts || new Map();
+
+  const visibleSats = SATS.filter(matchesSidebarFilters).filter(sat => (counts.get(sat.id) || 0) > 0);
+  const orderedSats = [
+    ...visibleSats.filter(isFeaturedSatellite),
+    ...visibleSats.filter(sat => !isFeaturedSatellite(sat)),
+  ];
+
+  const options = ['<option value="ALL">All satellites</option>'];
+  for (const sat of orderedSats) {
+    const count = counts.get(sat.id) || 0;
+    options.push(`<option value="${sat.id}">${sat.name}${count ? ` (${count})` : ''}</option>`);
+  }
+  select.innerHTML = options.join('');
+  if (![...select.options].some(opt => opt.value === state.filters.satellite)) {
+    state.filters.satellite = 'ALL';
+  }
+  select.value = state.filters.satellite;
+}
+
+function getFormatPoolFrames() {
+  ensureAdvancedState();
+  if (state.filters.satellite === 'ALL') return state.rawFrames;
+  return state.rawFrames.filter(frame => frame.satellite_id === state.filters.satellite);
+}
+
+function getDefaultFormatsForSatellite(types) {
+  const satKey = state.filters.satellite === 'ALL' ? 'ALL' : state.filters.satellite;
+  const preferred = DEFAULT_PRODUCT_TYPES_BY_SATELLITE[satKey] || DEFAULT_PRODUCT_TYPES;
+  const defaults = types.filter(type => preferred.includes(type));
+  return defaults.length ? defaults : types;
+}
+
+function renderFormatOptions() {
+  ensureAdvancedState();
+  const wrap = document.getElementById('format-options');
+  const summary = document.getElementById('product-summary');
+  if (!wrap) return;
+
+  const types = [...new Set(getFormatPoolFrames().map(frame => frame.product_type_norm).filter(Boolean))].sort();
+  if (!types.length) {
+    wrap.innerHTML = '<span class="filter-note">No product types in current inventory.</span>';
+    state.filters.formats = new Set();
+    if (summary) summary.textContent = '0 visible';
+    return;
+  }
+
+  const stillValid = [...state.filters.formats].filter(type => types.includes(type));
+  if (!stillValid.length) {
+    state.filters.formats = new Set(getDefaultFormatsForSatellite(types));
+  } else if (stillValid.length !== state.filters.formats.size) {
+    state.filters.formats = new Set(stillValid);
+  }
+
+  wrap.innerHTML = '';
+  for (const type of types) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'format-chip' + (state.filters.formats.has(type) ? ' on' : '');
+    button.textContent = type;
+    button.onclick = () => {
+      if (state.filters.formats.has(type)) state.filters.formats.delete(type);
+      else state.filters.formats.add(type);
+      renderFormatOptions();
+      applyAdvancedFilters();
+    };
+    wrap.appendChild(button);
+  }
+  if (summary) summary.textContent = `${state.filters.formats.size} selected · ${types.length} visible`;
+}
+
+function resetAdvancedFilters(apply = true) {
+  ensureAdvancedState();
+  const allTypes = [...new Set(state.rawFrames.map(frame => frame.product_type_norm).filter(Boolean))];
+  const window = getDefaultWeekWindow();
+  state.filters.satellite = 'ALL';
+  state.filters.direction = 'ALL';
+  state.filters.showSameTrackInDrawer = false;
+  state.filters.showOtherSentinelTracks = false;
+  state.filters.pathMin = '';
+  state.filters.pathMax = '';
+  state.filters.frameMin = '';
+  state.filters.frameMax = '';
+  state.filters.dateStart = window.start;
+  state.filters.dateEnd = window.end;
+  state.filters.formats = new Set(getDefaultFormatsForSatellite(allTypes));
+  state.selectedSat = null;
+
+  const satSel = document.getElementById('filter-satellite');
+  const dirSel = document.getElementById('filter-direction');
+  const pathMin = document.getElementById('filter-path-min');
+  const pathMax = document.getElementById('filter-path-max');
+  const frameMin = document.getElementById('filter-frame-min');
+  const frameMax = document.getElementById('filter-frame-max');
+  const dateStart = document.getElementById('filter-date-start');
+  const dateEnd = document.getElementById('filter-date-end');
+  const showSameTrack = document.getElementById('filter-show-same-track');
+  const showOtherTracks = document.getElementById('filter-show-other-tracks');
+  if (satSel) satSel.value = 'ALL';
+  if (dirSel) dirSel.value = 'ALL';
+  if (showSameTrack) showSameTrack.checked = false;
+  if (showOtherTracks) showOtherTracks.checked = false;
+  if (pathMin) pathMin.value = '';
+  if (pathMax) pathMax.value = '';
+  if (frameMin) frameMin.value = '';
+  if (frameMax) frameMax.value = '';
+  if (dateStart) dateStart.value = window.start;
+  if (dateEnd) dateEnd.value = window.end;
+  updateDateShortcutState();
+  syncViewModeControl();
+  renderFormatOptions();
+  if (apply) applyAdvancedFilters();
+}
+
+function frameMatchesAdvancedFilters(frame) {
+  if (!frame.is_open_data) return false;
+  if (frame.track_label === 'OTHER_S1' && !state.filters.showOtherSentinelTracks) return false;
+  if (state.band !== 'ALL' && frame.satellite_band !== state.band) return false;
+  if (state.tab === 'op' && frame.sat_status === 'ret') return false;
+  if (state.filters.satellite !== 'ALL' && frame.satellite_id !== state.filters.satellite) return false;
+  if (state.filters.direction !== 'ALL' && frame.direction_norm !== state.filters.direction) return false;
+  if (state.filters.formats.size && !state.filters.formats.has(frame.product_type_norm)) return false;
+
+  const pathMinVal = normalizeFrameNumber(state.filters.pathMin);
+  const pathMaxVal = normalizeFrameNumber(state.filters.pathMax);
+  const pathVal = normalizeFrameNumber(frame.path_number) ?? normalizeFrameNumber(frame.orbit);
+  if (pathMinVal !== null && (pathVal === null || pathVal < pathMinVal)) return false;
+  if (pathMaxVal !== null && (pathVal === null || pathVal > pathMaxVal)) return false;
+
+  const min = normalizeFrameNumber(state.filters.frameMin);
+  const max = normalizeFrameNumber(state.filters.frameMax);
+  if (min !== null && (frame.frame_number_norm === null || frame.frame_number_norm < min)) return false;
+  if (max !== null && (frame.frame_number_norm === null || frame.frame_number_norm > max)) return false;
+
+  if (state.filters.dateStart && frame.date && frame.date.slice(0, 10) < state.filters.dateStart) return false;
+  if (state.filters.dateEnd && frame.date && frame.date.slice(0, 10) > state.filters.dateEnd) return false;
+
+  return true;
+}
+
+function getFrameBoundsPreview() {
+  return state.rawFrames.filter(frame => {
+    if (state.band !== 'ALL' && frame.satellite_band !== state.band) return false;
+    if (state.tab === 'op' && frame.sat_status === 'ret') return false;
+    if (state.filters.satellite !== 'ALL' && frame.satellite_id !== state.filters.satellite) return false;
+    if (state.filters.direction !== 'ALL' && frame.direction_norm !== state.filters.direction) return false;
+    if (state.filters.formats.size && !state.filters.formats.has(frame.product_type_norm)) return false;
+    return frame.frame_number_norm !== null;
+  }).map(frame => frame.frame_number_norm);
+}
+
+function applyAdvancedFilters() {
+  ensureAdvancedState();
+  renderFormatOptions();
+  state.filteredFrames = state.rawFrames.filter(frameMatchesAdvancedFilters);
+  if (state.selectedFrameKey && !state.filteredFrames.some(frame => getFrameKey(frame) === state.selectedFrameKey)) {
+    state.selectedFrameKey = null;
+  }
+  state.frames = state.filteredFrames;
+  renderSatelliteSelect();
+  renderSatList();
+  renderFrames();
+  renderMobileFeed();
+  updateStats();
+  updateFilterHints();
+  updateDownloadButtons();
+}
+
+function selectSatellite(sat, row) {
+  ensureAdvancedState();
+  state.selectedSat = sat;
+  state.filters.satellite = sat.id;
+  const select = document.getElementById('filter-satellite');
+  if (select) select.value = sat.id;
+  openDrawer(sat, row, state.rawFrames.some(frame => satMatchesFrame(sat, frame)));
+  applyAdvancedFilters();
+}
+
+function updateStats(data = state.baseStats || {}) {
+  ensureAdvancedState();
+  document.getElementById('st-frames').textContent = state.filteredFrames.length;
+  document.getElementById('st-sats').textContent = new Set(state.filteredFrames.map(frame => frame.satellite_id)).size;
+
+  const start = new Date(data.query_start || Date.now() - 7 * 864e5);
+  const end = new Date(data.query_end || Date.now());
+  const fmt = value => `${value.getMonth()+1}/${value.getDate()}`;
+  document.getElementById('st-period').textContent = `${fmt(start)} - ${fmt(end)}`;
+
+  const asf = state.filteredFrames.filter(frame => frame.asf_url).length;
+  const cop = state.filteredFrames.filter(frame => frame.copernicus_url || frame.download_url).length;
+  document.getElementById('dl-info').textContent = `${state.filteredFrames.length} frames | ASF ${asf} | Copernicus ${cop}`;
+  updateNextExpected();
+  updateLegend();
+  updateDateShortcutState();
+}
+
+function summarizeSelectedFrames() {
+  const selectedFrame = state.selectedFrameKey
+    ? state.filteredFrames.find(frame => getFrameKey(frame) === state.selectedFrameKey)
+    : null;
+  if (selectedFrame) return [selectedFrame];
+  if (state.filters.satellite !== 'ALL') return state.filteredFrames.filter(frame => frame.satellite_id === state.filters.satellite);
+  return state.filteredFrames;
+}
+
+function updateLegend() {
+  const wrap = document.getElementById('legend-items');
+  if (!wrap) return;
+
+  const frames = summarizeSelectedFrames();
+  if (!frames.length) {
+    wrap.innerHTML = '<div class="legend-empty">No visible data matches the current filters.</div>';
+    return;
+  }
+
+  const groups = new Map();
+  for (const frame of frames) {
+    const { label, color } = getFrameVisualInfo(frame);
+    const current = groups.get(label) || { label, color, count: 0 };
+    current.count += 1;
+    groups.set(label, current);
+  }
+
+  const items = [...groups.values()]
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 5)
+    .map(item => `
+      <div class="legend-item">
+        <div class="legend-main">
+          <div class="legend-swatch" style="background:${item.color}"></div>
+          <span>${item.label}</span>
+        </div>
+        <div class="legend-value">${item.count}</div>
+      </div>
+    `);
+  wrap.innerHTML = items.join('');
+}
+
+function renderMobileFeed() {
+  const wrap = document.getElementById('mobile-feed');
+  if (!wrap) return;
+
+  const frames = [...(state.filteredFrames || [])].sort((a, b) => (getFrameTimestamp(b) ?? 0) - (getFrameTimestamp(a) ?? 0));
+  if (!frames.length) {
+    wrap.innerHTML = `
+      <div class="mobile-feed-summary">
+        <div class="mobile-feed-title">Update Tracker</div>
+        <div class="mobile-feed-meta">No visible imagery matches the current time window and filters.</div>
+      </div>
+    `;
+    return;
+  }
+
+  const uniqueGranules = new Set(frames.map(frame => normalizeGranuleKey(frame.granule) || getFrameKey(frame))).size;
+  const grouped = new Map();
+  for (const frame of frames) {
+    const dayKey = (frame.date || '').slice(0, 10) || 'Unknown date';
+    const list = grouped.get(dayKey) || [];
+    list.push(frame);
+    grouped.set(dayKey, list);
+  }
+
+  const dateSummary = state.filters.dateStart && state.filters.dateEnd
+    ? `${state.filters.dateStart} → ${state.filters.dateEnd}`
+    : 'Open date range';
+
+  const body = [...grouped.entries()].map(([day, dayFrames]) => {
+    const dayLabel = day === 'Unknown date' ? day : new Date(`${day}T00:00:00`).toLocaleDateString('zh-TW', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      weekday: 'short',
+    });
+
+    const cards = dayFrames.slice(0, 24).map(frame => {
+      const timeLabel = frame.date ? new Date(frame.date).toLocaleTimeString('zh-TW', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+      }) : '--';
+      const sourceLabel = frame.asf_url && (frame.copernicus_url || frame.download_url)
+        ? 'ASF + Copernicus'
+        : (frame.copernicus_url || frame.download_url)
+          ? 'Copernicus only'
+          : frame.asf_url
+            ? 'ASF only'
+            : 'No source';
+      return `
+        <div class="mobile-feed-card">
+          <div class="mobile-feed-card-title">${frame.granule || 'Unknown Granule'}</div>
+          <div class="mobile-feed-card-meta">${timeLabel} · ${frame.satellite_name || frame.platform || '--'} · ${frame.product_type_norm || '--'}</div>
+          <div class="mobile-feed-card-sub">track ${getFramePathNumber(frame) ?? '--'} · frame ${frame.frame_number_norm ?? '--'} · ${frame.direction_norm || '--'} · ${sourceLabel}</div>
+        </div>
+      `;
+    }).join('');
+
+    return `
+      <section class="mobile-feed-group">
+        <div class="mobile-feed-date">${dayLabel} · ${dayFrames.length} file${dayFrames.length === 1 ? '' : 's'}</div>
+        ${cards}
+      </section>
+    `;
+  }).join('');
+
+  wrap.innerHTML = `
+    <div class="mobile-feed-summary">
+      <div class="mobile-feed-title">Update Tracker</div>
+      <div class="mobile-feed-meta">${uniqueGranules} unique file(s) in current view</div>
+      <div class="mobile-feed-meta">${dateSummary}</div>
+    </div>
+    ${body}
+  `;
+}
+
+function updateFilterHints() {
+  ensureAdvancedState();
+  const values = getFrameBoundsPreview();
+  const note = document.getElementById('filter-note');
+  const frameMin = document.getElementById('filter-frame-min');
+  const frameMax = document.getElementById('filter-frame-max');
+  if (!note || !frameMin || !frameMax) return;
+
+  if (!values.length) {
+    frameMin.placeholder = 'Any';
+    frameMax.placeholder = 'Any';
+    note.textContent = state.filters.showOtherSentinelTracks
+      ? 'Showing Sentinel-1 Track 69 / 105 plus other Taiwan Sentinel-1 tracks and NISAR.'
+      : 'Default focus is Sentinel-1 Track 69, Track 105, and NISAR.';
+    return;
+  }
+
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  frameMin.placeholder = String(min);
+  frameMax.placeholder = String(max);
+  const extra = state.filters.showOtherSentinelTracks ? 'with other Sentinel-1 Taiwan tracks visible' : 'priority tracks only';
+  const satLabel = state.filters.satellite === 'ALL' ? 'Sentinel-1 + NISAR' : state.filters.satellite;
+  note.textContent = `Formats for ${satLabel}: ${[...state.filters.formats].join(', ') || 'none'} | frame range ${min}-${max} | ${extra}`;
+}
+
+function openDrawer(sat, row, thisWeek) {
+  document.querySelectorAll('.sat-row').forEach(item => item.classList.remove('active'));
+  if (row) row.classList.add('active');
+
+  state.selectedFrameKey = null;
+  if (typeof updateMapSelectionState === 'function') updateMapSelectionState();
+
+  document.getElementById('d-name').textContent = sat.name;
+  document.getElementById('d-agency').textContent = sat.agency;
+  document.getElementById('d-week-wrap').innerHTML = thisWeek ? '<div class="d-week-badge">Frames available this week</div>' : '';
+
+  const statusMap = { op:'Operational', ret:'Retired', up:'Upcoming' };
+  document.getElementById('d-grid').innerHTML = `
+    <div class="d-item"><div class="k">Status</div><div class="v">${statusMap[sat.status] || sat.status}</div></div>
+    <div class="d-item"><div class="k">Band</div><div class="v"><span class="badge b${sat.band}">${sat.band}-band</span></div></div>
+    <div class="d-item"><div class="k">Frequency</div><div class="v"><small>${sat.freq}</small></div></div>
+    <div class="d-item"><div class="k">Resolution</div><div class="v"><small>${sat.res}</small></div></div>
+    <div class="d-item"><div class="k">Swath</div><div class="v"><small>${sat.swath}</small></div></div>
+    <div class="d-item"><div class="k">Launch</div><div class="v"><small>${sat.launched}</small></div></div>
+    ${sat.retired ? `<div class="d-item"><div class="k">Retired</div><div class="v"><small>${sat.retired}</small></div></div>` : ''}
+  `;
+  document.getElementById('d-desc').textContent = sat.desc;
+  document.getElementById('drawer').classList.add('open');
+}
+
+function setFilter(band, el) {
+  state.band = band;
+  document.querySelectorAll('.chip').forEach(chip => chip.classList.remove('on'));
+  el.classList.add('on');
+  renderSatelliteSelect();
+  applyAdvancedFilters();
+}
+
+function setTab(tab, el) {
+  state.tab = tab;
+  syncViewModeControl();
+  if (el) {
+    document.querySelectorAll('.tab').forEach(button => button.classList.remove('on'));
+    el.classList.add('on');
+  }
+  applyTabDateWindow();
+  renderSatelliteSelect();
+  applyAdvancedFilters();
+}
+
+function escapeXml(value) {
+  return String(value ?? '')
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;');
+}
+
+function createMeta4(frames, source) {
+  const selected = frames.filter(frame => {
+    return source === 'ASF'
+      ? !!frame.asf_url
+      : !!(frame.copernicus_url || frame.download_url);
+  });
+
+  const lines = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<metalink xmlns="urn:ietf:params:xml:ns:metalink">',
+    `  <!-- generated ${new Date().toISOString()} -->`,
+    `  <!-- ${selected.length} filtered items -->`,
+  ];
+
+  for (const frame of selected) {
+    const url = source === 'ASF' ? frame.asf_url : (frame.copernicus_url || frame.download_url);
+    const name = source === 'Copernicus' ? `${frame.granule}.SAFE.zip` : frame.granule;
+    lines.push(`  <file name="${escapeXml(name)}">`);
+    if (frame.file_size_mb) lines.push(`    <size>${Math.round(Number(frame.file_size_mb) * 1000000)}</size>`);
+    lines.push(`    <url priority="1">${escapeXml(url)}</url>`);
+    lines.push('  </file>');
+  }
+  lines.push('</metalink>');
+  return { text: lines.join('\n'), count: selected.length };
+}
+
+function triggerDownload(filename, text, type) {
+  const blob = new Blob([text], { type });
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement('a');
+  anchor.href = url;
+  anchor.download = filename;
+  anchor.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function buildDownloadName(prefix, ext) {
+  ensureAdvancedState();
+  const sat = state.filters.satellite === 'ALL' ? 'all' : state.filters.satellite.toLowerCase();
+  const dir = state.filters.direction === 'ALL' ? 'all' : state.filters.direction.toLowerCase();
+  return `${prefix}_${sat}_${dir}_${new Date().toISOString().slice(0,10)}.${ext}`;
+}
+
+function updateDownloadButtons() {
+  ensureAdvancedState();
+  const asfMeta4 = createMeta4(state.filteredFrames, 'ASF');
+  const copMeta4 = createMeta4(state.filteredFrames, 'Copernicus');
+  const copyBtn = document.getElementById('btn-copy-urls');
+  const asfBtn = document.getElementById('btn-asf');
+  const copBtn = document.getElementById('btn-cop');
+  const csvBtn = document.getElementById('btn-csv');
+  if (!asfBtn || !copBtn) return;
+  asfBtn.textContent = `ASF .meta4 (${asfMeta4.count})`;
+  copBtn.textContent = `Copernicus .meta4 (${copMeta4.count})`;
+  asfBtn.style.pointerEvents = asfMeta4.count ? 'auto' : 'none';
+  copBtn.style.pointerEvents = copMeta4.count ? 'auto' : 'none';
+  asfBtn.style.opacity = asfMeta4.count ? '1' : '.35';
+  copBtn.style.opacity = copMeta4.count ? '1' : '.35';
+  if (copyBtn) {
+    const totalUrls = state.filteredFrames.filter(f => f.asf_url || f.copernicus_url || f.download_url).length;
+    copyBtn.style.pointerEvents = totalUrls ? 'auto' : 'none';
+    copyBtn.style.opacity = totalUrls ? '1' : '.35';
+  }
+  if (csvBtn) {
+    csvBtn.style.pointerEvents = state.filteredFrames.length ? 'auto' : 'none';
+    csvBtn.style.opacity = state.filteredFrames.length ? '1' : '.35';
+  }
+  const fileCount = new Set(state.filteredFrames.map(frame => normalizeGranuleKey(frame.granule))).size;
+  const dlInfo = document.getElementById('dl-info');
+  if (dlInfo) {
+    dlInfo.textContent = `${fileCount} files · ASF ${asfMeta4.count} · CDSE ${copMeta4.count}`;
+  }
+}
+
+window.copyFilteredUrls = function() {
+  ensureAdvancedState();
+  const urls = state.filteredFrames.map(f => f.asf_url || f.copernicus_url || (f.source === 'Copernicus' ? f.download_url : null)).filter(Boolean);
+  if (!urls.length) {
+    alert('No URLs available for the current filters.');
+    return;
+  }
+  navigator.clipboard.writeText(urls.join('\n')).then(() => {
+    const btn = document.getElementById('btn-copy-urls');
+    if (btn) {
+      const orig = btn.innerHTML;
+      btn.innerHTML = `📋 Copied ${urls.length} Links!`;
+      btn.style.background = 'var(--green)';
+      btn.style.color = '#fff';
+      btn.style.borderColor = 'var(--green)';
+      setTimeout(() => {
+        btn.innerHTML = orig;
+        btn.style.background = '';
+        btn.style.color = '';
+        btn.style.borderColor = '';
+      }, 2000);
+    }
+  }).catch(err => {
+    alert('Copy failed: ' + err.message);
+  });
+}
+
+function downloadMeta4(source) {
+  ensureAdvancedState();
+  const meta4 = createMeta4(state.filteredFrames, source);
+  if (!meta4.count) {
+    alert(`No ${source} scenes match the current filters.`);
+    return;
+  }
+  triggerDownload(buildDownloadName(source.toLowerCase(), 'meta4'), meta4.text, 'application/metalink4+xml;charset=utf-8');
+}
+
+function exportCSV() {
+  ensureAdvancedState();
+  if (!state.filteredFrames.length) {
+    alert('No frames match the current filters.');
+    return;
+  }
+
+  const columns = ['source', 'granule', 'satellite_name', 'product_type_norm', 'direction_norm', 'frame_number_norm', 'path_number', 'orbit', 'date', 'stop_time', 'mode', 'polarization', 'file_size_mb', 'asf_url', 'download_url'];
+  const csv = [
+    columns.join(','),
+    ...state.filteredFrames.map(frame => columns.map(column => {
+      const value = String(frame[column] ?? '');
+      return /[",\n]/.test(value) ? `"${value.replaceAll('"', '""')}"` : value;
+    }).join(',')),
+  ].join('\n');
+
+  triggerDownload(buildDownloadName('taiwan_sar', 'csv'), '\uFEFF' + csv, 'text/csv;charset=utf-8');
+}
+
+function renderSatList() {
+  ensureAdvancedState();
+  const list = document.getElementById('sat-list');
+  if (!list) return;
+  list.innerHTML = '';
+
+  const filteredSats = SATS.filter(matchesSidebarFilters);
+  const featured = filteredSats.filter(isFeaturedSatellite);
+  const folded = filteredSats.filter(sat => !isFeaturedSatellite(sat));
+
+  let total = 0;
+  if (featured.length) {
+    const label = document.createElement('div');
+    label.className = 'group-label';
+    label.textContent = 'Featured open missions';
+    list.appendChild(label);
+    for (const sat of featured) total += appendSatelliteRow(list, sat);
+  }
+
+  if (folded.length) {
+    const details = document.createElement('details');
+    details.className = 'sat-fold';
+    details.open = folded.some(sat => state.filters.satellite === sat.id);
+    details.innerHTML = `
+      <summary>Other SAR missions <span>${folded.length}</span></summary>
+      <div class="sat-fold-note">Commercial and access-restricted missions stay collapsed by default so the sidebar stays centered on Sentinel-1 and NISAR.</div>`;
+    for (const sat of folded) total += appendSatelliteRow(details, sat);
+    list.appendChild(details);
+  }
+
+  document.getElementById('sb-count').textContent = `${total} satellites listed`;
+}
+
+function appendSatelliteRow(container, sat) {
+  const counts = state.cache?.satelliteCounts || new Map();
+  const count = counts.get(sat.id) || 0;
+  if (!count) return 0;
+  const hasFramesInFilter = state.filteredFrames.some(frame => frame.satellite_id === sat.id);
+  const row = document.createElement('div');
+  row.className = 'sat-row' + (state.filters.satellite === sat.id ? ' active' : '');
+  row.onclick = () => selectSatellite(sat, row);
+  row.innerHTML = `
+    <div class="dot ${sat.status}"></div>
+    <div class="sat-info">
+      <div class="sat-name">${sat.name}</div>
+      <div class="sat-meta">${sat.agency} · ${sat.launched.slice(0,4)}${sat.retired ? ` - ${sat.retired.slice(0,4)}` : ''} · ${count} frames</div>
+    </div>
+    <div class="badges">
+      ${hasFramesInFilter ? '<span class="this-week">THIS WEEK</span>' : ''}
+      <span class="badge b${sat.band}">${sat.band}</span>
+    </div>`;
+  container.appendChild(row);
+  return 1;
+}
+
+function updateMapSelectionState() {
+  const hasSelection = !!state.selectedFrameKey;
+  for (const item of state.framePolygons) {
+    const color = item.polygon.options.baseColor;
+    if (item.key === state.selectedFrameKey) {
+      item.polygon.setStyle({ color: '#ffffff', weight: 3.5, fillColor: color, fillOpacity: 0.4, opacity: 1, dashArray: '8 5' });
+      item.polygon.bringToFront();
+    } else if (hasSelection) {
+      item.polygon.setStyle({ color, weight: 1, fillColor: color, fillOpacity: 0.03, opacity: 0.2, dashArray: null });
+    } else {
+      item.polygon.setStyle({ color, weight: 1.6, fillColor: color, fillOpacity: 0.1, opacity: 0.82, dashArray: null });
+    }
+  }
+  updateLegend();
+}
+
+window.copyDrawerLink = function(btn, url) {
+  navigator.clipboard.writeText(url).then(() => {
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '📋 Copied!';
+    btn.style.background = 'var(--green)';
+    btn.style.color = '#fff';
+    setTimeout(() => {
+      btn.innerHTML = originalText;
+      btn.style.background = '';
+      btn.style.color = '';
+    }, 1500);
+  });
+};
+
+async function liveFetchASF() {
+  ensureAdvancedState();
+  const now = new Date();
+  const start = new Date(now - 7 * 24 * 3600 * 1000);
+  const fmt = value => value.toISOString().replace(/\.\d+Z$/, 'UTC');
+  const url = 'https://api.daac.asf.alaska.edu/services/search/param?' + new URLSearchParams({
+    intersectsWith: 'POLYGON((119 21,123 21,123 26.5,119 26.5,119 21))',
+    platform: 'S1A,S1B,S1C,S1D,NISAR',
+    processingLevel: 'SLC,GRD_HD,GRD_MS,GRD_HS,GRD_FD,RSLC,GSLC,L1_RSLC,L1_GSLC,L2_GCOV,L2_GUNW',
+    start: fmt(start),
+    end: fmt(now),
+    output: 'geojson',
+    maxresults: 1000,
+  });
+
+  try {
+    const response = await fetch(url);
+    const payload = await response.json();
+    state.rawFrames = (payload.features || []).map(feature => {
+      const p = feature.properties || {};
+      return enhanceFrame({
+        source: 'ASF',
+        granule: p.sceneName || '',
+        platform: p.platform || '',
+        sensor: p.sensor || '',
+        date: p.startTime || '',
+        stop_time: p.stopTime || '',
+        mode: p.beamModeType || p.beamMode || '',
+        polarization: p.polarization || '',
+        orbit: p.orbit || '',
+        path_number: p.pathNumber || '',
+        frame_number: p.frameNumber || '',
+        direction: p.flightDirection || '',
+        product_type: p.processingLevel || '',
+        processing_level: p.processingLevel || '',
+        footprint: feature.geometry,
+        asf_url: p.url || '',
+        file_size_mb: +(p.sizeMB || 0).toFixed(1),
+      });
+    }).filter(frame => frame.is_open_data);
+    rebuildFrameCaches();
+
+    state.baseStats = {
+      total_frames: state.rawFrames.length,
+      query_start: start.toISOString(),
+      query_end: now.toISOString(),
+      asf_count: state.rawFrames.length,
+      copernicus_count: 0,
+    };
+    document.getElementById('hdr-time').textContent = 'Live ASF ' + new Date().toLocaleString('zh-TW');
+    applyTabDateWindow();
+    renderSatelliteSelect();
+    renderFormatOptions();
+    resetAdvancedFilters(false);
+    applyAdvancedFilters();
+  } catch (error) {
+    document.getElementById('hdr-time').textContent = 'Load failed';
+    console.error('ASF API failed', error);
+  }
+}
+
+function getFrameSeriesKey(frame) {
+  return [
+    frame.satellite_id || '',
+    frame.direction_norm || '',
+    getFramePathNumber(frame) ?? '',
+    frame.frame_number_norm ?? '',
+  ].join('|');
+}
+
+function getFrameKey(frame) {
+  return normalizeGranuleKey(frame.granule) || [
+    getFrameSeriesKey(frame),
+    (frame.date || '').slice(0, 19),
+  ].join('|');
+}
+
+function getHistoryEntryKey(frame) {
+  return [
+    getFrameSeriesKey(frame),
+    (frame.date || '').slice(0, 19),
+    frame.product_type_norm || '',
+    frame.mode || '',
+  ].join('|');
+}
+
+function normalizeGranuleKey(granule) {
+  return String(granule || '')
+    .replace(/\.SAFE$/i, '')
+    .trim()
+    .toUpperCase();
+}
+
+function parseGranuleAcquisitionWindow(granule) {
+  const matches = String(granule || '').match(/\d{8}T\d{6}/g) || [];
+  const parseUtc = value => {
+    if (!value) return null;
+    const iso = `${value.slice(0, 4)}-${value.slice(4, 6)}-${value.slice(6, 8)}T${value.slice(9, 11)}:${value.slice(11, 13)}:${value.slice(13, 15)}Z`;
+    const timestamp = Date.parse(iso);
+    return Number.isFinite(timestamp) ? timestamp : null;
+  };
+
+  return {
+    startMs: parseUtc(matches[0]),
+    stopMs: parseUtc(matches[1]),
+  };
+}
+
+function getFrameAcquisitionInfo(frame) {
+  const granuleWindow = parseGranuleAcquisitionWindow(frame?.granule);
+  const startMs = granuleWindow.startMs ?? getFrameTimestamp(frame);
+  const stopMs = granuleWindow.stopMs ?? startMs;
+  const key = startMs !== null
+    ? new Date(startMs).toISOString().slice(0, 19)
+    : `${getFrameSeriesKey(frame)}|${normalizeGranuleKey(frame?.granule) || 'unknown'}`;
+
+  const label = startMs !== null
+    ? new Date(startMs).toLocaleString('zh-TW', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+        timeZone: 'UTC',
+      }) + ' UTC'
+    : 'Unknown acquisition time';
+
+  return { key, startMs, stopMs, label };
+}
+
+function parseGranuleMetadata(granule) {
+  const text = String(granule || '').replace(/\.SAFE$/i, '').trim();
+  if (!text) return [];
+
+  if (/^S1[ABCD]_/.test(text)) {
+    const parts = text.split('_').filter(Boolean);
+    const start = parts[4] || '';
+    const stop = parts[5] || '';
+    return [
+      { label: 'Mission', value: parts[0] || '--' },
+      { label: 'Beam', value: parts[1] || '--' },
+      { label: 'Product', value: parts[2] || '--' },
+      { label: 'Level/Class/Pol', value: parts[3] || '--' },
+      { label: 'Start', value: start || '--' },
+      { label: 'Stop', value: stop || '--' },
+      { label: 'Absolute Orbit', value: parts[6] || '--' },
+      { label: 'Data-take', value: parts[7] || '--' },
+      { label: 'Unique ID', value: parts[8] || '--' },
+    ];
+  }
+
+  if (/^NISAR_/.test(text)) {
+    const parts = text.split('_');
+    const start = parts[10] || '';
+    const stop = parts[11] || '';
+    return [
+      { label: 'Mission', value: parts[0] || '--' },
+      { label: 'Level', value: parts[1] || '--' },
+      { label: 'Instrument', value: parts[2] || '--' },
+      { label: 'Product', value: parts[3] || '--' },
+      { label: 'Release', value: parts[4] || '--' },
+      { label: 'Orbit', value: parts[5] || '--' },
+      { label: 'Direction', value: parts[6] || '--' },
+      { label: 'Track', value: parts[7] || '--' },
+      { label: 'Frame Group', value: parts[8] || '--' },
+      { label: 'Pol', value: parts[9] || '--' },
+      { label: 'Start', value: start || '--' },
+      { label: 'Stop', value: stop || '--' },
+      { label: 'Build', value: parts[12] || '--' },
+      { label: 'Mode', value: parts[13] || '--' },
+      { label: 'Provider', value: parts[14] || '--' },
+      { label: 'Version', value: parts[15] || '--' },
+    ];
+  }
+
+  return [{ label: 'Granule', value: text }];
+}
+
+function getQueryEndDate() {
+  const raw = state.baseStats?.query_end || state.baseStats?.last_successful_fetch;
+  const date = raw ? new Date(raw) : new Date();
+  return Number.isNaN(date.getTime()) ? new Date() : date;
+}
+
+function formatDateInputValue(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function getDefaultWeekWindow() {
+  const end = getQueryEndDate();
+  const start = new Date(end);
+  start.setDate(start.getDate() - 6);
+  return {
+    start: formatDateInputValue(start),
+    end: formatDateInputValue(end),
+  };
+}
+
+function getPresetWindow(days) {
+  const end = getQueryEndDate();
+  const start = new Date(end);
+  start.setDate(start.getDate() - (days - 1));
+  return {
+    start: formatDateInputValue(start),
+    end: formatDateInputValue(end),
+  };
+}
+
+function syncViewModeControl() {
+  // View mode select was removed; tabs remain the canonical state.
+}
+
+function updateDateShortcutState() {
+  const weekBtn = document.getElementById('preset-week');
+  const monthBtn = document.getElementById('preset-month');
+  const sixMonthBtn = document.getElementById('preset-6months');
+  const yearBtn = document.getElementById('preset-year');
+  if (!weekBtn || !monthBtn || !sixMonthBtn || !yearBtn) return;
+
+  const week = getPresetWindow(7);
+  const month = getPresetWindow(30);
+  const sixMonths = getPresetWindow(183);
+  const year = getPresetWindow(365);
+  const currentStart = state.filters?.dateStart || '';
+  const currentEnd = state.filters?.dateEnd || '';
+
+  weekBtn.classList.toggle('on', currentStart === week.start && currentEnd === week.end);
+  monthBtn.classList.toggle('on', currentStart === month.start && currentEnd === month.end);
+  sixMonthBtn.classList.toggle('on', currentStart === sixMonths.start && currentEnd === sixMonths.end);
+  yearBtn.classList.toggle('on', currentStart === year.start && currentEnd === year.end);
+}
+
+function applyPresetDateWindow(days) {
+  ensureAdvancedState();
+  const window = getPresetWindow(days);
+  state.filters.dateStart = window.start;
+  state.filters.dateEnd = window.end;
+  const dateStart = document.getElementById('filter-date-start');
+  const dateEnd = document.getElementById('filter-date-end');
+  if (dateStart) dateStart.value = window.start;
+  if (dateEnd) dateEnd.value = window.end;
+  updateDateShortcutState();
+  applyAdvancedFilters();
+}
+
+function applyTabDateWindow() {
+  const dateStart = document.getElementById('filter-date-start');
+  const dateEnd = document.getElementById('filter-date-end');
+  if (!dateStart || !dateEnd) return;
+
+  if (state.tab === 'tw') {
+    const window = getDefaultWeekWindow();
+    state.filters.dateStart = window.start;
+    state.filters.dateEnd = window.end;
+    dateStart.value = window.start;
+    dateEnd.value = window.end;
+    updateDateShortcutState();
+    return;
+  }
+
+  if (!state.filters.dateStart || !state.filters.dateEnd) {
+    const window = getDefaultWeekWindow();
+    state.filters.dateStart = window.start;
+    state.filters.dateEnd = window.end;
+    dateStart.value = window.start;
+    dateEnd.value = window.end;
+  }
+  updateDateShortcutState();
+}
+
+function updateNextExpected() {
+  const el = document.getElementById('st-next');
+  const labelEl = document.getElementById('st-next-label');
+  if (!el) return;
+  const latestFrames = [...(state.filteredFrames || [])].filter(frame => frame?.date);
+  const groups = new Map();
+
+  for (const frame of latestFrames) {
+    const visual = getFrameVisualInfo(frame);
+    const current = groups.get(visual.label);
+    if (!current || String(frame.date || '') > String(current.date || '')) {
+      groups.set(visual.label, frame);
+    }
+  }
+
+  const preferredOrder = [
+    'A69',
+    'D105',
+    'NISAR A39',
+    'NISAR A111',
+    'NISAR D61',
+    'NISAR D133',
+  ];
+
+  const lines = [...groups.entries()]
+    .sort((a, b) => {
+      const aIndex = preferredOrder.indexOf(a[0]);
+      const bIndex = preferredOrder.indexOf(b[0]);
+      if (aIndex !== -1 || bIndex !== -1) {
+        return (aIndex === -1 ? 999 : aIndex) - (bIndex === -1 ? 999 : bIndex);
+      }
+      return a[0].localeCompare(b[0]);
+    })
+    .slice(0, 6)
+    .map(([label, frame]) => {
+      const date = new Date(frame.date);
+      return `${label} ${date.getMonth() + 1}/${date.getDate()}`;
+    });
+
+  if (labelEl) {
+    labelEl.textContent = lines.some(line => line.startsWith('NISAR'))
+      ? 'Latest Visible Tracks'
+      : 'Latest A69 / D105';
+  }
+  el.textContent = lines.length ? lines.join(' | ') : 'Need history';
+}
+
+function renderFrames() {
+  ensureAdvancedState();
+  state.frameLayer.clearLayers();
+  state.framePolygons = [];
+
+  const seenKeys = new Set();
+
+  for (const frame of state.filteredFrames) {
+    const geom = frame.footprint;
+    if (!geom || geom.type !== 'Polygon' || !Array.isArray(geom.coordinates)) continue;
+
+    const key = getFrameKey(frame);
+    if (seenKeys.has(key)) continue;
+    seenKeys.add(key);
+
+    const rings = geom.coordinates.map(ring => ring.map(coord => [coord[1], coord[0]]));
+    const color = getFrameVisualInfo(frame).color;
+
+    const polygon = L.polygon(rings, {
+      color,
+      baseColor: color,
+      weight: 1.8,
+      fillColor: color,
+      fillOpacity: 0.1,
+      opacity: 0.85,
+    });
+
+    polygon.on('mouseover', function() {
+      if (state.selectedFrameKey === key) return;
+      this.setStyle({ weight: 3.2, fillOpacity: 0.28, opacity: 1 });
+    });
+    polygon.on('mouseout', function() {
+      if (state.selectedFrameKey === key) return;
+      const hasSelection = !!state.selectedFrameKey;
+      this.setStyle({ weight: hasSelection ? 1 : 1.8, fillOpacity: hasSelection ? 0.03 : 0.1, opacity: hasSelection ? 0.2 : 0.85 });
+    });
+    polygon.on('click', (e) => {
+      L.DomEvent.stopPropagation(e);
+      if (state.selectedFrameKey === key) {
+        state.selectedFrameKey = null;
+        closeDrawer();
+      } else {
+        state.selectedFrameKey = key;
+        openFrameDrawer(frame);
+      }
+      updateMapSelectionState();
+    });
+
+    state.frameLayer.addLayer(polygon);
+    state.framePolygons.push({ key, polygon });
+  }
+
+  updateMapSelectionState();
+  if (!state.selectedFrameKey) {
+    focusMapOnFrames(state.filteredFrames, { withDrawer: false, maxZoom: 8, pad: 0.2 });
+  }
+}
+
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function createDrawerCopyButton(label, url, variant) {
+  return `<button type="button" class="d-copy-btn ${variant}" onclick="copyDrawerLink(this, '${escapeHtml(url)}')">${label}</button>`;
+}
+
+// Final override: group drawer content by the clicked acquisition date, not by the whole track history.
+function openFrameDrawer(clickedFrame) {
+  document.querySelectorAll('.sat-row').forEach(r => r.classList.remove('active'));
+  state.selectedSat = null;
+
+  const showSameTrackInDrawer = !!state.filters?.showSameTrackInDrawer;
+  const clickedPath = getFramePathNumber(clickedFrame);
+  const clickedAcquisition = getFrameAcquisitionInfo(clickedFrame);
+  const historyFrames = state.filteredFrames
+    .filter(frame => {
+      if ((frame.satellite_id || '') !== (clickedFrame.satellite_id || '')) return false;
+      if ((frame.direction_norm || '') !== (clickedFrame.direction_norm || '')) return false;
+      if (showSameTrackInDrawer) {
+        return getFramePathNumber(frame) === clickedPath;
+      }
+      return getFrameSeriesKey(frame) === getFrameSeriesKey(clickedFrame);
+    })
+    .sort((a, b) => (getFrameTimestamp(b) ?? 0) - (getFrameTimestamp(a) ?? 0));
+
+  const selectedFrames = historyFrames.filter(frame => getFrameAcquisitionInfo(frame).key === clickedAcquisition.key);
+
+  const mergeFramesForDrawer = frames => {
+    const mergedEntries = new Map();
+    for (const frame of frames) {
+      const key = [
+        frame.product_type_norm || '',
+        frame.mode || '',
+        normalizeGranuleKey(frame.granule) || '',
+      ].join('|');
+      const current = mergedEntries.get(key);
+      if (!current) {
+        mergedEntries.set(key, { ...frame });
+        continue;
+      }
+      current.asf_url ||= frame.asf_url;
+      current.copernicus_url ||= frame.copernicus_url;
+      current.download_url ||= frame.download_url;
+      current.file_size_mb ||= frame.file_size_mb;
+      current.frame_number_norm ??= frame.frame_number_norm;
+      current.granule ||= frame.granule;
+    }
+    return [...mergedEntries.values()].sort((a, b) => {
+      const aScore = (a.asf_url ? 4 : 0) + (a.frame_number_norm !== null ? 2 : 0) + (a.copernicus_url || a.download_url ? 1 : 0);
+      const bScore = (b.asf_url ? 4 : 0) + (b.frame_number_norm !== null ? 2 : 0) + (b.copernicus_url || b.download_url ? 1 : 0);
+      if (bScore !== aScore) return bScore - aScore;
+      return (getFrameTimestamp(b) ?? 0) - (getFrameTimestamp(a) ?? 0);
+    });
+  };
+
+  const entries = mergeFramesForDrawer(selectedFrames.length ? selectedFrames : [clickedFrame]);
+  const primary = entries[0] || clickedFrame;
+  const acquisition = getFrameAcquisitionInfo(primary);
+  const acquisitionCount = new Set(historyFrames.map(frame => getFrameAcquisitionInfo(frame).key)).size;
+  const getSourceState = frame => {
+    const hasAsf = !!frame.asf_url;
+    const hasCdse = !!(frame.copernicus_url || frame.download_url);
+    if (hasAsf && hasCdse) return 'ASF + Copernicus';
+    if (hasCdse) return 'Copernicus only';
+    if (hasAsf) return 'ASF only';
+    return 'No download source';
+  };
+  const getFrameStatus = frame => {
+    if (frame.frame_number_norm !== null && frame.frame_number_norm !== undefined && frame.frame_number_norm !== '') {
+      return String(frame.frame_number_norm);
+    }
+    return frame.asf_url
+      ? 'Frame metadata unavailable in source record'
+      : 'No matched ASF frame metadata in local dataset';
+  };
+  const frameCenterLabel = getFrameStatus(primary);
+
+  document.getElementById('d-name').textContent = `Track ${getFramePathNumber(primary) ?? '--'} · Frame ${frameCenterLabel}`;
+  document.getElementById('d-agency').textContent = `${primary.satellite_name || primary.platform || '--'} · ${primary.track_label || '--'} · ${getSourceState(primary)}`;
+  document.getElementById('d-week-wrap').innerHTML = '';
+  document.getElementById('d-grid').innerHTML = `
+    <div class="d-item"><div class="k">Track</div><div class="v">${getFramePathNumber(primary) ?? '--'}</div></div>
+    <div class="d-item"><div class="k">Frame</div><div class="v">${frameCenterLabel}</div></div>
+    <div class="d-item"><div class="k">Direction</div><div class="v"><small>${primary.direction_norm || '--'}</small></div></div>
+    <div class="d-item"><div class="k">Mode</div><div class="v"><small>${primary.mode || '--'}</small></div></div>
+    <div class="d-item"><div class="k">Acquisitions</div><div class="v"><small>${acquisitionCount} acquisition dates</small></div></div>
+    <div class="d-item"><div class="k">Files</div><div class="v"><small>${entries.length} file${entries.length === 1 ? '' : 's'} in drawer</small></div></div>
+    <div class="d-item span-2"><div class="k">Source</div><div class="v"><small>${getSourceState(primary)}</small></div></div>
+    <div class="d-item span-2"><div class="k">Selected Date</div><div class="v"><small>${acquisition.label}</small></div></div>
+  `;
+
+  const section = document.querySelector('.d-section');
+  if (section) section.textContent = `Acquisition Files Under Track ${getFramePathNumber(primary) ?? '--'} / Frame ${frameCenterLabel}`;
+
+  const groups = new Map();
+  for (const frame of historyFrames) {
+    const info = getFrameAcquisitionInfo(frame);
+    const list = groups.get(info.key) || [];
+    list.push(frame);
+    groups.set(info.key, list);
+  }
+
+  const cards = [...groups.entries()].map(([groupKey, groupFrames]) => {
+    const heading = getFrameAcquisitionInfo(groupFrames[0]).label;
+    const groupEntries = mergeFramesForDrawer(groupFrames);
+    const body = groupEntries.map(frame => {
+      const asfUrl = frame.asf_url || '';
+      const cdseUrl = frame.copernicus_url || frame.download_url || '';
+      const size = frame.file_size_mb ? `${frame.file_size_mb} MB` : '--';
+      const granuleMeta = parseGranuleMetadata(frame.granule)
+        .map(item => `<div class="d-link-meta-row"><span>${escapeHtml(item.label)}</span><strong>${escapeHtml(item.value)}</strong></div>`)
+        .join('');
+      const actions = [
+        asfUrl ? createDrawerCopyButton('Copy ASF', asfUrl, 'asf') : '',
+        cdseUrl ? createDrawerCopyButton('Copy CDSE', cdseUrl, 'cdse') : '',
+      ].filter(Boolean).join('');
+
+      return `
+        <div class="d-link-card">
+          <div class="d-link-title">
+            ${escapeHtml(frame.granule || 'Unknown Granule')}
+          </div>
+          <div class="d-link-top">
+            <span>${escapeHtml(frame.product_type_norm || 'OCN')} / ${escapeHtml(size)}</span>
+            <span>${escapeHtml(frame.date ? new Date(frame.date).toLocaleString('zh-TW') : '--')}</span>
+          </div>
+          <div class="d-link-submeta">
+            ${escapeHtml(getSourceState(frame))} / path ${escapeHtml(getFramePathNumber(frame) ?? '--')} / frame ${escapeHtml(getFrameStatus(frame))}
+          </div>
+          <div class="d-link-meta">
+            ${granuleMeta}
+          </div>
+          <div class="d-link-actions">
+            ${actions || '<span class="d-link-empty">No download URL available.</span>'}
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    return `
+      <details class="d-group-fold"${groupKey === clickedAcquisition.key ? ' open' : ''}>
+        <summary class="d-group-summary">
+          <span class="d-group-head">${escapeHtml(heading)}</span>
+          <span class="d-group-meta">${groupEntries.length} file${groupEntries.length === 1 ? '' : 's'}</span>
+        </summary>
+        <div class="d-group-body">
+          ${body}
+        </div>
+      </details>
+    `;
+  }).join('');
+  document.getElementById('d-desc').innerHTML = cards || '<span style="color: var(--muted)">No file matches this track.</span>';
+  document.getElementById('drawer').classList.add('open');
+}
+
+window.addEventListener('DOMContentLoaded', async () => {
+  ensureAdvancedState();
+  applyAppearanceSettings();
+  syncAppearanceControls();
+  setupReadableUI();
+  rebuildDownloadBar();
+  bindAppearanceControls();
+  bindAdvancedControls();
+  initMap();
+  await loadData();
+
+  document.addEventListener('click', event => {
+    const panel = document.getElementById('export-panel');
+    const toggle = document.getElementById('btn-export-toggle');
+    if (!panel || !panel.classList.contains('open')) return;
+    if (panel.contains(event.target) || toggle?.contains(event.target)) return;
+    toggleExportPanel(false);
+  });
+
+  setTimeout(() => {
+    document.getElementById('loading').classList.add('gone');
+  }, 700);
+});
+</script>
+</body>
+</html>
