@@ -1593,7 +1593,7 @@ const OPEN_DATA_SATELLITES = new Set(['S1A', 'S1B', 'S1C', 'S1D', 'NISAR']);
 const SENTINEL_SATELLITES = new Set(['S1A', 'S1B', 'S1C', 'S1D']);
 const THEME_OPTIONS = new Set(['soft-slate', 'night-ops', 'paper-radar', 'field-survey']);
 const FONT_SIZE_OPTIONS = new Set(['2', '4', '6', '8', '10']);
-const APP_VERSION = 'v0.6.11';
+const APP_VERSION = new Date().toISOString().slice(0, 10);
 
 const PLATFORM_COLORS = {
   'S1A':'#00e5ff','S1C':'#00b8d4','S1D':'#0097b2',

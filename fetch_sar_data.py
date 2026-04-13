@@ -25,7 +25,7 @@ import urllib.request
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-__version__ = "0.7.0"
+__version__ = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
 
 DAYS_BACK = int(os.environ.get("DAYS_BACK", "7"))
