@@ -104,6 +104,11 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: Inject build timestamp
+        run: |
+          BUILD_TIME=$(date -u '+%Y-%m-%dT%H:%MZ')
+          sed -i "s/__BUILD_TIME__/${BUILD_TIME}/" index.html
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
