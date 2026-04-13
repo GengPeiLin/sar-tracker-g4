@@ -401,7 +401,21 @@ def main() -> int:
 
     asf_frames = fetch_asf_frames(s1_start, nisar_start, now, bootstrap)
     cop_frames = fetch_copernicus_frames(cop_start, now, bootstrap)
+
+    # Only update watermark if at least one source returned data
+    asf_ok = len(asf_frames) > 0
+    cop_ok = len(cop_frames) > 0
+    if not asf_ok:
+        log("WARNING: ASF returned 0 frames — watermark will not advance")
+    if not cop_ok:
+        log("WARNING: Copernicus returned 0 frames — watermark will not advance")
+
     all_frames = merge_frames([*existing_frames, *asf_frames, *cop_frames])
+
+    # Guard: skip overwrite if merged result is empty but catalog had data
+    if len(all_frames) == 0 and len(existing_frames) > 0:
+        log("ERROR: Merged frame count is 0 but catalog had data — aborting write to prevent data loss")
+        return 1
 
     track_summary: dict[str, int] = {}
     satellite_summary: dict[str, int] = {}
@@ -409,10 +423,13 @@ def main() -> int:
         track_summary[frame["track_label"]] = track_summary.get(frame["track_label"], 0) + 1
         satellite_summary[frame["platform"]] = satellite_summary.get(frame["platform"], 0) + 1
 
+    # Only advance watermark if both sources succeeded
+    fetch_timestamp = now.isoformat() if (asf_ok and cop_ok) else catalog.get("last_successful_fetch", now.isoformat())
+
     catalog_payload = {
         "version": __version__,
         "updated_at": now.strftime("%Y-%m-%d %H:%M UTC"),
-        "last_successful_fetch": now.isoformat(),
+        "last_successful_fetch": fetch_timestamp,
         "bootstrap_completed": True,
         "bootstrap_started_at": catalog.get("bootstrap_started_at") or (s1_start.isoformat() if bootstrap else catalog.get("bootstrap_started_at")),
         "incremental_overlap_days": INCREMENTAL_OVERLAP_DAYS,
@@ -427,7 +444,7 @@ def main() -> int:
         "query_end": now.isoformat(),
         "days_back": DAYS_BACK if not bootstrap else None,
         "bootstrap_completed": True,
-        "last_successful_fetch": now.isoformat(),
+        "last_successful_fetch": fetch_timestamp,
         "total_frames": len(all_frames),
         "asf_count": len([frame for frame in all_frames if frame.get("asf_url")]),
         "copernicus_count": len([frame for frame in all_frames if frame.get("download_url")]),
