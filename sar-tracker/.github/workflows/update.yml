@@ -1,0 +1,114 @@
+name: 每週更新 SAR 取像資料
+
+on:
+  schedule:
+    # 每週一 UTC 02:00（台灣時間週一 10:00）
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      days_back:
+        description: '查詢過去幾天（預設 7）'
+        required: false
+        default: '7'
+      full_rebuild:
+        description: 'Set true to rebuild the full metadata catalog'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# 同一時間只允許一個 Pages 部署
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  # ── Job 1：抓資料、生成 meta4、commit ────────────────────────────────────────
+  update-data:
+    name: 抓取 ASF + Copernicus 資料
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      data-changed: ${{ steps.commit.outputs.changed }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+
+      # 純標準函式庫，通常不需要額外安裝
+      # 若日後要用 asf_search SDK，取消下面注解
+      # - run: pip install asf-search
+
+      - name: 執行資料抓取
+        env:
+          DAYS_BACK: ${{ github.event.inputs.days_back || '7' }}
+          FORCE_FULL_REBUILD: ${{ github.event.inputs.full_rebuild || 'false' }}
+        run: python fetch_sar_data.py
+
+      - name: 印出摘要
+        run: |
+          python - << 'EOF'
+          import json
+          d = json.load(open('data/sar_status.json'))
+          print(f"更新時間    : {d['updated_at']}")
+          print(f"台灣取像幀數 : {d['total_frames']}")
+          print(f"  ASF來源   : {d.get('asf_count', '?')}")
+          print(f"  Copernicus : {d.get('copernicus_count', '?')}")
+          print(f"衛星分佈    : {d['satellite_summary']}")
+          import os; print(f"ASF meta4   : {os.path.getsize('data/asf_taiwan.meta4')} bytes")
+          print(f"COP meta4   : {os.path.getsize('data/copernicus_taiwan.meta4')} bytes")
+          EOF
+          
+      - name: Commit & Push 更新後的資料
+        id: commit
+        run: |
+          git config user.name  "SAR Monitor Bot"
+          git config user.email "sar-monitor[bot]@users.noreply.github.com"
+          git add data/
+          if git diff --staged --quiet; then
+            echo "無變更，略過 commit"
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            git commit -m "data: 自動更新 SAR 取像資料 $(date -u '+%Y-%m-%d')"
+            git fetch origin main
+            git rebase origin/main
+            git push origin HEAD:main
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+  # ── Job 2：部署到 GitHub Pages ────────────────────────────────────────────
+  deploy-pages:
+    name: 部署到 GitHub Pages
+    needs: update-data
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout（含最新 data/）
+        uses: actions/checkout@v4
+        with:
+          ref: main   # 確保拿到剛 commit 的資料
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'   # 整個 repo 根目錄
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
