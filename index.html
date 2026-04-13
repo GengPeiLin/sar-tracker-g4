@@ -2384,10 +2384,12 @@ function updateStats(data = state.baseStats || {}) {
   document.getElementById('st-frames').textContent = state.filteredFrames.length;
   document.getElementById('st-sats').textContent = new Set(state.filteredFrames.map(frame => frame.satellite_id)).size;
 
-  const start = new Date(data.query_start || Date.now() - 7 * 864e5);
-  const end = new Date(data.query_end || Date.now());
-  const fmt = value => `${value.getMonth()+1}/${value.getDate()}`;
-  document.getElementById('st-period').textContent = `${fmt(start)} - ${fmt(end)}`;
+  const fmt = d => { const v = new Date(d); return `${v.getMonth()+1}/${v.getDate()}`; };
+  const startStr = state.filters.dateStart || data.query_start;
+  const endStr   = state.filters.dateEnd   || data.query_end;
+  document.getElementById('st-period').textContent = startStr && endStr
+    ? `${fmt(startStr)} - ${fmt(endStr)}`
+    : '—';
 
   const asf = state.filteredFrames.filter(frame => frame.asf_url).length;
   const cop = state.filteredFrames.filter(frame => frame.copernicus_url || frame.download_url).length;
