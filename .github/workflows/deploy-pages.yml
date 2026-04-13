@@ -28,12 +28,11 @@ jobs:
       - name: Inject build timestamp
         run: |
           BUILD_TIME=$(date -u '+%Y-%m-%dT%H:%MZ')
-          sed -i "s/__BUILD_TIME__/${BUILD_TIME}/" index.html
-
+          python3 -c "import pathlib; p=pathlib.Path('index.html'); p.write_text(p.read_text('utf-8').replace('__BUILD_TIME__','$BUILD_TIME'),'utf-8'); print('Injected: $BUILD_TIME')"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'   # serve repo root (index.html + data/)
+          path: '.'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
