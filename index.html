@@ -1786,7 +1786,6 @@ function ensureAdvancedState() {
   state.selectedFrameKey ||= null;
   state.cache ||= {
     satelliteCounts: new Map(),
-    satellitesWithFrames: new Set(),
   };
   state.ui ||= {
     theme: 'soft-slate',
@@ -1813,17 +1812,14 @@ function ensureAdvancedState() {
 function rebuildFrameCaches() {
   ensureAdvancedState();
   const satelliteCounts = new Map();
-  const satellitesWithFrames = new Set();
 
   for (const frame of state.rawFrames) {
     const id = frame.satellite_id || '';
     if (!id) continue;
     satelliteCounts.set(id, (satelliteCounts.get(id) || 0) + 1);
-    satellitesWithFrames.add(id);
   }
 
   state.cache.satelliteCounts = satelliteCounts;
-  state.cache.satellitesWithFrames = satellitesWithFrames;
 }
 
 function isFeaturedSatellite(sat) {
@@ -1903,18 +1899,6 @@ function setupReadableUI() {
 
   const legend = document.querySelector('.map-legend');
   if (legend) legend.innerHTML = '<div class="legend-title">Visible Data</div><div id="legend-items"></div>';
-
-  const dlBar = document.querySelector('.dl-bar');
-  if (dlBar) {
-    dlBar.innerHTML = `
-      <span class="dl-label">Filtered Downloads</span>
-      <button class="dl-btn asf" id="btn-copy-urls" type="button" onclick="copyFilteredUrls()">📋 Copy All Links</button>
-      <button class="dl-btn asf" id="btn-asf" type="button" onclick="downloadMeta4('ASF')">ASF .meta4</button>
-      <button class="dl-btn cop" id="btn-cop" type="button" onclick="downloadMeta4('Copernicus')">CDSE .meta4</button>
-      <button class="dl-btn csv" type="button" onclick="exportCSV()">CSV Export</button>
-      <span class="dl-count" id="dl-info">0 frames</span>
-    `;
-  }
 
   const closeBtn = document.querySelector('.drawer-close');
   if (closeBtn) closeBtn.textContent = 'X';
@@ -2326,7 +2310,7 @@ function frameMatchesAdvancedFilters(frame) {
 
   const pathMinVal = normalizeFrameNumber(state.filters.pathMin);
   const pathMaxVal = normalizeFrameNumber(state.filters.pathMax);
-  const pathVal = normalizeFrameNumber(frame.path_number) ?? normalizeFrameNumber(frame.orbit);
+  const pathVal = getFramePathNumber(frame);
   if (pathMinVal !== null && (pathVal === null || pathVal < pathMinVal)) return false;
   if (pathMaxVal !== null && (pathVal === null || pathVal > pathMaxVal)) return false;
 
@@ -2348,6 +2332,8 @@ function getFrameBoundsPreview() {
     if (state.filters.satellite !== 'ALL' && frame.satellite_id !== state.filters.satellite) return false;
     if (state.filters.direction !== 'ALL' && frame.direction_norm !== state.filters.direction) return false;
     if (state.filters.formats.size && !state.filters.formats.has(frame.product_type_norm)) return false;
+    if (state.filters.dateStart && frame.date && frame.date.slice(0, 10) < state.filters.dateStart) return false;
+    if (state.filters.dateEnd && frame.date && frame.date.slice(0, 10) > state.filters.dateEnd) return false;
     return frame.frame_number_norm !== null;
   }).map(frame => frame.frame_number_norm);
 }
@@ -2375,7 +2361,7 @@ function selectSatellite(sat, row) {
   state.filters.satellite = sat.id;
   const select = document.getElementById('filter-satellite');
   if (select) select.value = sat.id;
-  openDrawer(sat, row, state.rawFrames.some(frame => satMatchesFrame(sat, frame)));
+  openDrawer(sat, row, state.filteredFrames.some(frame => satMatchesFrame(sat, frame)));
   applyAdvancedFilters();
 }
 
@@ -2391,9 +2377,6 @@ function updateStats(data = state.baseStats || {}) {
     ? `${fmt(startStr)} - ${fmt(endStr)}`
     : '—';
 
-  const asf = state.filteredFrames.filter(frame => frame.asf_url).length;
-  const cop = state.filteredFrames.filter(frame => frame.copernicus_url || frame.download_url).length;
-  document.getElementById('dl-info').textContent = `${state.filteredFrames.length} frames | ASF ${asf} | Copernicus ${cop}`;
   updateNextExpected();
   updateLegend();
   updateDateShortcutState();
@@ -2807,6 +2790,8 @@ window.copyDrawerLink = function(btn, url) {
       btn.style.background = '';
       btn.style.color = '';
     }, 1500);
+  }).catch(err => {
+    alert('Copy failed: ' + err.message);
   });
 };
 
@@ -3322,7 +3307,7 @@ function openFrameDrawer(clickedFrame) {
             ${escapeHtml(frame.granule || 'Unknown Granule')}
           </div>
           <div class="d-link-top">
-            <span>${escapeHtml(frame.product_type_norm || 'OCN')} / ${escapeHtml(size)}</span>
+            <span>${escapeHtml(frame.product_type_norm || 'UNKNOWN')} / ${escapeHtml(size)}</span>
             <span>${escapeHtml(frame.date ? new Date(frame.date).toLocaleString('zh-TW') : '--')}</span>
           </div>
           <div class="d-link-submeta">
