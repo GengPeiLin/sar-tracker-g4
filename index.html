@@ -1869,7 +1869,7 @@ function setupReadableUI() {
 
   const hdrStatus = document.querySelector('.hdr-status');
   if (hdrStatus) {
-    hdrStatus.innerHTML = `Updated: <b id="hdr-time">--</b>&nbsp;|&nbsp;ASF DAAC &amp; Copernicus CDSE&nbsp;|&nbsp;${APP_VERSION}`;
+    hdrStatus.innerHTML = `Data: <b id="hdr-time">--</b>&nbsp;|&nbsp;ASF DAAC &amp; Copernicus CDSE`;
   }
 
   syncViewModeControl();
@@ -2100,7 +2100,7 @@ async function loadData() {
     if (!Array.isArray(data.taiwan_frames)) throw new Error('Invalid payload');
 
     const elHdrTime = document.getElementById('hdr-time');
-    if (elHdrTime) elHdrTime.textContent = `${data.updated_at || '--'}${data.version ? ` · data ${data.version}` : ''}`;
+    if (elHdrTime) elHdrTime.textContent = data.updated_at || '--';
     state.baseStats = data;
     state.rawFrames = reconcileFrameMetadata(
       data.taiwan_frames.map(enhanceFrame).filter(frame => frame.is_open_data)
