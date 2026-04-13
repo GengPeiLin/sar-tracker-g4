@@ -2759,21 +2759,19 @@ function renderSatList() {
 }
 
 function appendSatelliteRow(container, sat) {
-  const counts = state.cache?.satelliteCounts || new Map();
-  const count = counts.get(sat.id) || 0;
-  if (!count) return 0;
-  const hasFramesInFilter = state.filteredFrames.some(frame => frame.satellite_id === sat.id);
+  const filteredCount = state.filteredFrames.filter(f => f.satellite_id === sat.id).length;
+  if (!filteredCount) return 0;
   const row = document.createElement('div');
   row.className = 'sat-row' + (state.filters.satellite === sat.id ? ' active' : '');
+  row.dataset.satId = sat.id;
   row.onclick = () => selectSatellite(sat, row);
   row.innerHTML = `
     <div class="dot ${sat.status}"></div>
     <div class="sat-info">
       <div class="sat-name">${sat.name}</div>
-      <div class="sat-meta">${sat.agency} · ${sat.launched.slice(0,4)}${sat.retired ? ` - ${sat.retired.slice(0,4)}` : ''} · ${count} frames</div>
+      <div class="sat-meta">${sat.agency} · ${sat.launched.slice(0,4)}${sat.retired ? ` - ${sat.retired.slice(0,4)}` : ''} · ${filteredCount} frames</div>
     </div>
     <div class="badges">
-      ${hasFramesInFilter ? '<span class="this-week">THIS WEEK</span>' : ''}
       <span class="badge b${sat.band}">${sat.band}</span>
     </div>`;
   container.appendChild(row);
@@ -3207,6 +3205,8 @@ function createDrawerCopyButton(label, url, variant) {
 function openFrameDrawer(clickedFrame) {
   document.querySelectorAll('.sat-row').forEach(r => r.classList.remove('active'));
   state.selectedSat = null;
+  const satRow = document.querySelector(`.sat-row[data-sat-id="${clickedFrame.satellite_id}"]`);
+  if (satRow) satRow.classList.add('active');
 
   const showSameTrackInDrawer = !!state.filters?.showSameTrackInDrawer;
   const clickedPath = getFramePathNumber(clickedFrame);
