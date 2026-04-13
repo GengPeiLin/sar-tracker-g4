@@ -2,8 +2,8 @@ name: Deploy static content to Pages
 
 on:
   push:
-    branches: ["main", "master"] # 當推送至 main 或 master 分支時觸發
-  workflow_dispatch: # 允許手動觸發
+    branches: ["main", "master"]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -28,7 +28,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.' # 將根目錄(含 index.html 及 data 資料夾)打包
+          path: '.'   # serve repo root (index.html + data/)
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
