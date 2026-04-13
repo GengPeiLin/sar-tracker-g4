@@ -45,15 +45,7 @@ An interactive dashboard for tracking SAR (Synthetic Aperture Radar) satellite a
 | Sentinel-1A / 1C / 1D | ESA | C | Operational |
 | Sentinel-1B | ESA | C | Retired (2021) |
 | NISAR | NASA / ISRO | L | Operational |
-| ALOS-2 / ALOS-4 | JAXA | L | Operational |
-| SAOCOM-1A / 1B | CONAE | L | Operational |
-| RADARSAT-2 | CSA | C | Operational |
-| RCM-1 / 2 / 3 | CSA | C | Operational |
-| COSMO-SkyMed SG-1 / 2 | ASI | X | Operational (commercial) |
-| TerraSAR-X / TanDEM-X | DLR / Airbus | X | Operational (commercial) |
-| ICEYE / Capella / Umbra / Synspective | Various | X | Operational (commercial) |
-| NovaSAR-1 | SSTL / UKSA | S | Operational |
-| ERS-1 / ERS-2 / ALOS-1 | ESA / JAXA | C / L | Retired |
+
 
 ---
 
