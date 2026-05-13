@@ -1,7 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metalink xmlns="urn:ietf:params:xml:ns:metalink">
-  <!-- generated 2026-05-12T05:36:03Z -->
-  <!-- 18715 scenes -->
+  <!-- generated 2026-05-13T05:45:48Z -->
+  <!-- 18730 scenes -->
+  <file name="S1C_IW_GRDH_1SDV_20260512T215214_20260512T215228_007626_00F7DD_E80E.SAFE.zip">
+    <size>957900000</size>
+    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(4ba6c61d-7231-4f57-a1d3-9469c74b6353)/$value</url>
+  </file>
+  <file name="S1C_IW_GRDH_1SDV_20260512T215214_20260512T215228_007626_00F7DD_ED8F_COG.SAFE.zip">
+    <size>448700000</size>
+    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(1be31626-2755-46ea-b133-65ae6dfbd15a)/$value</url>
+  </file>
+  <file name="S1C_IW_OCN__2SDV_20260512T215214_20260512T215228_007626_00F7DD_A8BE.SAFE.zip">
+    <size>52700000</size>
+    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(71fbef0e-f843-4d4b-bc02-6f2ab8d176d2)/$value</url>
+  </file>
+  <file name="S1C_IW_SLC__1SDV_20260512T215213_20260512T215228_007626_00F7DD_AE50.SAFE.zip">
+    <size>3895700000</size>
+    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(fbca018a-b8e7-484a-ade7-9d9ce0d08ec4)/$value</url>
+  </file>
+  <file name="S1C_IW_RAW__0SDV_20260512T215210_20260512T215228_007626_00F7DD_761E.SAFE.zip">
+    <size>909100000</size>
+    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(1969294a-7c71-42dd-bd28-a8306f9be6df)/$value</url>
+  </file>
+  <file name="S1C_IW_GRDH_1SDV_20260512T215149_20260512T215214_007626_00F7DD_5256.SAFE.zip">
+    <size>1694700000</size>
+    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(15cdbdd0-3163-4adc-ae5c-592bb968a90b)/$value</url>
+  </file>
+  <file name="S1C_IW_GRDH_1SDV_20260512T215149_20260512T215214_007626_00F7DD_1F02_COG.SAFE.zip">
+    <size>1040500000</size>
+    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(a5c8969d-25bc-433f-bd38-ed3ec0698f36)/$value</url>
+  </file>
+  <file name="S1C_IW_OCN__2SDV_20260512T215149_20260512T215214_007626_00F7DD_9068.SAFE.zip">
+    <size>57500000</size>
+    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(b91e334c-4615-455c-9790-25a13d6467b7)/$value</url>
+  </file>
+  <file name="S1C_IW_SLC__1SDV_20260512T215148_20260512T215215_007626_00F7DD_3292.SAFE.zip">
+    <size>7453300000</size>
+    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(4dad8c15-b509-4bd8-af4e-27e6e6c7e8eb)/$value</url>
+  </file>
+  <file name="S1C_IW_RAW__0SDV_20260512T215145_20260512T215218_007626_00F7DD_F033.SAFE.zip">
+    <size>1796400000</size>
+    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(e7228d93-cb59-424c-a6c1-13ebc43207ac)/$value</url>
+  </file>
+  <file name="S1C_IW_SLC__1SDV_20260512T215120_20260512T215150_007626_00F7DD_93EF.SAFE.zip">
+    <size>8526000000</size>
+    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(539d5aa7-7a9d-420c-b3f2-103b4f17526b)/$value</url>
+  </file>
+  <file name="S1C_IW_GRDH_1SDV_20260512T215120_20260512T215149_007626_00F7DD_CBA0.SAFE.zip">
+    <size>1986200000</size>
+    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(3477f425-2684-4b99-9c39-ace117b37bb3)/$value</url>
+  </file>
+  <file name="S1C_IW_RAW__0SDV_20260512T215120_20260512T215153_007626_00F7DD_481A.SAFE.zip">
+    <size>1781300000</size>
+    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(c05f9793-efa4-4bb9-adb2-d21ee7f8be94)/$value</url>
+  </file>
+  <file name="S1C_IW_OCN__2SDV_20260512T215120_20260512T215149_007626_00F7DD_5CC1.SAFE.zip">
+    <size>69000000</size>
+    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(4cac5635-b95c-43e1-8e31-53309a343950)/$value</url>
+  </file>
+  <file name="S1C_IW_GRDH_1SDV_20260512T215120_20260512T215149_007626_00F7DD_41D5_COG.SAFE.zip">
+    <size>1127000000</size>
+    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(9b6d9b43-2a78-4344-b22d-a1a41fedb2b8)/$value</url>
+  </file>
   <file name="S1D_IW_RAW__0SDV_20260511T095957_20260511T100009_002735_0049C4_E4DC.SAFE.zip">
     <size>605600000</size>
     <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(11809773-5d3c-421d-b931-68f90b121f1c)/$value</url>
