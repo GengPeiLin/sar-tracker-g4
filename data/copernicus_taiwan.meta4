@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metalink xmlns="urn:ietf:params:xml:ns:metalink">
-  <!-- generated 2026-06-22T07:20:32Z -->
+  <!-- generated 2026-06-23T06:03:35Z -->
   <!-- 19040 scenes -->
   <file name="S1A_IW_GRDH_1SDV_20260621T100202_20260621T100227_065066_08337F_0BAB_COG.SAFE.zip">
     <size>1060700000</size>
@@ -102,6 +102,14 @@
     <size>893900000</size>
     <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(3ead68c7-aaf4-4cbd-9bea-b156274d057c)/$value</url>
   </file>
+  <file name="S1D_IW_SLC__1SDV_20260618T215201_20260618T215228_003296_005C5E_3DC5.SAFE.zip">
+    <size>7453300000</size>
+    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(00e51330-6c69-4926-9aea-32d5741a8451)/$value</url>
+  </file>
+  <file name="S1D_IW_GRDH_1SDV_20260618T215201_20260618T215226_003296_005C5E_D6FB.SAFE.zip">
+    <size>1694600000</size>
+    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(ef6d4e09-2910-4c51-9a7d-09cb0d786975)/$value</url>
+  </file>
   <file name="S1D_IW_OCN__2SDV_20260618T215201_20260618T215226_003296_005C5E_CF3D.SAFE.zip">
     <size>57700000</size>
     <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(83c82cb6-3f27-4d4f-b4b7-99e5ea3e4d5d)/$value</url>
@@ -109,14 +117,6 @@
   <file name="S1D_IW_GRDH_1SDV_20260618T215201_20260618T215226_003296_005C5E_7EA6_COG.SAFE.zip">
     <size>1088700000</size>
     <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(a2f301e9-451e-4fe2-9124-6220185e8f9e)/$value</url>
-  </file>
-  <file name="S1D_IW_GRDH_1SDV_20260618T215201_20260618T215226_003296_005C5E_D6FB.SAFE.zip">
-    <size>1694600000</size>
-    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(ef6d4e09-2910-4c51-9a7d-09cb0d786975)/$value</url>
-  </file>
-  <file name="S1D_IW_SLC__1SDV_20260618T215201_20260618T215228_003296_005C5E_3DC5.SAFE.zip">
-    <size>7453300000</size>
-    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(00e51330-6c69-4926-9aea-32d5741a8451)/$value</url>
   </file>
   <file name="S1D_IW_RAW__0SDV_20260618T215158_20260618T215230_003296_005C5E_CA1E.SAFE.zip">
     <size>1761900000</size>
