@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metalink xmlns="urn:ietf:params:xml:ns:metalink">
-  <!-- generated 2026-07-29T05:18:40Z -->
-  <!-- 19329 scenes -->
+  <!-- generated 2026-07-30T04:55:23Z -->
+  <!-- 19330 scenes -->
+  <file name="S1D_IW_RAW__0SDV_20260729T095318_20260729T095350_003887_007050_FAC6.SAFE.zip">
+    <size>1745200000</size>
+    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(5dc3036a-c8d5-40d2-9bcf-dbbd71d7f958)/$value</url>
+  </file>
   <file name="S1C_IW_RAW__0SDV_20260728T095949_20260728T100018_008742_011532_E338.SAFE.zip">
     <size>1529300000</size>
     <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(94145f9b-094d-40ee-a1b0-82513730624f)/$value</url>
