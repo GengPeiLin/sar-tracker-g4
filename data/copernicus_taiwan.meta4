@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metalink xmlns="urn:ietf:params:xml:ns:metalink">
-  <!-- generated 2026-08-24T02:58:32Z -->
-  <!-- 19480 scenes -->
-  <file name="S1C_IW_GRDH_1SDV_20260823T215217_20260823T215231_009128_0121FA_BECD_COG.SAFE.zip">
-    <size>499600000</size>
-    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(034291fb-dd1a-4afb-b44b-1865fc448fb2)/$value</url>
+  <!-- generated 2026-08-25T02:53:57Z -->
+  <!-- 19484 scenes -->
+  <file name="S1D_IW_OCN__2SDV_20260824T214439_20260824T214508_004273_007DCC_D12F.SAFE.zip">
+    <size>101800000</size>
+    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(3df47354-4690-427c-900e-28f059f55d26)/$value</url>
+  </file>
+  <file name="S1D_IW_GRDH_1SDV_20260824T214439_20260824T214508_004273_007DCC_A23C_COG.SAFE.zip">
+    <size>1037900000</size>
+    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(b41b4c0c-1130-49a7-9617-c31fa8932758)/$value</url>
+  </file>
+  <file name="S1D_IW_GRDH_1SDV_20260824T214439_20260824T214508_004273_007DCC_D69A.SAFE.zip">
+    <size>2016300000</size>
+    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(e4640a4d-eb24-484f-a5fa-05d8a856fe7f)/$value</url>
+  </file>
+  <file name="S1D_IW_SLC__1SDV_20260824T214439_20260824T214509_004273_007DCC_14F5.SAFE.zip">
+    <size>8746900000</size>
+    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(e4bcfa96-dd32-463d-abaa-ee57b08e5135)/$value</url>
   </file>
   <file name="S1C_IW_GRDH_1SDV_20260823T215217_20260823T215231_009128_0121FA_7321.SAFE.zip">
     <size>958200000</size>
     <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(3d9594b5-82e8-4198-88f9-17bad7a41168)/$value</url>
+  </file>
+  <file name="S1C_IW_GRDH_1SDV_20260823T215217_20260823T215231_009128_0121FA_BECD_COG.SAFE.zip">
+    <size>499600000</size>
+    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(034291fb-dd1a-4afb-b44b-1865fc448fb2)/$value</url>
   </file>
   <file name="S1C_IW_OCN__2SDV_20260823T215217_20260823T215231_009128_0121FA_45B0.SAFE.zip">
     <size>52800000</size>
@@ -42,6 +58,14 @@
     <size>1804600000</size>
     <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(72b34cc8-f5a8-48a2-bca4-741756a0edec)/$value</url>
   </file>
+  <file name="S1C_IW_SLC__1SDV_20260823T215123_20260823T215153_009128_0121FA_0DF6.SAFE.zip">
+    <size>8526100000</size>
+    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(0daf3ff5-d5ef-46ec-b510-81d41ada648c)/$value</url>
+  </file>
+  <file name="S1C_IW_GRDH_1SDV_20260823T215123_20260823T215152_009128_0121FA_C794.SAFE.zip">
+    <size>1986200000</size>
+    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(acd9c0dd-62c2-4ba4-968f-a274f406c775)/$value</url>
+  </file>
   <file name="S1C_IW_RAW__0SDV_20260823T215123_20260823T215156_009128_0121FA_5816.SAFE.zip">
     <size>1796600000</size>
     <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(ef94cc68-626a-4ff4-b71b-09960b1b6774)/$value</url>
@@ -53,14 +77,6 @@
   <file name="S1C_IW_GRDH_1SDV_20260823T215123_20260823T215152_009128_0121FA_E9AA_COG.SAFE.zip">
     <size>1183000000</size>
     <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(72c06c90-b1f0-4bc6-9986-6079bbf8f3e3)/$value</url>
-  </file>
-  <file name="S1C_IW_GRDH_1SDV_20260823T215123_20260823T215152_009128_0121FA_C794.SAFE.zip">
-    <size>1986200000</size>
-    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(acd9c0dd-62c2-4ba4-968f-a274f406c775)/$value</url>
-  </file>
-  <file name="S1C_IW_SLC__1SDV_20260823T215123_20260823T215153_009128_0121FA_0DF6.SAFE.zip">
-    <size>8526100000</size>
-    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(0daf3ff5-d5ef-46ec-b510-81d41ada648c)/$value</url>
   </file>
   <file name="S1C_IW_SLC__1SDV_20260821T095950_20260821T100020_009092_0120CA_E3B2.SAFE.zip">
     <size>8260000000</size>
