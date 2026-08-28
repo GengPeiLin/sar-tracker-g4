@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metalink xmlns="urn:ietf:params:xml:ns:metalink">
-  <!-- generated 2026-08-27T12:17:34Z -->
-  <!-- 7584 scenes -->
+  <!-- generated 2026-08-28T13:43:12Z -->
+  <!-- 7590 scenes -->
+  <file name="S1D_IW_GRDH_1SDV_20260827T100122_20260827T100147_004310_007F1A_34DC">
+    <size>1704800000</size>
+    <url priority="1">https://datapool.asf.alaska.edu/GRD_HD/SD/S1D_IW_GRDH_1SDV_20260827T100122_20260827T100147_004310_007F1A_34DC.zip</url>
+  </file>
+  <file name="S1D_IW_SLC__1SDV_20260827T100121_20260827T100148_004310_007F1A_84C4">
+    <size>7555300000</size>
+    <url priority="1">https://datapool.asf.alaska.edu/SLC/SD/S1D_IW_SLC__1SDV_20260827T100121_20260827T100148_004310_007F1A_84C4.zip</url>
+  </file>
+  <file name="S1D_IW_GRDH_1SDV_20260827T100057_20260827T100122_004310_007F1A_4808">
+    <size>1704400000</size>
+    <url priority="1">https://datapool.asf.alaska.edu/GRD_HD/SD/S1D_IW_GRDH_1SDV_20260827T100057_20260827T100122_004310_007F1A_4808.zip</url>
+  </file>
+  <file name="S1D_IW_SLC__1SDV_20260827T100056_20260827T100123_004310_007F1A_0295">
+    <size>7554600000</size>
+    <url priority="1">https://datapool.asf.alaska.edu/SLC/SD/S1D_IW_SLC__1SDV_20260827T100056_20260827T100123_004310_007F1A_0295.zip</url>
+  </file>
+  <file name="S1D_IW_SLC__1SDV_20260827T100028_20260827T100059_004310_007F1A_8500">
+    <size>8644600000</size>
+    <url priority="1">https://datapool.asf.alaska.edu/SLC/SD/S1D_IW_SLC__1SDV_20260827T100028_20260827T100059_004310_007F1A_8500.zip</url>
+  </file>
+  <file name="S1D_IW_GRDH_1SDV_20260827T100028_20260827T100057_004310_007F1A_6472">
+    <size>1996400000</size>
+    <url priority="1">https://datapool.asf.alaska.edu/GRD_HD/SD/S1D_IW_GRDH_1SDV_20260827T100028_20260827T100057_004310_007F1A_6472.zip</url>
+  </file>
   <file name="S1D_IW_SLC__1SDV_20260824T214439_20260824T214509_004273_007DCC_14F5">
     <size>8746900000</size>
     <url priority="1">https://datapool.asf.alaska.edu/SLC/SD/S1D_IW_SLC__1SDV_20260824T214439_20260824T214509_004273_007DCC_14F5.zip</url>
