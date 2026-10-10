@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metalink xmlns="urn:ietf:params:xml:ns:metalink">
-  <!-- generated 2026-10-09T08:24:43Z -->
+  <!-- generated 2026-10-10T08:02:09Z -->
   <!-- 19670 scenes -->
-  <file name="S1C_IW_RAW__0SDV_20261008T095951_20261008T100020_009792_01380F_5C22.SAFE.zip">
-    <size>1503500000</size>
-    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(59baced0-ed7a-41d0-bdd4-da2a4f1e52d2)/$value</url>
+  <file name="S1C_IW_SLC__1SDV_20261008T095951_20261008T100021_009792_01380F_8568.SAFE.zip">
+    <size>8260299999</size>
+    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(93af6cea-190d-4ca6-92b2-d4aa50e0bf1b)/$value</url>
   </file>
   <file name="S1C_IW_GRDH_1SDV_20261008T095951_20261008T100021_009792_01380F_8FCE.SAFE.zip">
     <size>2019200000</size>
     <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(885ed494-80e1-49cf-bca3-22e290a06c34)/$value</url>
+  </file>
+  <file name="S1C_IW_RAW__0SDV_20261008T095951_20261008T100020_009792_01380F_5C22.SAFE.zip">
+    <size>1503500000</size>
+    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(59baced0-ed7a-41d0-bdd4-da2a4f1e52d2)/$value</url>
   </file>
   <file name="S1C_IW_GRDH_1SDV_20261008T095951_20261008T100021_009792_01380F_011E_COG.SAFE.zip">
     <size>1114800000</size>
@@ -17,10 +21,6 @@
   <file name="S1C_IW_OCN__2SDV_20261008T095951_20261008T100021_009792_01380F_6559.SAFE.zip">
     <size>79900000</size>
     <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(e1f5b9c0-793f-4485-a37b-023e0a0fe657)/$value</url>
-  </file>
-  <file name="S1C_IW_SLC__1SDV_20261008T095951_20261008T100021_009792_01380F_8568.SAFE.zip">
-    <size>8260299999</size>
-    <url priority="1">https://zipper.dataspace.copernicus.eu/odata/v1/Products(93af6cea-190d-4ca6-92b2-d4aa50e0bf1b)/$value</url>
   </file>
   <file name="S1D_IW_GRDH_1SDV_20261007T100926_20261007T100951_004908_0093D9_FE1E.SAFE.zip">
     <size>1716600000</size>
