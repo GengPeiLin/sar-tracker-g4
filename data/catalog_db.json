@@ -1,11 +1,761 @@
 {
-  "version": "2026-10-14",
-  "updated_at": "2026-10-14 07:02 UTC",
+  "version": "2026-10-15",
+  "updated_at": "2026-10-15 06:53 UTC",
   "last_successful_fetch": "2026-10-14T07:02:50.561245+00:00",
   "bootstrap_completed": true,
   "bootstrap_started_at": "2014-04-03T00:00:00+00:00",
   "incremental_overlap_days": 2,
   "frames": [
+    {
+      "source": "Copernicus",
+      "granule": "S1D_IW_GRDH_1SDV_20261014T100123_20261014T100148_005010_009776_EB28",
+      "platform": "S1D",
+      "sensor": "C-SAR",
+      "date": "2026-10-14T10:01:23.297116Z",
+      "stop_time": "2026-10-14T10:01:48.296019Z",
+      "mode": "IW",
+      "polarization": "VV&VH",
+      "orbit": 69,
+      "path_number": 69,
+      "frame_number": "",
+      "direction": "ASCENDING",
+      "product_type": "GRD",
+      "processing_level": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              119.170265,
+              27.546715
+            ],
+            [
+              119.48481,
+              26.036135
+            ],
+            [
+              121.999489,
+              26.45293
+            ],
+            [
+              121.718994,
+              27.960356
+            ],
+            [
+              119.170265,
+              27.546715
+            ]
+          ]
+        ]
+      },
+      "asf_url": "",
+      "download_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(77e10ef2-62a8-4488-906f-5a6fc8a963e8)/$value",
+      "copernicus_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(77e10ef2-62a8-4488-906f-5a6fc8a963e8)/$value",
+      "browse_url": "",
+      "file_size_mb": 1717.0,
+      "satellite_id": "S1D",
+      "track_label": "A69"
+    },
+    {
+      "source": "Copernicus",
+      "granule": "S1D_IW_GRDH_1SDV_20261014T100123_20261014T100148_005010_009776_7BF0_COG",
+      "platform": "S1D",
+      "sensor": "C-SAR",
+      "date": "2026-10-14T10:01:23.297116Z",
+      "stop_time": "2026-10-14T10:01:48.296019Z",
+      "mode": "IW",
+      "polarization": "VV&VH",
+      "orbit": 69,
+      "path_number": 69,
+      "frame_number": "",
+      "direction": "ASCENDING",
+      "product_type": "GRD",
+      "processing_level": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              119.170265,
+              27.546715
+            ],
+            [
+              119.48481,
+              26.036135
+            ],
+            [
+              121.999489,
+              26.45293
+            ],
+            [
+              121.718994,
+              27.960356
+            ],
+            [
+              119.170265,
+              27.546715
+            ]
+          ]
+        ]
+      },
+      "asf_url": "",
+      "download_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(9f44619d-a508-465b-a75b-b41209ad708e)/$value",
+      "copernicus_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(9f44619d-a508-465b-a75b-b41209ad708e)/$value",
+      "browse_url": "",
+      "file_size_mb": 1089.0,
+      "satellite_id": "S1D",
+      "track_label": "A69"
+    },
+    {
+      "source": "Copernicus",
+      "granule": "S1D_IW_OCN__2SDV_20261014T100123_20261014T100148_005010_009776_3D06",
+      "platform": "S1D",
+      "sensor": "C-SAR",
+      "date": "2026-10-14T10:01:23.297116Z",
+      "stop_time": "2026-10-14T10:01:48.296019Z",
+      "mode": "IW",
+      "polarization": "VV&VH",
+      "orbit": 69,
+      "path_number": 69,
+      "frame_number": "",
+      "direction": "ASCENDING",
+      "product_type": "UNKNOWN",
+      "processing_level": "UNKNOWN",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              119.170265,
+              27.546715
+            ],
+            [
+              119.48481,
+              26.036135
+            ],
+            [
+              121.999489,
+              26.45293
+            ],
+            [
+              121.718994,
+              27.960356
+            ],
+            [
+              119.170265,
+              27.546715
+            ]
+          ]
+        ]
+      },
+      "asf_url": "",
+      "download_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(d4b44623-afcd-4b12-9ea9-edacaa63991c)/$value",
+      "copernicus_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(d4b44623-afcd-4b12-9ea9-edacaa63991c)/$value",
+      "browse_url": "",
+      "file_size_mb": 70.4,
+      "satellite_id": "S1D",
+      "track_label": "A69"
+    },
+    {
+      "source": "Copernicus",
+      "granule": "S1D_IW_SLC__1SDV_20261014T100122_20261014T100149_005010_009776_5F71",
+      "platform": "S1D",
+      "sensor": "C-SAR",
+      "date": "2026-10-14T10:01:22.351309Z",
+      "stop_time": "2026-10-14T10:01:49.289374Z",
+      "mode": "IW",
+      "polarization": "VV&VH",
+      "orbit": 69,
+      "path_number": 69,
+      "frame_number": "",
+      "direction": "ASCENDING",
+      "product_type": "SLC",
+      "processing_level": "SLC",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              119.141617,
+              27.603971
+            ],
+            [
+              119.495522,
+              25.978775
+            ],
+            [
+              121.994247,
+              26.393408
+            ],
+            [
+              121.678413,
+              28.01577
+            ],
+            [
+              119.141617,
+              27.603971
+            ]
+          ]
+        ]
+      },
+      "asf_url": "",
+      "download_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(98a3191a-e83b-4a8c-be2a-25e5ace3ba85)/$value",
+      "copernicus_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(98a3191a-e83b-4a8c-be2a-25e5ace3ba85)/$value",
+      "browse_url": "",
+      "file_size_mb": 7682.1,
+      "satellite_id": "S1D",
+      "track_label": "A69"
+    },
+    {
+      "source": "Copernicus",
+      "granule": "S1D_IW_RAW__0SDV_20261014T100119_20261014T100151_005010_009776_5487",
+      "platform": "S1D",
+      "sensor": "C-SAR",
+      "date": "2026-10-14T10:01:19.596871Z",
+      "stop_time": "2026-10-14T10:01:51.996544Z",
+      "mode": "IW",
+      "polarization": "VV&VH",
+      "orbit": 69,
+      "path_number": 69,
+      "frame_number": "",
+      "direction": "ASCENDING",
+      "product_type": "RAW",
+      "processing_level": "RAW",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.8792,
+              25.8787
+            ],
+            [
+              121.5001,
+              27.8365
+            ],
+            [
+              119.0276,
+              27.567
+            ],
+            [
+              119.4499,
+              25.6081
+            ],
+            [
+              121.8792,
+              25.8787
+            ]
+          ]
+        ]
+      },
+      "asf_url": "",
+      "download_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(b3dd0aff-ff65-4ff0-9683-0337134fcd7a)/$value",
+      "copernicus_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(b3dd0aff-ff65-4ff0-9683-0337134fcd7a)/$value",
+      "browse_url": "",
+      "file_size_mb": 1748.0,
+      "satellite_id": "S1D",
+      "track_label": "A69"
+    },
+    {
+      "source": "Copernicus",
+      "granule": "S1D_IW_OCN__2SDV_20261014T100058_20261014T100123_005010_009776_3FEE",
+      "platform": "S1D",
+      "sensor": "C-SAR",
+      "date": "2026-10-14T10:00:58.296717Z",
+      "stop_time": "2026-10-14T10:01:23.295620Z",
+      "mode": "IW",
+      "polarization": "VV&VH",
+      "orbit": 69,
+      "path_number": 69,
+      "frame_number": "",
+      "direction": "ASCENDING",
+      "product_type": "UNKNOWN",
+      "processing_level": "UNKNOWN",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              119.484833,
+              26.036045
+            ],
+            [
+              119.809006,
+              24.527138
+            ],
+            [
+              122.29129,
+              24.946825
+            ],
+            [
+              121.998817,
+              26.452732
+            ],
+            [
+              119.484833,
+              26.036045
+            ]
+          ]
+        ]
+      },
+      "asf_url": "",
+      "download_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(66f9d359-2f88-48dd-ab4c-7b0c71f22e36)/$value",
+      "copernicus_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(66f9d359-2f88-48dd-ab4c-7b0c71f22e36)/$value",
+      "browse_url": "",
+      "file_size_mb": 86.5,
+      "satellite_id": "S1D",
+      "track_label": "A69"
+    },
+    {
+      "source": "Copernicus",
+      "granule": "S1D_IW_GRDH_1SDV_20261014T100058_20261014T100123_005010_009776_5F82_COG",
+      "platform": "S1D",
+      "sensor": "C-SAR",
+      "date": "2026-10-14T10:00:58.296717Z",
+      "stop_time": "2026-10-14T10:01:23.295620Z",
+      "mode": "IW",
+      "polarization": "VV&VH",
+      "orbit": 69,
+      "path_number": 69,
+      "frame_number": "",
+      "direction": "ASCENDING",
+      "product_type": "GRD",
+      "processing_level": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              119.484833,
+              26.036045
+            ],
+            [
+              119.809006,
+              24.527138
+            ],
+            [
+              122.29129,
+              24.946825
+            ],
+            [
+              121.998817,
+              26.452732
+            ],
+            [
+              119.484833,
+              26.036045
+            ]
+          ]
+        ]
+      },
+      "asf_url": "",
+      "download_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(a79bb7db-b8e1-429e-a76f-f996b17a92bb)/$value",
+      "copernicus_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(a79bb7db-b8e1-429e-a76f-f996b17a92bb)/$value",
+      "browse_url": "",
+      "file_size_mb": 1035.1,
+      "satellite_id": "S1D",
+      "track_label": "A69"
+    },
+    {
+      "source": "Copernicus",
+      "granule": "S1D_IW_GRDH_1SDV_20261014T100058_20261014T100123_005010_009776_B3B3",
+      "platform": "S1D",
+      "sensor": "C-SAR",
+      "date": "2026-10-14T10:00:58.296717Z",
+      "stop_time": "2026-10-14T10:01:23.295620Z",
+      "mode": "IW",
+      "polarization": "VV&VH",
+      "orbit": 69,
+      "path_number": 69,
+      "frame_number": "",
+      "direction": "ASCENDING",
+      "product_type": "GRD",
+      "processing_level": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              119.484833,
+              26.036045
+            ],
+            [
+              119.809006,
+              24.527138
+            ],
+            [
+              122.29129,
+              24.946825
+            ],
+            [
+              121.998817,
+              26.452732
+            ],
+            [
+              119.484833,
+              26.036045
+            ]
+          ]
+        ]
+      },
+      "asf_url": "",
+      "download_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(fe9afcef-c9e0-45ff-aaf8-1def126eb42c)/$value",
+      "copernicus_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(fe9afcef-c9e0-45ff-aaf8-1def126eb42c)/$value",
+      "browse_url": "",
+      "file_size_mb": 1716.4,
+      "satellite_id": "S1D",
+      "track_label": "A69"
+    },
+    {
+      "source": "Copernicus",
+      "granule": "S1D_IW_SLC__1SDV_20261014T100057_20261014T100124_005010_009776_D75B",
+      "platform": "S1D",
+      "sensor": "C-SAR",
+      "date": "2026-10-14T10:00:57.528411Z",
+      "stop_time": "2026-10-14T10:01:24.474698Z",
+      "mode": "IW",
+      "polarization": "VV&VH",
+      "orbit": 69,
+      "path_number": 69,
+      "frame_number": "",
+      "direction": "ASCENDING",
+      "product_type": "SLC",
+      "processing_level": "SLC",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              119.467773,
+              26.106905
+            ],
+            [
+              119.818153,
+              24.480619
+            ],
+            [
+              122.284561,
+              24.898016
+            ],
+            [
+              121.969391,
+              26.521309
+            ],
+            [
+              119.467773,
+              26.106905
+            ]
+          ]
+        ]
+      },
+      "asf_url": "",
+      "download_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(6d71c818-fdf7-4625-b680-19c14a242693)/$value",
+      "copernicus_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(6d71c818-fdf7-4625-b680-19c14a242693)/$value",
+      "browse_url": "",
+      "file_size_mb": 7681.4,
+      "satellite_id": "S1D",
+      "track_label": "A69"
+    },
+    {
+      "source": "Copernicus",
+      "granule": "S1D_IW_RAW__0SDV_20261014T100054_20261014T100126_005010_009776_0670",
+      "platform": "S1D",
+      "sensor": "C-SAR",
+      "date": "2026-10-14T10:00:54.596794Z",
+      "stop_time": "2026-10-14T10:01:26.995689Z",
+      "mode": "IW",
+      "polarization": "VV&VH",
+      "orbit": 69,
+      "path_number": 69,
+      "frame_number": "",
+      "direction": "ASCENDING",
+      "product_type": "RAW",
+      "processing_level": "RAW",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              122.1713,
+              24.3678
+            ],
+            [
+              121.7927,
+              26.3258
+            ],
+            [
+              119.3539,
+              26.0555
+            ],
+            [
+              119.7723,
+              24.0961
+            ],
+            [
+              122.1713,
+              24.3678
+            ]
+          ]
+        ]
+      },
+      "asf_url": "",
+      "download_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(d6481768-e1b5-41e0-b052-ed857f7c03be)/$value",
+      "copernicus_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(d6481768-e1b5-41e0-b052-ed857f7c03be)/$value",
+      "browse_url": "",
+      "file_size_mb": 1772.8,
+      "satellite_id": "S1D",
+      "track_label": "A69"
+    },
+    {
+      "source": "Copernicus",
+      "granule": "S1D_IW_RAW__0SDV_20261014T100029_20261014T100101_005010_009776_6CF3",
+      "platform": "S1D",
+      "sensor": "C-SAR",
+      "date": "2026-10-14T10:00:29.596321Z",
+      "stop_time": "2026-10-14T10:01:01.996223Z",
+      "mode": "IW",
+      "polarization": "VV&VH",
+      "orbit": 69,
+      "path_number": 69,
+      "frame_number": "",
+      "direction": "ASCENDING",
+      "product_type": "RAW",
+      "processing_level": "RAW",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              122.4633,
+              22.8567
+            ],
+            [
+              122.0849,
+              24.815
+            ],
+            [
+              119.6772,
+              24.5436
+            ],
+            [
+              120.0922,
+              22.5838
+            ],
+            [
+              122.4633,
+              22.8567
+            ]
+          ]
+        ]
+      },
+      "asf_url": "",
+      "download_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(3b17ca78-3040-4ae2-a0ad-4003fad35edb)/$value",
+      "copernicus_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(3b17ca78-3040-4ae2-a0ad-4003fad35edb)/$value",
+      "browse_url": "",
+      "file_size_mb": 1767.8,
+      "satellite_id": "S1D",
+      "track_label": "A69"
+    },
+    {
+      "source": "Copernicus",
+      "granule": "S1D_IW_GRDH_1SDV_20261014T100029_20261014T100058_005010_009776_E8DF_COG",
+      "platform": "S1D",
+      "sensor": "C-SAR",
+      "date": "2026-10-14T10:00:29.006266Z",
+      "stop_time": "2026-10-14T10:00:58.295222Z",
+      "mode": "IW",
+      "polarization": "VV&VH",
+      "orbit": 69,
+      "path_number": 69,
+      "frame_number": "",
+      "direction": "ASCENDING",
+      "product_type": "GRD",
+      "processing_level": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              119.809021,
+              24.527048
+            ],
+            [
+              120.20089,
+              22.761396
+            ],
+            [
+              122.648117,
+              23.184328
+            ],
+            [
+              122.290726,
+              24.94664
+            ],
+            [
+              119.809021,
+              24.527048
+            ]
+          ]
+        ]
+      },
+      "asf_url": "",
+      "download_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(07060821-7469-4b50-bb57-85b573c8b535)/$value",
+      "copernicus_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(07060821-7469-4b50-bb57-85b573c8b535)/$value",
+      "browse_url": "",
+      "file_size_mb": 1306.6,
+      "satellite_id": "S1D",
+      "track_label": "A69"
+    },
+    {
+      "source": "Copernicus",
+      "granule": "S1D_IW_GRDH_1SDV_20261014T100029_20261014T100058_005010_009776_6631",
+      "platform": "S1D",
+      "sensor": "C-SAR",
+      "date": "2026-10-14T10:00:29.006266Z",
+      "stop_time": "2026-10-14T10:00:58.295222Z",
+      "mode": "IW",
+      "polarization": "VV&VH",
+      "orbit": 69,
+      "path_number": 69,
+      "frame_number": "",
+      "direction": "ASCENDING",
+      "product_type": "GRD",
+      "processing_level": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              119.809021,
+              24.527048
+            ],
+            [
+              120.20089,
+              22.761396
+            ],
+            [
+              122.648117,
+              23.184328
+            ],
+            [
+              122.290726,
+              24.94664
+            ],
+            [
+              119.809021,
+              24.527048
+            ]
+          ]
+        ]
+      },
+      "asf_url": "",
+      "download_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(ad0f3959-604c-4afa-bdbc-7ba742d6407d)/$value",
+      "copernicus_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(ad0f3959-604c-4afa-bdbc-7ba742d6407d)/$value",
+      "browse_url": "",
+      "file_size_mb": 2010.4,
+      "satellite_id": "S1D",
+      "track_label": "A69"
+    },
+    {
+      "source": "Copernicus",
+      "granule": "S1D_IW_OCN__2SDV_20261014T100029_20261014T100058_005010_009776_FDE7",
+      "platform": "S1D",
+      "sensor": "C-SAR",
+      "date": "2026-10-14T10:00:29.006266Z",
+      "stop_time": "2026-10-14T10:00:58.295222Z",
+      "mode": "IW",
+      "polarization": "VV&VH",
+      "orbit": 69,
+      "path_number": 69,
+      "frame_number": "",
+      "direction": "ASCENDING",
+      "product_type": "UNKNOWN",
+      "processing_level": "UNKNOWN",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              119.809021,
+              24.527048
+            ],
+            [
+              120.20089,
+              22.761396
+            ],
+            [
+              122.648117,
+              23.184328
+            ],
+            [
+              122.290726,
+              24.94664
+            ],
+            [
+              119.809021,
+              24.527048
+            ]
+          ]
+        ]
+      },
+      "asf_url": "",
+      "download_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(cef7e56a-8ac6-4897-9dd4-81095aa35d6d)/$value",
+      "copernicus_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(cef7e56a-8ac6-4897-9dd4-81095aa35d6d)/$value",
+      "browse_url": "",
+      "file_size_mb": 50.7,
+      "satellite_id": "S1D",
+      "track_label": "A69"
+    },
+    {
+      "source": "Copernicus",
+      "granule": "S1D_IW_SLC__1SDV_20261014T100028_20261014T100059_005010_009776_AFE4",
+      "platform": "S1D",
+      "sensor": "C-SAR",
+      "date": "2026-10-14T10:00:28.995234Z",
+      "stop_time": "2026-10-14T10:00:59.653856Z",
+      "mode": "IW",
+      "polarization": "VV&VH",
+      "orbit": 69,
+      "path_number": 69,
+      "frame_number": "",
+      "direction": "ASCENDING",
+      "product_type": "SLC",
+      "processing_level": "SLC",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              119.790649,
+              24.608917
+            ],
+            [
+              120.18541,
+              22.757908
+            ],
+            [
+              122.61776,
+              23.178652
+            ],
+            [
+              122.25972,
+              25.026073
+            ],
+            [
+              119.790649,
+              24.608917
+            ]
+          ]
+        ]
+      },
+      "asf_url": "",
+      "download_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(a1292d5c-d6ab-4800-80ab-e5f6d37bd23e)/$value",
+      "copernicus_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(a1292d5c-d6ab-4800-80ab-e5f6d37bd23e)/$value",
+      "browse_url": "",
+      "file_size_mb": 8790.6,
+      "satellite_id": "S1D",
+      "track_label": "A69"
+    },
     {
       "source": "ASF",
       "granule": "S1D_IW_SLC__1SDV_20261011T214439_20261011T214510_004973_009627_2B43",
