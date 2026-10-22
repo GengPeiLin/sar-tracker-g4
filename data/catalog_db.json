@@ -1,11 +1,111 @@
 {
-  "version": "2026-10-21",
-  "updated_at": "2026-10-21 06:58 UTC",
-  "last_successful_fetch": "2026-10-19T07:14:45.564162+00:00",
+  "version": "2026-10-22",
+  "updated_at": "2026-10-22 07:00 UTC",
+  "last_successful_fetch": "2026-10-22T07:00:56.655290+00:00",
   "bootstrap_completed": true,
   "bootstrap_started_at": "2014-04-03T00:00:00+00:00",
   "incremental_overlap_days": 2,
   "frames": [
+    {
+      "source": "ASF",
+      "granule": "S1C_IW_SLC__1SDV_20261020T095951_20261020T100021_009967_013DFB_C437",
+      "platform": "Sentinel-1C",
+      "sensor": "C-SAR",
+      "date": "2026-10-20T09:59:51Z",
+      "stop_time": "2026-10-20T10:00:21Z",
+      "mode": "IW",
+      "polarization": "VV+VH",
+      "orbit": 9967,
+      "path_number": 69,
+      "frame_number": 68,
+      "direction": "ASCENDING",
+      "product_type": "SLC",
+      "processing_level": "SLC",
+      "footprint": {
+        "coordinates": [
+          [
+            [
+              120.501427,
+              21.259544
+            ],
+            [
+              122.886955,
+              21.680023
+            ],
+            [
+              122.538628,
+              23.477242
+            ],
+            [
+              120.120575,
+              23.060368
+            ],
+            [
+              120.501427,
+              21.259544
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "asf_url": "https://datapool.asf.alaska.edu/SLC/SC/S1C_IW_SLC__1SDV_20261020T095951_20261020T100021_009967_013DFB_C437.zip",
+      "download_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(dce74fc7-3494-45c5-9ba4-6abaaff9103b)/$value",
+      "copernicus_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(dce74fc7-3494-45c5-9ba4-6abaaff9103b)/$value",
+      "browse_url": "",
+      "file_size_mb": 8260.1,
+      "satellite_id": "Sentinel-1C",
+      "track_label": "A69"
+    },
+    {
+      "source": "ASF",
+      "granule": "S1C_IW_GRDH_1SDV_20261020T095951_20261020T100021_009967_013DFB_A8ED",
+      "platform": "Sentinel-1C",
+      "sensor": "C-SAR",
+      "date": "2026-10-20T09:59:51Z",
+      "stop_time": "2026-10-20T10:00:21Z",
+      "mode": "IW",
+      "polarization": "VV+VH",
+      "orbit": 9967,
+      "path_number": 69,
+      "frame_number": 68,
+      "direction": "ASCENDING",
+      "product_type": "GRD_HD",
+      "processing_level": "GRD_HD",
+      "footprint": {
+        "coordinates": [
+          [
+            [
+              120.500526,
+              21.260063
+            ],
+            [
+              122.886803,
+              21.680677
+            ],
+            [
+              122.541283,
+              23.477036
+            ],
+            [
+              120.123779,
+              23.060299
+            ],
+            [
+              120.500526,
+              21.260063
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "asf_url": "https://datapool.asf.alaska.edu/GRD_HD/SC/S1C_IW_GRDH_1SDV_20261020T095951_20261020T100021_009967_013DFB_A8ED.zip",
+      "download_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(758764b0-34bc-45f4-8ed6-ddfccdd29d39)/$value",
+      "copernicus_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(758764b0-34bc-45f4-8ed6-ddfccdd29d39)/$value",
+      "browse_url": "https://datapool.asf.alaska.edu/BROWSE/SC/S1C_IW_GRDH_1SDV_20261020T095951_20261020T100021_009967_013DFB_A8ED.jpg",
+      "file_size_mb": 2019.1,
+      "satellite_id": "Sentinel-1C",
+      "track_label": "A69"
+    },
     {
       "source": "Copernicus",
       "granule": "S1C_IW_RAW__0SDV_20261020T095951_20261020T100020_009967_013DFB_C107",
@@ -53,56 +153,6 @@
       "copernicus_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(bb569f72-0128-4e60-9893-2bd0b80d8b7b)/$value",
       "browse_url": "",
       "file_size_mb": 1525.8,
-      "satellite_id": "S1C",
-      "track_label": "A69"
-    },
-    {
-      "source": "Copernicus",
-      "granule": "S1C_IW_GRDH_1SDV_20261020T095951_20261020T100021_009967_013DFB_A8ED",
-      "platform": "S1C",
-      "sensor": "C-SAR",
-      "date": "2026-10-20T09:59:51.243341Z",
-      "stop_time": "2026-10-20T10:00:21.040059Z",
-      "mode": "IW",
-      "polarization": "VV&VH",
-      "orbit": 69,
-      "path_number": 69,
-      "frame_number": "",
-      "direction": "ASCENDING",
-      "product_type": "GRD",
-      "processing_level": "GRD",
-      "footprint": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [
-              120.123779,
-              23.060299
-            ],
-            [
-              120.500526,
-              21.260063
-            ],
-            [
-              122.886803,
-              21.680677
-            ],
-            [
-              122.541283,
-              23.477036
-            ],
-            [
-              120.123779,
-              23.060299
-            ]
-          ]
-        ]
-      },
-      "asf_url": "",
-      "download_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(758764b0-34bc-45f4-8ed6-ddfccdd29d39)/$value",
-      "copernicus_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(758764b0-34bc-45f4-8ed6-ddfccdd29d39)/$value",
-      "browse_url": "",
-      "file_size_mb": 2019.1,
       "satellite_id": "S1C",
       "track_label": "A69"
     },
@@ -207,54 +257,754 @@
       "track_label": "A69"
     },
     {
-      "source": "Copernicus",
-      "granule": "S1C_IW_SLC__1SDV_20261020T095951_20261020T100021_009967_013DFB_C437",
-      "platform": "S1C",
-      "sensor": "C-SAR",
-      "date": "2026-10-20T09:59:51.232432Z",
-      "stop_time": "2026-10-20T10:00:21.050332Z",
-      "mode": "IW",
-      "polarization": "VV&VH",
-      "orbit": 69,
-      "path_number": 69,
-      "frame_number": "",
+      "source": "ASF",
+      "granule": "NISAR_L2_PR_GSLC_033_111_A_015_2005_DHDH_A_20261019T211732_20261019T211749_P05023_N_P_J_001",
+      "platform": "NISAR",
+      "sensor": "L-SAR",
+      "date": "2026-10-19T21:17:32Z",
+      "stop_time": "2026-10-19T21:17:49Z",
+      "mode": "",
+      "polarization": null,
+      "orbit": 6438,
+      "path_number": 111,
+      "frame_number": 15,
       "direction": "ASCENDING",
-      "product_type": "SLC",
-      "processing_level": "SLC",
+      "product_type": "GSLC",
+      "processing_level": "GSLC",
       "footprint": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
-              120.120575,
-              23.060368
+              122.20682,
+              27.0219
             ],
             [
-              120.501427,
-              21.259544
+              121.8886,
+              28.08676
             ],
             [
-              122.886955,
-              21.680023
+              119.30792,
+              27.44186
             ],
             [
-              122.538628,
-              23.477242
+              119.65542,
+              26.38588
             ],
             [
-              120.120575,
-              23.060368
+              122.20682,
+              27.0219
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
-      "asf_url": "",
-      "download_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(dce74fc7-3494-45c5-9ba4-6abaaff9103b)/$value",
-      "copernicus_url": "https://zipper.dataspace.copernicus.eu/odata/v1/Products(dce74fc7-3494-45c5-9ba4-6abaaff9103b)/$value",
-      "browse_url": "",
-      "file_size_mb": 8260.1,
-      "satellite_id": "S1C",
-      "track_label": "A69"
+      "asf_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GSLC_PROVISIONAL_V1/NISAR_L2_PR_GSLC_033_111_A_015_2005_DHDH_A_20261019T211732_20261019T211749_P05023_N_P_J_001/NISAR_L2_PR_GSLC_033_111_A_015_2005_DHDH_A_20261019T211732_20261019T211749_P05023_N_P_J_001.h5",
+      "download_url": "",
+      "copernicus_url": "",
+      "browse_url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GSLC_PROVISIONAL_V1/NISAR_L2_PR_GSLC_033_111_A_015_2005_DHDH_A_20261019T211732_20261019T211749_P05023_N_P_J_001/NISAR_L2_PR_GSLC_033_111_A_015_2005_DHDH_A_20261019T211732_20261019T211749_P05023_N_P_J_001_LATLON.png",
+      "file_size_mb": 0.0,
+      "satellite_id": "NISAR",
+      "track_label": "NISAR"
+    },
+    {
+      "source": "ASF",
+      "granule": "NISAR_L2_PR_GCOV_033_111_A_015_2005_DHDH_A_20261019T211732_20261019T211749_P05023_N_P_J_001",
+      "platform": "NISAR",
+      "sensor": "L-SAR",
+      "date": "2026-10-19T21:17:32Z",
+      "stop_time": "2026-10-19T21:17:49Z",
+      "mode": "",
+      "polarization": null,
+      "orbit": 6438,
+      "path_number": 111,
+      "frame_number": 15,
+      "direction": "ASCENDING",
+      "product_type": "GCOV",
+      "processing_level": "GCOV",
+      "footprint": {
+        "coordinates": [
+          [
+            [
+              122.20682,
+              27.0219
+            ],
+            [
+              121.8886,
+              28.08676
+            ],
+            [
+              119.30792,
+              27.44186
+            ],
+            [
+              119.65542,
+              26.38588
+            ],
+            [
+              122.20682,
+              27.0219
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "asf_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_033_111_A_015_2005_DHDH_A_20261019T211732_20261019T211749_P05023_N_P_J_001/NISAR_L2_PR_GCOV_033_111_A_015_2005_DHDH_A_20261019T211732_20261019T211749_P05023_N_P_J_001.h5",
+      "download_url": "",
+      "copernicus_url": "",
+      "browse_url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_033_111_A_015_2005_DHDH_A_20261019T211732_20261019T211749_P05023_N_P_J_001/NISAR_L2_PR_GCOV_033_111_A_015_2005_DHDH_A_20261019T211732_20261019T211749_P05023_N_P_J_001_LATLON.png",
+      "file_size_mb": 0.0,
+      "satellite_id": "NISAR",
+      "track_label": "NISAR"
+    },
+    {
+      "source": "ASF",
+      "granule": "NISAR_L1_PR_RSLC_033_111_A_015_2005_DHDH_A_20261019T211732_20261019T211749_P05023_N_P_J_001",
+      "platform": "NISAR",
+      "sensor": "L-SAR",
+      "date": "2026-10-19T21:17:32Z",
+      "stop_time": "2026-10-19T21:17:49Z",
+      "mode": "",
+      "polarization": null,
+      "orbit": 6438,
+      "path_number": 111,
+      "frame_number": 15,
+      "direction": "ASCENDING",
+      "product_type": "RSLC",
+      "processing_level": "RSLC",
+      "footprint": {
+        "coordinates": [
+          [
+            [
+              122.20682,
+              27.0219
+            ],
+            [
+              121.8886,
+              28.08676
+            ],
+            [
+              119.30792,
+              27.44186
+            ],
+            [
+              119.65542,
+              26.38588
+            ],
+            [
+              122.20682,
+              27.0219
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "asf_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L1_RSLC_PROVISIONAL_V1/NISAR_L1_PR_RSLC_033_111_A_015_2005_DHDH_A_20261019T211732_20261019T211749_P05023_N_P_J_001/NISAR_L1_PR_RSLC_033_111_A_015_2005_DHDH_A_20261019T211732_20261019T211749_P05023_N_P_J_001.h5",
+      "download_url": "",
+      "copernicus_url": "",
+      "browse_url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L1_RSLC_PROVISIONAL_V1/NISAR_L1_PR_RSLC_033_111_A_015_2005_DHDH_A_20261019T211732_20261019T211749_P05023_N_P_J_001/NISAR_L1_PR_RSLC_033_111_A_015_2005_DHDH_A_20261019T211732_20261019T211749_P05023_N_P_J_001_LATLON.png",
+      "file_size_mb": 0.0,
+      "satellite_id": "NISAR",
+      "track_label": "NISAR"
+    },
+    {
+      "source": "ASF",
+      "granule": "NISAR_L2_PR_GSLC_033_111_A_014_4005_DHDH_A_20261019T211640_20261019T211713_P05023_N_F_J_001",
+      "platform": "NISAR",
+      "sensor": "L-SAR",
+      "date": "2026-10-19T21:16:40Z",
+      "stop_time": "2026-10-19T21:17:13Z",
+      "mode": "",
+      "polarization": null,
+      "orbit": 6438,
+      "path_number": 111,
+      "frame_number": 14,
+      "direction": "ASCENDING",
+      "product_type": "GSLC",
+      "processing_level": "GSLC",
+      "footprint": {
+        "coordinates": [
+          [
+            [
+              123.14111,
+              23.95273
+            ],
+            [
+              122.56706,
+              25.96765
+            ],
+            [
+              120.13845,
+              25.36563
+            ],
+            [
+              120.73462,
+              23.35897
+            ],
+            [
+              123.14111,
+              23.95273
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "asf_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GSLC_PROVISIONAL_V1/NISAR_L2_PR_GSLC_033_111_A_014_4005_DHDH_A_20261019T211640_20261019T211713_P05023_N_F_J_001/NISAR_L2_PR_GSLC_033_111_A_014_4005_DHDH_A_20261019T211640_20261019T211713_P05023_N_F_J_001.h5",
+      "download_url": "",
+      "copernicus_url": "",
+      "browse_url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GSLC_PROVISIONAL_V1/NISAR_L2_PR_GSLC_033_111_A_014_4005_DHDH_A_20261019T211640_20261019T211713_P05023_N_F_J_001/NISAR_L2_PR_GSLC_033_111_A_014_4005_DHDH_A_20261019T211640_20261019T211713_P05023_N_F_J_001_LATLON.png",
+      "file_size_mb": 0.0,
+      "satellite_id": "NISAR",
+      "track_label": "NISAR"
+    },
+    {
+      "source": "ASF",
+      "granule": "NISAR_L2_PR_GCOV_033_111_A_014_4005_DHDH_A_20261019T211640_20261019T211713_P05023_N_F_J_001",
+      "platform": "NISAR",
+      "sensor": "L-SAR",
+      "date": "2026-10-19T21:16:40Z",
+      "stop_time": "2026-10-19T21:17:13Z",
+      "mode": "",
+      "polarization": null,
+      "orbit": 6438,
+      "path_number": 111,
+      "frame_number": 14,
+      "direction": "ASCENDING",
+      "product_type": "GCOV",
+      "processing_level": "GCOV",
+      "footprint": {
+        "coordinates": [
+          [
+            [
+              123.14111,
+              23.95273
+            ],
+            [
+              122.56706,
+              25.96765
+            ],
+            [
+              120.13845,
+              25.36563
+            ],
+            [
+              120.73462,
+              23.35897
+            ],
+            [
+              123.14111,
+              23.95273
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "asf_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_033_111_A_014_4005_DHDH_A_20261019T211640_20261019T211713_P05023_N_F_J_001/NISAR_L2_PR_GCOV_033_111_A_014_4005_DHDH_A_20261019T211640_20261019T211713_P05023_N_F_J_001.h5",
+      "download_url": "",
+      "copernicus_url": "",
+      "browse_url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_033_111_A_014_4005_DHDH_A_20261019T211640_20261019T211713_P05023_N_F_J_001/NISAR_L2_PR_GCOV_033_111_A_014_4005_DHDH_A_20261019T211640_20261019T211713_P05023_N_F_J_001_LATLON.png",
+      "file_size_mb": 0.0,
+      "satellite_id": "NISAR",
+      "track_label": "NISAR"
+    },
+    {
+      "source": "ASF",
+      "granule": "NISAR_L1_PR_RSLC_033_111_A_014_4005_DHDH_A_20261019T211640_20261019T211713_P05023_N_F_J_001",
+      "platform": "NISAR",
+      "sensor": "L-SAR",
+      "date": "2026-10-19T21:16:40Z",
+      "stop_time": "2026-10-19T21:17:13Z",
+      "mode": "",
+      "polarization": null,
+      "orbit": 6438,
+      "path_number": 111,
+      "frame_number": 14,
+      "direction": "ASCENDING",
+      "product_type": "RSLC",
+      "processing_level": "RSLC",
+      "footprint": {
+        "coordinates": [
+          [
+            [
+              123.14111,
+              23.95273
+            ],
+            [
+              122.56706,
+              25.96765
+            ],
+            [
+              120.13845,
+              25.36563
+            ],
+            [
+              120.73462,
+              23.35897
+            ],
+            [
+              123.14111,
+              23.95273
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "asf_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L1_RSLC_PROVISIONAL_V1/NISAR_L1_PR_RSLC_033_111_A_014_4005_DHDH_A_20261019T211640_20261019T211713_P05023_N_F_J_001/NISAR_L1_PR_RSLC_033_111_A_014_4005_DHDH_A_20261019T211640_20261019T211713_P05023_N_F_J_001.h5",
+      "download_url": "",
+      "copernicus_url": "",
+      "browse_url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L1_RSLC_PROVISIONAL_V1/NISAR_L1_PR_RSLC_033_111_A_014_4005_DHDH_A_20261019T211640_20261019T211713_P05023_N_F_J_001/NISAR_L1_PR_RSLC_033_111_A_014_4005_DHDH_A_20261019T211640_20261019T211713_P05023_N_F_J_001_LATLON.png",
+      "file_size_mb": 0.0,
+      "satellite_id": "NISAR",
+      "track_label": "NISAR"
+    },
+    {
+      "source": "ASF",
+      "granule": "NISAR_L2_PR_GSLC_033_111_A_013_4005_DHDH_A_20261019T211636_20261019T211641_P05023_N_P_J_001",
+      "platform": "NISAR",
+      "sensor": "L-SAR",
+      "date": "2026-10-19T21:16:36Z",
+      "stop_time": "2026-10-19T21:16:41Z",
+      "mode": "",
+      "polarization": null,
+      "orbit": 6438,
+      "path_number": 111,
+      "frame_number": 13,
+      "direction": "ASCENDING",
+      "product_type": "GSLC",
+      "processing_level": "GSLC",
+      "footprint": {
+        "coordinates": [
+          [
+            [
+              123.20746,
+              23.71553
+            ],
+            [
+              123.10784,
+              24.07127
+            ],
+            [
+              120.70092,
+              23.47724
+            ],
+            [
+              120.80977,
+              23.12435
+            ],
+            [
+              123.20746,
+              23.71553
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "asf_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GSLC_PROVISIONAL_V1/NISAR_L2_PR_GSLC_033_111_A_013_4005_DHDH_A_20261019T211636_20261019T211641_P05023_N_P_J_001/NISAR_L2_PR_GSLC_033_111_A_013_4005_DHDH_A_20261019T211636_20261019T211641_P05023_N_P_J_001.h5",
+      "download_url": "",
+      "copernicus_url": "",
+      "browse_url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GSLC_PROVISIONAL_V1/NISAR_L2_PR_GSLC_033_111_A_013_4005_DHDH_A_20261019T211636_20261019T211641_P05023_N_P_J_001/NISAR_L2_PR_GSLC_033_111_A_013_4005_DHDH_A_20261019T211636_20261019T211641_P05023_N_P_J_001_LATLON.png",
+      "file_size_mb": 0.0,
+      "satellite_id": "NISAR",
+      "track_label": "NISAR"
+    },
+    {
+      "source": "ASF",
+      "granule": "NISAR_L2_PR_GCOV_033_111_A_013_4005_DHDH_A_20261019T211636_20261019T211641_P05023_N_P_J_001",
+      "platform": "NISAR",
+      "sensor": "L-SAR",
+      "date": "2026-10-19T21:16:36Z",
+      "stop_time": "2026-10-19T21:16:41Z",
+      "mode": "",
+      "polarization": null,
+      "orbit": 6438,
+      "path_number": 111,
+      "frame_number": 13,
+      "direction": "ASCENDING",
+      "product_type": "GCOV",
+      "processing_level": "GCOV",
+      "footprint": {
+        "coordinates": [
+          [
+            [
+              123.20746,
+              23.71553
+            ],
+            [
+              123.10784,
+              24.07127
+            ],
+            [
+              120.70092,
+              23.47724
+            ],
+            [
+              120.80977,
+              23.12435
+            ],
+            [
+              123.20746,
+              23.71553
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "asf_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_033_111_A_013_4005_DHDH_A_20261019T211636_20261019T211641_P05023_N_P_J_001/NISAR_L2_PR_GCOV_033_111_A_013_4005_DHDH_A_20261019T211636_20261019T211641_P05023_N_P_J_001.h5",
+      "download_url": "",
+      "copernicus_url": "",
+      "browse_url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_033_111_A_013_4005_DHDH_A_20261019T211636_20261019T211641_P05023_N_P_J_001/NISAR_L2_PR_GCOV_033_111_A_013_4005_DHDH_A_20261019T211636_20261019T211641_P05023_N_P_J_001_LATLON.png",
+      "file_size_mb": 0.0,
+      "satellite_id": "NISAR",
+      "track_label": "NISAR"
+    },
+    {
+      "source": "ASF",
+      "granule": "NISAR_L1_PR_RSLC_033_111_A_013_4005_DHDH_A_20261019T211636_20261019T211641_P05023_N_P_J_001",
+      "platform": "NISAR",
+      "sensor": "L-SAR",
+      "date": "2026-10-19T21:16:36Z",
+      "stop_time": "2026-10-19T21:16:41Z",
+      "mode": "",
+      "polarization": null,
+      "orbit": 6438,
+      "path_number": 111,
+      "frame_number": 13,
+      "direction": "ASCENDING",
+      "product_type": "RSLC",
+      "processing_level": "RSLC",
+      "footprint": {
+        "coordinates": [
+          [
+            [
+              123.20746,
+              23.71553
+            ],
+            [
+              123.10784,
+              24.07127
+            ],
+            [
+              120.70092,
+              23.47724
+            ],
+            [
+              120.80977,
+              23.12435
+            ],
+            [
+              123.20746,
+              23.71553
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "asf_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L1_RSLC_PROVISIONAL_V1/NISAR_L1_PR_RSLC_033_111_A_013_4005_DHDH_A_20261019T211636_20261019T211641_P05023_N_P_J_001/NISAR_L1_PR_RSLC_033_111_A_013_4005_DHDH_A_20261019T211636_20261019T211641_P05023_N_P_J_001.h5",
+      "download_url": "",
+      "copernicus_url": "",
+      "browse_url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L1_RSLC_PROVISIONAL_V1/NISAR_L1_PR_RSLC_033_111_A_013_4005_DHDH_A_20261019T211636_20261019T211641_P05023_N_P_J_001/NISAR_L1_PR_RSLC_033_111_A_013_4005_DHDH_A_20261019T211636_20261019T211641_P05023_N_P_J_001_LATLON.png",
+      "file_size_mb": 0.0,
+      "satellite_id": "NISAR",
+      "track_label": "NISAR"
+    },
+    {
+      "source": "ASF",
+      "granule": "NISAR_L2_PR_GSLC_033_111_A_013_2005_DHDH_M_20261019T211624_20261019T211641_P05023_N_P_J_001",
+      "platform": "NISAR",
+      "sensor": "L-SAR",
+      "date": "2026-10-19T21:16:24Z",
+      "stop_time": "2026-10-19T21:16:41Z",
+      "mode": "",
+      "polarization": null,
+      "orbit": 6438,
+      "path_number": 111,
+      "frame_number": 13,
+      "direction": "ASCENDING",
+      "product_type": "GSLC",
+      "processing_level": "GSLC",
+      "footprint": {
+        "coordinates": [
+          [
+            [
+              123.40489,
+              23.00371
+            ],
+            [
+              123.10784,
+              24.07127
+            ],
+            [
+              120.70099,
+              23.47726
+            ],
+            [
+              121.02839,
+              22.41896
+            ],
+            [
+              123.40489,
+              23.00371
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "asf_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GSLC_PROVISIONAL_V1/NISAR_L2_PR_GSLC_033_111_A_013_2005_DHDH_M_20261019T211624_20261019T211641_P05023_N_P_J_001/NISAR_L2_PR_GSLC_033_111_A_013_2005_DHDH_M_20261019T211624_20261019T211641_P05023_N_P_J_001.h5",
+      "download_url": "",
+      "copernicus_url": "",
+      "browse_url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GSLC_PROVISIONAL_V1/NISAR_L2_PR_GSLC_033_111_A_013_2005_DHDH_M_20261019T211624_20261019T211641_P05023_N_P_J_001/NISAR_L2_PR_GSLC_033_111_A_013_2005_DHDH_M_20261019T211624_20261019T211641_P05023_N_P_J_001_LATLON.png",
+      "file_size_mb": 0.0,
+      "satellite_id": "NISAR",
+      "track_label": "NISAR"
+    },
+    {
+      "source": "ASF",
+      "granule": "NISAR_L2_PR_GCOV_033_111_A_013_2005_DHDH_M_20261019T211624_20261019T211641_P05023_N_P_J_001",
+      "platform": "NISAR",
+      "sensor": "L-SAR",
+      "date": "2026-10-19T21:16:24Z",
+      "stop_time": "2026-10-19T21:16:41Z",
+      "mode": "",
+      "polarization": null,
+      "orbit": 6438,
+      "path_number": 111,
+      "frame_number": 13,
+      "direction": "ASCENDING",
+      "product_type": "GCOV",
+      "processing_level": "GCOV",
+      "footprint": {
+        "coordinates": [
+          [
+            [
+              123.40489,
+              23.00371
+            ],
+            [
+              123.10784,
+              24.07127
+            ],
+            [
+              120.70099,
+              23.47726
+            ],
+            [
+              121.02839,
+              22.41896
+            ],
+            [
+              123.40489,
+              23.00371
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "asf_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_033_111_A_013_2005_DHDH_M_20261019T211624_20261019T211641_P05023_N_P_J_001/NISAR_L2_PR_GCOV_033_111_A_013_2005_DHDH_M_20261019T211624_20261019T211641_P05023_N_P_J_001.h5",
+      "download_url": "",
+      "copernicus_url": "",
+      "browse_url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_033_111_A_013_2005_DHDH_M_20261019T211624_20261019T211641_P05023_N_P_J_001/NISAR_L2_PR_GCOV_033_111_A_013_2005_DHDH_M_20261019T211624_20261019T211641_P05023_N_P_J_001_LATLON.png",
+      "file_size_mb": 0.0,
+      "satellite_id": "NISAR",
+      "track_label": "NISAR"
+    },
+    {
+      "source": "ASF",
+      "granule": "NISAR_L1_PR_RSLC_033_111_A_013_2005_DHDH_M_20261019T211624_20261019T211641_P05023_N_P_J_001",
+      "platform": "NISAR",
+      "sensor": "L-SAR",
+      "date": "2026-10-19T21:16:24Z",
+      "stop_time": "2026-10-19T21:16:41Z",
+      "mode": "",
+      "polarization": null,
+      "orbit": 6438,
+      "path_number": 111,
+      "frame_number": 13,
+      "direction": "ASCENDING",
+      "product_type": "RSLC",
+      "processing_level": "RSLC",
+      "footprint": {
+        "coordinates": [
+          [
+            [
+              123.40489,
+              23.00371
+            ],
+            [
+              123.10784,
+              24.07127
+            ],
+            [
+              120.70099,
+              23.47726
+            ],
+            [
+              121.02839,
+              22.41896
+            ],
+            [
+              123.40489,
+              23.00371
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "asf_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L1_RSLC_PROVISIONAL_V1/NISAR_L1_PR_RSLC_033_111_A_013_2005_DHDH_M_20261019T211624_20261019T211641_P05023_N_P_J_001/NISAR_L1_PR_RSLC_033_111_A_013_2005_DHDH_M_20261019T211624_20261019T211641_P05023_N_P_J_001.h5",
+      "download_url": "",
+      "copernicus_url": "",
+      "browse_url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L1_RSLC_PROVISIONAL_V1/NISAR_L1_PR_RSLC_033_111_A_013_2005_DHDH_M_20261019T211624_20261019T211641_P05023_N_P_J_001/NISAR_L1_PR_RSLC_033_111_A_013_2005_DHDH_M_20261019T211624_20261019T211641_P05023_N_P_J_001_LATLON.png",
+      "file_size_mb": 0.0,
+      "satellite_id": "NISAR",
+      "track_label": "NISAR"
+    },
+    {
+      "source": "ASF",
+      "granule": "NISAR_L2_PR_GSLC_033_111_A_012_2005_DHDH_A_20261019T211533_20261019T211557_P05023_N_P_J_001",
+      "platform": "NISAR",
+      "sensor": "L-SAR",
+      "date": "2026-10-19T21:15:33Z",
+      "stop_time": "2026-10-19T21:15:57Z",
+      "mode": "",
+      "polarization": null,
+      "orbit": 6438,
+      "path_number": 111,
+      "frame_number": 12,
+      "direction": "ASCENDING",
+      "product_type": "GSLC",
+      "processing_level": "GSLC",
+      "footprint": {
+        "coordinates": [
+          [
+            [
+              124.1866,
+              19.96752
+            ],
+            [
+              123.79071,
+              21.45228
+            ],
+            [
+              121.47542,
+              20.88483
+            ],
+            [
+              121.89191,
+              19.4077
+            ],
+            [
+              124.1866,
+              19.96752
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "asf_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GSLC_PROVISIONAL_V1/NISAR_L2_PR_GSLC_033_111_A_012_2005_DHDH_A_20261019T211533_20261019T211557_P05023_N_P_J_001/NISAR_L2_PR_GSLC_033_111_A_012_2005_DHDH_A_20261019T211533_20261019T211557_P05023_N_P_J_001.h5",
+      "download_url": "",
+      "copernicus_url": "",
+      "browse_url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GSLC_PROVISIONAL_V1/NISAR_L2_PR_GSLC_033_111_A_012_2005_DHDH_A_20261019T211533_20261019T211557_P05023_N_P_J_001/NISAR_L2_PR_GSLC_033_111_A_012_2005_DHDH_A_20261019T211533_20261019T211557_P05023_N_P_J_001_LATLON.png",
+      "file_size_mb": 0.0,
+      "satellite_id": "NISAR",
+      "track_label": "NISAR"
+    },
+    {
+      "source": "ASF",
+      "granule": "NISAR_L2_PR_GCOV_033_111_A_012_2005_DHDH_A_20261019T211533_20261019T211557_P05023_N_P_J_001",
+      "platform": "NISAR",
+      "sensor": "L-SAR",
+      "date": "2026-10-19T21:15:33Z",
+      "stop_time": "2026-10-19T21:15:57Z",
+      "mode": "",
+      "polarization": null,
+      "orbit": 6438,
+      "path_number": 111,
+      "frame_number": 12,
+      "direction": "ASCENDING",
+      "product_type": "GCOV",
+      "processing_level": "GCOV",
+      "footprint": {
+        "coordinates": [
+          [
+            [
+              124.1866,
+              19.96752
+            ],
+            [
+              123.79071,
+              21.45228
+            ],
+            [
+              121.47542,
+              20.88483
+            ],
+            [
+              121.89191,
+              19.4077
+            ],
+            [
+              124.1866,
+              19.96752
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "asf_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_033_111_A_012_2005_DHDH_A_20261019T211533_20261019T211557_P05023_N_P_J_001/NISAR_L2_PR_GCOV_033_111_A_012_2005_DHDH_A_20261019T211533_20261019T211557_P05023_N_P_J_001.h5",
+      "download_url": "",
+      "copernicus_url": "",
+      "browse_url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_033_111_A_012_2005_DHDH_A_20261019T211533_20261019T211557_P05023_N_P_J_001/NISAR_L2_PR_GCOV_033_111_A_012_2005_DHDH_A_20261019T211533_20261019T211557_P05023_N_P_J_001_LATLON.png",
+      "file_size_mb": 0.0,
+      "satellite_id": "NISAR",
+      "track_label": "NISAR"
+    },
+    {
+      "source": "ASF",
+      "granule": "NISAR_L1_PR_RSLC_033_111_A_012_2005_DHDH_A_20261019T211533_20261019T211557_P05023_N_P_J_001",
+      "platform": "NISAR",
+      "sensor": "L-SAR",
+      "date": "2026-10-19T21:15:33Z",
+      "stop_time": "2026-10-19T21:15:57Z",
+      "mode": "",
+      "polarization": null,
+      "orbit": 6438,
+      "path_number": 111,
+      "frame_number": 12,
+      "direction": "ASCENDING",
+      "product_type": "RSLC",
+      "processing_level": "RSLC",
+      "footprint": {
+        "coordinates": [
+          [
+            [
+              124.1866,
+              19.96752
+            ],
+            [
+              123.79071,
+              21.45228
+            ],
+            [
+              121.47542,
+              20.88483
+            ],
+            [
+              121.89191,
+              19.4077
+            ],
+            [
+              124.1866,
+              19.96752
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "asf_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L1_RSLC_PROVISIONAL_V1/NISAR_L1_PR_RSLC_033_111_A_012_2005_DHDH_A_20261019T211533_20261019T211557_P05023_N_P_J_001/NISAR_L1_PR_RSLC_033_111_A_012_2005_DHDH_A_20261019T211533_20261019T211557_P05023_N_P_J_001.h5",
+      "download_url": "",
+      "copernicus_url": "",
+      "browse_url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L1_RSLC_PROVISIONAL_V1/NISAR_L1_PR_RSLC_033_111_A_012_2005_DHDH_A_20261019T211533_20261019T211557_P05023_N_P_J_001/NISAR_L1_PR_RSLC_033_111_A_012_2005_DHDH_A_20261019T211533_20261019T211557_P05023_N_P_J_001_LATLON.png",
+      "file_size_mb": 0.0,
+      "satellite_id": "NISAR",
+      "track_label": "NISAR"
     },
     {
       "source": "ASF",
@@ -5558,6 +6308,56 @@
     },
     {
       "source": "ASF",
+      "granule": "NISAR_L2_PR_GUNW_032_111_A_015_033_2000_SH_20261007T211732_20261007T211748_20261019T211732_20261019T211749_P05023_N_P_J_001",
+      "platform": "NISAR",
+      "sensor": "L-SAR",
+      "date": "2026-10-07T21:17:32Z",
+      "stop_time": "2026-10-19T21:17:49Z",
+      "mode": "",
+      "polarization": null,
+      "orbit": 6265,
+      "path_number": 111,
+      "frame_number": 15,
+      "direction": "ASCENDING",
+      "product_type": "GUNW",
+      "processing_level": "GUNW",
+      "footprint": {
+        "coordinates": [
+          [
+            [
+              122.19995,
+              27.04343
+            ],
+            [
+              121.89945,
+              28.04914
+            ],
+            [
+              119.31952,
+              27.40447
+            ],
+            [
+              119.64661,
+              26.40687
+            ],
+            [
+              122.19995,
+              27.04343
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "asf_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GUNW_PROVISIONAL_V1/NISAR_L2_PR_GUNW_032_111_A_015_033_2000_SH_20261007T211732_20261007T211748_20261019T211732_20261019T211749_P05023_N_P_J_001/NISAR_L2_PR_GUNW_032_111_A_015_033_2000_SH_20261007T211732_20261007T211748_20261019T211732_20261019T211749_P05023_N_P_J_001.h5",
+      "download_url": "",
+      "copernicus_url": "",
+      "browse_url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GUNW_PROVISIONAL_V1/NISAR_L2_PR_GUNW_032_111_A_015_033_2000_SH_20261007T211732_20261007T211748_20261019T211732_20261019T211749_P05023_N_P_J_001/NISAR_L2_PR_GUNW_032_111_A_015_033_2000_SH_20261007T211732_20261007T211748_20261019T211732_20261019T211749_P05023_N_P_J_001_LATLON.png",
+      "file_size_mb": 0.0,
+      "satellite_id": "NISAR",
+      "track_label": "NISAR"
+    },
+    {
+      "source": "ASF",
       "granule": "NISAR_L2_PR_GSLC_032_111_A_014_4005_DHDH_A_20261007T211640_20261007T211713_P05023_N_F_J_001",
       "platform": "NISAR",
       "sensor": "L-SAR",
@@ -5702,6 +6502,56 @@
       "download_url": "",
       "copernicus_url": "",
       "browse_url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L1_RSLC_PROVISIONAL_V1/NISAR_L1_PR_RSLC_032_111_A_014_4005_DHDH_A_20261007T211640_20261007T211713_P05023_N_F_J_001/NISAR_L1_PR_RSLC_032_111_A_014_4005_DHDH_A_20261007T211640_20261007T211713_P05023_N_F_J_001_LATLON.png",
+      "file_size_mb": 0.0,
+      "satellite_id": "NISAR",
+      "track_label": "NISAR"
+    },
+    {
+      "source": "ASF",
+      "granule": "NISAR_L2_PR_GUNW_032_111_A_014_033_4000_SH_20261007T211640_20261007T211713_20261019T211640_20261019T211713_P05023_N_F_J_001",
+      "platform": "NISAR",
+      "sensor": "L-SAR",
+      "date": "2026-10-07T21:16:40Z",
+      "stop_time": "2026-10-19T21:17:13Z",
+      "mode": "",
+      "polarization": null,
+      "orbit": 6265,
+      "path_number": 111,
+      "frame_number": 14,
+      "direction": "ASCENDING",
+      "product_type": "GUNW",
+      "processing_level": "GUNW",
+      "footprint": {
+        "coordinates": [
+          [
+            [
+              123.13456,
+              23.97428
+            ],
+            [
+              122.56031,
+              25.98919
+            ],
+            [
+              120.13134,
+              25.38704
+            ],
+            [
+              120.72804,
+              23.38047
+            ],
+            [
+              123.13456,
+              23.97428
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "asf_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GUNW_PROVISIONAL_V1/NISAR_L2_PR_GUNW_032_111_A_014_033_4000_SH_20261007T211640_20261007T211713_20261019T211640_20261019T211713_P05023_N_F_J_001/NISAR_L2_PR_GUNW_032_111_A_014_033_4000_SH_20261007T211640_20261007T211713_20261019T211640_20261019T211713_P05023_N_F_J_001.h5",
+      "download_url": "",
+      "copernicus_url": "",
+      "browse_url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GUNW_PROVISIONAL_V1/NISAR_L2_PR_GUNW_032_111_A_014_033_4000_SH_20261007T211640_20261007T211713_20261019T211640_20261019T211713_P05023_N_F_J_001/NISAR_L2_PR_GUNW_032_111_A_014_033_4000_SH_20261007T211640_20261007T211713_20261019T211640_20261019T211713_P05023_N_F_J_001_LATLON.png",
       "file_size_mb": 0.0,
       "satellite_id": "NISAR",
       "track_label": "NISAR"
@@ -5858,6 +6708,56 @@
     },
     {
       "source": "ASF",
+      "granule": "NISAR_L2_PR_GUNW_032_111_A_013_033_4000_SH_20261007T211636_20261007T211641_20261019T211636_20261019T211641_P05023_N_P_J_001",
+      "platform": "NISAR",
+      "sensor": "L-SAR",
+      "date": "2026-10-07T21:16:36Z",
+      "stop_time": "2026-10-19T21:16:41Z",
+      "mode": "",
+      "polarization": null,
+      "orbit": 6265,
+      "path_number": 111,
+      "frame_number": 13,
+      "direction": "ASCENDING",
+      "product_type": "GUNW",
+      "processing_level": "GUNW",
+      "footprint": {
+        "coordinates": [
+          [
+            [
+              123.20094,
+              23.73708
+            ],
+            [
+              123.10129,
+              24.09282
+            ],
+            [
+              120.6948,
+              23.49887
+            ],
+            [
+              120.79812,
+              23.14455
+            ],
+            [
+              123.20094,
+              23.73708
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "asf_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GUNW_PROVISIONAL_V1/NISAR_L2_PR_GUNW_032_111_A_013_033_4000_SH_20261007T211636_20261007T211641_20261019T211636_20261019T211641_P05023_N_P_J_001/NISAR_L2_PR_GUNW_032_111_A_013_033_4000_SH_20261007T211636_20261007T211641_20261019T211636_20261019T211641_P05023_N_P_J_001.h5",
+      "download_url": "",
+      "copernicus_url": "",
+      "browse_url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GUNW_PROVISIONAL_V1/NISAR_L2_PR_GUNW_032_111_A_013_033_4000_SH_20261007T211636_20261007T211641_20261019T211636_20261019T211641_P05023_N_P_J_001/NISAR_L2_PR_GUNW_032_111_A_013_033_4000_SH_20261007T211636_20261007T211641_20261019T211636_20261019T211641_P05023_N_P_J_001_LATLON.png",
+      "file_size_mb": 0.0,
+      "satellite_id": "NISAR",
+      "track_label": "NISAR"
+    },
+    {
+      "source": "ASF",
       "granule": "NISAR_L2_PR_GSLC_032_111_A_013_2005_DHDH_M_20261007T211624_20261007T211641_P05023_N_P_J_001",
       "platform": "NISAR",
       "sensor": "L-SAR",
@@ -6008,6 +6908,56 @@
     },
     {
       "source": "ASF",
+      "granule": "NISAR_L2_PR_GUNW_032_111_A_013_033_2000_SH_20261007T211624_20261007T211641_20261019T211624_20261019T211641_P05023_N_P_J_001",
+      "platform": "NISAR",
+      "sensor": "L-SAR",
+      "date": "2026-10-07T21:16:24Z",
+      "stop_time": "2026-10-19T21:16:41Z",
+      "mode": "",
+      "polarization": null,
+      "orbit": 6265,
+      "path_number": 111,
+      "frame_number": 13,
+      "direction": "ASCENDING",
+      "product_type": "GUNW",
+      "processing_level": "GUNW",
+      "footprint": {
+        "coordinates": [
+          [
+            [
+              123.39843,
+              23.02527
+            ],
+            [
+              123.10129,
+              24.09282
+            ],
+            [
+              120.69487,
+              23.49888
+            ],
+            [
+              121.02159,
+              22.44039
+            ],
+            [
+              123.39843,
+              23.02527
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "asf_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GUNW_PROVISIONAL_V1/NISAR_L2_PR_GUNW_032_111_A_013_033_2000_SH_20261007T211624_20261007T211641_20261019T211624_20261019T211641_P05023_N_P_J_001/NISAR_L2_PR_GUNW_032_111_A_013_033_2000_SH_20261007T211624_20261007T211641_20261019T211624_20261019T211641_P05023_N_P_J_001.h5",
+      "download_url": "",
+      "copernicus_url": "",
+      "browse_url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GUNW_PROVISIONAL_V1/NISAR_L2_PR_GUNW_032_111_A_013_033_2000_SH_20261007T211624_20261007T211641_20261019T211624_20261019T211641_P05023_N_P_J_001/NISAR_L2_PR_GUNW_032_111_A_013_033_2000_SH_20261007T211624_20261007T211641_20261019T211624_20261019T211641_P05023_N_P_J_001_LATLON.png",
+      "file_size_mb": 0.0,
+      "satellite_id": "NISAR",
+      "track_label": "NISAR"
+    },
+    {
+      "source": "ASF",
       "granule": "NISAR_L2_PR_GSLC_032_111_A_012_2005_DHDH_A_20261007T211533_20261007T211557_P05023_N_P_J_001",
       "platform": "NISAR",
       "sensor": "L-SAR",
@@ -6152,6 +7102,56 @@
       "download_url": "",
       "copernicus_url": "",
       "browse_url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L1_RSLC_PROVISIONAL_V1/NISAR_L1_PR_RSLC_032_111_A_012_2005_DHDH_A_20261007T211533_20261007T211557_P05023_N_P_J_001/NISAR_L1_PR_RSLC_032_111_A_012_2005_DHDH_A_20261007T211533_20261007T211557_P05023_N_P_J_001_LATLON.png",
+      "file_size_mb": 0.0,
+      "satellite_id": "NISAR",
+      "track_label": "NISAR"
+    },
+    {
+      "source": "ASF",
+      "granule": "NISAR_L2_PR_GUNW_032_111_A_012_033_2000_SH_20261007T211533_20261007T211557_20261019T211533_20261019T211557_P05023_N_P_J_001",
+      "platform": "NISAR",
+      "sensor": "L-SAR",
+      "date": "2026-10-07T21:15:33Z",
+      "stop_time": "2026-10-19T21:15:57Z",
+      "mode": "",
+      "polarization": null,
+      "orbit": 6265,
+      "path_number": 111,
+      "frame_number": 12,
+      "direction": "ASCENDING",
+      "product_type": "GUNW",
+      "processing_level": "GUNW",
+      "footprint": {
+        "coordinates": [
+          [
+            [
+              124.18082,
+              19.98919
+            ],
+            [
+              123.78481,
+              21.47394
+            ],
+            [
+              121.46879,
+              20.90627
+            ],
+            [
+              121.88542,
+              19.42916
+            ],
+            [
+              124.18082,
+              19.98919
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "asf_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GUNW_PROVISIONAL_V1/NISAR_L2_PR_GUNW_032_111_A_012_033_2000_SH_20261007T211533_20261007T211557_20261019T211533_20261019T211557_P05023_N_P_J_001/NISAR_L2_PR_GUNW_032_111_A_012_033_2000_SH_20261007T211533_20261007T211557_20261019T211533_20261019T211557_P05023_N_P_J_001.h5",
+      "download_url": "",
+      "copernicus_url": "",
+      "browse_url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GUNW_PROVISIONAL_V1/NISAR_L2_PR_GUNW_032_111_A_012_033_2000_SH_20261007T211533_20261007T211557_20261019T211533_20261019T211557_P05023_N_P_J_001/NISAR_L2_PR_GUNW_032_111_A_012_033_2000_SH_20261007T211533_20261007T211557_20261019T211533_20261019T211557_P05023_N_P_J_001_LATLON.png",
       "file_size_mb": 0.0,
       "satellite_id": "NISAR",
       "track_label": "NISAR"
