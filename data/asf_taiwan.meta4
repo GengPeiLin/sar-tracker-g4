@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metalink xmlns="urn:ietf:params:xml:ns:metalink">
-  <!-- generated 2026-10-26T07:21:35Z -->
-  <!-- 8097 scenes -->
+  <!-- generated 2026-10-27T07:13:01Z -->
+  <!-- 8103 scenes -->
+  <file name="S1D_IW_GRDH_1SDV_20261026T100123_20261026T100148_005185_009D7F_0619">
+    <size>1716900000</size>
+    <url priority="1">https://datapool.asf.alaska.edu/GRD_HD/SD/S1D_IW_GRDH_1SDV_20261026T100123_20261026T100148_005185_009D7F_0619.zip</url>
+  </file>
+  <file name="S1D_IW_SLC__1SDV_20261026T100122_20261026T100149_005185_009D7F_1928">
+    <size>7682000000</size>
+    <url priority="1">https://datapool.asf.alaska.edu/SLC/SD/S1D_IW_SLC__1SDV_20261026T100122_20261026T100149_005185_009D7F_1928.zip</url>
+  </file>
+  <file name="S1D_IW_GRDH_1SDV_20261026T100058_20261026T100123_005185_009D7F_229C">
+    <size>1716200000</size>
+    <url priority="1">https://datapool.asf.alaska.edu/GRD_HD/SD/S1D_IW_GRDH_1SDV_20261026T100058_20261026T100123_005185_009D7F_229C.zip</url>
+  </file>
+  <file name="S1D_IW_SLC__1SDV_20261026T100057_20261026T100124_005185_009D7F_8BAA">
+    <size>7681400000</size>
+    <url priority="1">https://datapool.asf.alaska.edu/SLC/SD/S1D_IW_SLC__1SDV_20261026T100057_20261026T100124_005185_009D7F_8BAA.zip</url>
+  </file>
+  <file name="S1D_IW_SLC__1SDV_20261026T100029_20261026T100059_005185_009D7F_2352">
+    <size>8790600000</size>
+    <url priority="1">https://datapool.asf.alaska.edu/SLC/SD/S1D_IW_SLC__1SDV_20261026T100029_20261026T100059_005185_009D7F_2352.zip</url>
+  </file>
+  <file name="S1D_IW_GRDH_1SDV_20261026T100029_20261026T100058_005185_009D7F_AA37">
+    <size>2010600000</size>
+    <url priority="1">https://datapool.asf.alaska.edu/GRD_HD/SD/S1D_IW_GRDH_1SDV_20261026T100029_20261026T100058_005185_009D7F_AA37.zip</url>
+  </file>
   <file name="NISAR_L2_PR_GSLC_033_162_D_077_2005_DHDH_A_20261023T104642_20261023T104653_P05023_N_P_J_001">
     <url priority="1">https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GSLC_PROVISIONAL_V1/NISAR_L2_PR_GSLC_033_162_D_077_2005_DHDH_A_20261023T104642_20261023T104653_P05023_N_P_J_001/NISAR_L2_PR_GSLC_033_162_D_077_2005_DHDH_A_20261023T104642_20261023T104653_P05023_N_P_J_001.h5</url>
   </file>
