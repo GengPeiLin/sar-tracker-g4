@@ -1,7 +1,7 @@
 {
-  "version": "2026-10-29",
-  "updated_at": "2026-10-29 07:56 UTC",
-  "last_successful_fetch": "2026-10-29T07:56:58.131370+00:00",
+  "version": "2026-10-30",
+  "updated_at": "2026-10-30 07:59 UTC",
+  "last_successful_fetch": "2026-10-30T07:59:37.804483+00:00",
   "bootstrap_completed": true,
   "bootstrap_started_at": "2014-04-03T00:00:00+00:00",
   "incremental_overlap_days": 2,
