@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metalink xmlns="urn:ietf:params:xml:ns:metalink">
-  <!-- generated 2026-11-02T08:47:43Z -->
-  <!-- 8109 scenes -->
+  <!-- generated 2026-11-03T08:57:18Z -->
+  <!-- 8111 scenes -->
+  <file name="S1C_IW_SLC__1SDV_20261101T095950_20261101T100020_010142_0143E1_0F33">
+    <size>8260100000</size>
+    <url priority="1">https://datapool.asf.alaska.edu/SLC/SC/S1C_IW_SLC__1SDV_20261101T095950_20261101T100020_010142_0143E1_0F33.zip</url>
+  </file>
+  <file name="S1C_IW_GRDH_1SDV_20261101T095950_20261101T100020_010142_0143E1_479E">
+    <size>2019000000</size>
+    <url priority="1">https://datapool.asf.alaska.edu/GRD_HD/SC/S1C_IW_GRDH_1SDV_20261101T095950_20261101T100020_010142_0143E1_479E.zip</url>
+  </file>
   <file name="S1D_IW_GRDH_1SDV_20261031T100926_20261031T100951_005258_009FE6_16ED">
     <size>1717000000</size>
     <url priority="1">https://datapool.asf.alaska.edu/GRD_HD/SD/S1D_IW_GRDH_1SDV_20261031T100926_20261031T100951_005258_009FE6_16ED.zip</url>
