@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metalink xmlns="urn:ietf:params:xml:ns:metalink">
-  <!-- generated 2026-11-07T08:15:21Z -->
-  <!-- 8117 scenes -->
+  <!-- generated 2026-11-08T08:29:56Z -->
+  <!-- 8123 scenes -->
+  <file name="S1D_IW_GRDH_1SDV_20261107T100123_20261107T100148_005360_00A378_4E55">
+    <size>1717000000</size>
+    <url priority="1">https://datapool.asf.alaska.edu/GRD_HD/SD/S1D_IW_GRDH_1SDV_20261107T100123_20261107T100148_005360_00A378_4E55.zip</url>
+  </file>
+  <file name="S1D_IW_SLC__1SDV_20261107T100122_20261107T100149_005360_00A378_A12D">
+    <size>7682100000</size>
+    <url priority="1">https://datapool.asf.alaska.edu/SLC/SD/S1D_IW_SLC__1SDV_20261107T100122_20261107T100149_005360_00A378_A12D.zip</url>
+  </file>
+  <file name="S1D_IW_GRDH_1SDV_20261107T100058_20261107T100123_005360_00A378_2B3D">
+    <size>1716400000</size>
+    <url priority="1">https://datapool.asf.alaska.edu/GRD_HD/SD/S1D_IW_GRDH_1SDV_20261107T100058_20261107T100123_005360_00A378_2B3D.zip</url>
+  </file>
+  <file name="S1D_IW_SLC__1SDV_20261107T100057_20261107T100124_005360_00A378_B1FB">
+    <size>7681600000</size>
+    <url priority="1">https://datapool.asf.alaska.edu/SLC/SD/S1D_IW_SLC__1SDV_20261107T100057_20261107T100124_005360_00A378_B1FB.zip</url>
+  </file>
+  <file name="S1D_IW_SLC__1SDV_20261107T100028_20261107T100059_005360_00A378_EBFE">
+    <size>8790700000</size>
+    <url priority="1">https://datapool.asf.alaska.edu/SLC/SD/S1D_IW_SLC__1SDV_20261107T100028_20261107T100059_005360_00A378_EBFE.zip</url>
+  </file>
+  <file name="S1D_IW_GRDH_1SDV_20261107T100028_20261107T100058_005360_00A378_AAAA">
+    <size>2010500000</size>
+    <url priority="1">https://datapool.asf.alaska.edu/GRD_HD/SD/S1D_IW_GRDH_1SDV_20261107T100028_20261107T100058_005360_00A378_AAAA.zip</url>
+  </file>
   <file name="S1C_IW_GRDH_1SDV_20261103T215218_20261103T215232_010178_01450F_5654">
     <size>958100000</size>
     <url priority="1">https://datapool.asf.alaska.edu/GRD_HD/SC/S1C_IW_GRDH_1SDV_20261103T215218_20261103T215232_010178_01450F_5654.zip</url>
