@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metalink xmlns="urn:ietf:params:xml:ns:metalink">
-  <!-- generated 2026-11-09T09:00:33Z -->
-  <!-- 8123 scenes -->
+  <!-- generated 2026-11-10T09:08:28Z -->
+  <!-- 8129 scenes -->
+  <file name="S1D_IW_GRDH_1SDV_20261109T215208_20261109T215242_005396_00A4AB_B61B">
+    <size>2278100000</size>
+    <url priority="1">https://datapool.asf.alaska.edu/GRD_HD/SD/S1D_IW_GRDH_1SDV_20261109T215208_20261109T215242_005396_00A4AB_B61B.zip</url>
+  </file>
+  <file name="S1D_IW_SLC__1SDV_20261109T215207_20261109T215242_005396_00A4AB_D7F3">
+    <size>9691400000</size>
+    <url priority="1">https://datapool.asf.alaska.edu/SLC/SD/S1D_IW_SLC__1SDV_20261109T215207_20261109T215242_005396_00A4AB_D7F3.zip</url>
+  </file>
+  <file name="S1D_IW_SLC__1SDV_20261109T215139_20261109T215210_005396_00A4AB_9F99">
+    <size>8526799999</size>
+    <url priority="1">https://datapool.asf.alaska.edu/SLC/SD/S1D_IW_SLC__1SDV_20261109T215139_20261109T215210_005396_00A4AB_9F99.zip</url>
+  </file>
+  <file name="S1D_IW_GRDH_1SDV_20261109T215139_20261109T215208_005396_00A4AB_2B86">
+    <size>1986000000</size>
+    <url priority="1">https://datapool.asf.alaska.edu/GRD_HD/SD/S1D_IW_GRDH_1SDV_20261109T215139_20261109T215208_005396_00A4AB_2B86.zip</url>
+  </file>
+  <file name="S1C_IW_SLC__1SDV_20261108T095208_20261108T095249_010244_01475C_989D">
+    <size>11592900000</size>
+    <url priority="1">https://datapool.asf.alaska.edu/SLC/SC/S1C_IW_SLC__1SDV_20261108T095208_20261108T095249_010244_01475C_989D.zip</url>
+  </file>
+  <file name="S1C_IW_GRDH_1SDV_20261108T095208_20261108T095249_010244_01475C_B611">
+    <size>2768400000</size>
+    <url priority="1">https://datapool.asf.alaska.edu/GRD_HD/SC/S1C_IW_GRDH_1SDV_20261108T095208_20261108T095249_010244_01475C_B611.zip</url>
+  </file>
   <file name="S1D_IW_GRDH_1SDV_20261107T100123_20261107T100148_005360_00A378_4E55">
     <size>1717000000</size>
     <url priority="1">https://datapool.asf.alaska.edu/GRD_HD/SD/S1D_IW_GRDH_1SDV_20261107T100123_20261107T100148_005360_00A378_4E55.zip</url>
